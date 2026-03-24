@@ -10,15 +10,15 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:15px;min-height:100vh;}
 .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
-.login-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:40px 36px;width:380px;max-width:100%;box-shadow:0 8px 40px rgba(0,0,0,0.10);}
+.login-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:40px 36px;width:400px;max-width:100%;box-shadow:0 8px 40px rgba(0,0,0,0.10);}
 .login-icon{width:48px;height:48px;background:var(--blue);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
 .login-icon svg{width:24px;height:24px;fill:none;stroke:white;stroke-width:2;stroke-linecap:round;}
 .login-title{font-size:22px;font-weight:600;margin-bottom:6px;}
 .login-sub{font-size:13px;color:var(--text-3);margin-bottom:28px;}
 .lf{margin-bottom:14px;}
 .lf label{display:block;font-size:12px;font-weight:500;color:var(--text-2);margin-bottom:5px;}
-.lf input,.lf select{width:100%;padding:11px 14px;border:1px solid var(--border-med);border-radius:var(--radius);font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--surface);}
-.lf input:focus,.lf select:focus{outline:none;border-color:var(--blue);}
+.lf input{width:100%;padding:11px 14px;border:1px solid var(--border-med);border-radius:var(--radius);font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--surface);}
+.lf input:focus{outline:none;border-color:var(--blue);}
 .login-btn{width:100%;padding:12px;background:var(--blue);color:white;border:none;border-radius:var(--radius);font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:6px;}
 .login-btn:hover{background:var(--blue-dark);}
 .login-err{background:var(--red-light);color:var(--red);border-radius:var(--radius);padding:10px 14px;font-size:13px;margin-top:12px;display:none;}
@@ -29,7 +29,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 .htitle{font-size:15px;font-weight:600;}
 .hsub{font-size:12px;color:var(--text-3);margin-top:1px;}
 .hright{display:flex;align-items:center;gap:10px;}
-.role-pill{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;padding:5px 12px;border-radius:20px;}
+.role-pill{font-size:12px;font-weight:500;padding:5px 12px;border-radius:20px;}
 .role-colaborador{background:var(--blue-light);color:var(--blue-dark);}
 .role-finanzas{background:var(--green-light);color:var(--green);}
 .role-direccion{background:var(--purple-light);color:var(--purple-dark);}
@@ -43,9 +43,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 .nav-wrap{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;overflow-x:auto;}
 .nav{display:flex;gap:2px;}
 .nav-btn{padding:14px 16px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;color:var(--text-3);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;}
-.nav-btn:hover{color:var(--text);}
 .nav-btn.active{color:var(--blue);border-bottom-color:var(--blue);}
-.content{max-width:900px;margin:0 auto;padding:24px 20px;}
+.content{max-width:960px;margin:0 auto;padding:24px 20px;}
 .section{display:none;}
 .section.active{display:block;}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;margin-bottom:16px;box-shadow:var(--shadow);}
@@ -84,15 +83,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 .metric{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;box-shadow:var(--shadow);}
 .mval{font-size:26px;font-weight:600;margin-bottom:4px;}
 .mlbl{font-size:12px;color:var(--text-3);}
-.dt .thr{display:grid;grid-template-columns:80px 1fr 110px 110px 160px;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
-.dt .tdr{display:grid;grid-template-columns:80px 1fr 110px 110px 160px;gap:10px;padding:12px 0;border-bottom:1px solid var(--border);align-items:center;font-size:13px;}
+.dt .thr{display:grid;grid-template-columns:76px 1fr 110px 100px 170px;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);}
+.dt .tdr{display:grid;grid-template-columns:76px 1fr 110px 100px 170px;gap:8px;padding:12px 0;border-bottom:1px solid var(--border);align-items:center;font-size:13px;}
 .dt .tdr:last-child{border-bottom:none;}
 .th{font-size:11px;font-weight:600;color:var(--text-3);letter-spacing:0.05em;text-transform:uppercase;}
 .acts{display:flex;gap:5px;flex-wrap:wrap;}
 .toast{position:fixed;bottom:24px;right:24px;padding:12px 18px;border-radius:var(--radius);font-size:13px;font-weight:500;display:none;z-index:999;box-shadow:0 4px 20px rgba(0,0,0,0.15);max-width:320px;}
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:100;align-items:center;justify-content:center;padding:20px;}
 .overlay.open{display:flex;}
-.modal{background:var(--surface);border-radius:var(--radius-lg);padding:24px;width:520px;max-width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.2);}
+.modal{background:var(--surface);border-radius:var(--radius-lg);padding:24px;width:560px;max-width:100%;max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.2);}
 .mhd{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
 .mhd h3{font-size:15px;font-weight:600;}
 .mcls{background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-3);}
@@ -128,10 +127,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 .toolbar{display:flex;justify-content:flex-end;margin-bottom:10px;}
 .empty{color:var(--text-3);font-size:13px;padding:20px 0;text-align:center;}
 .folio-detail{background:var(--blue-light);border-radius:var(--radius);padding:12px 14px;font-size:13px;color:var(--blue-dark);margin-top:8px;display:none;line-height:1.7;}
+.upload-zone{border:2px dashed var(--border-med);border-radius:var(--radius);padding:20px;text-align:center;cursor:pointer;transition:all 0.15s;margin-bottom:8px;}
+.upload-zone:hover{border-color:var(--blue);background:var(--blue-light);}
+.upload-zone p{font-size:13px;color:var(--text-3);margin-top:6px;}
+.upload-zone.dragover{border-color:var(--blue);background:var(--blue-light);}
+.upload-progress{height:4px;background:var(--border);border-radius:2px;margin-top:6px;overflow:hidden;display:none;}
+.upload-progress-bar{height:100%;background:var(--blue);border-radius:2px;transition:width 0.3s;}
+.concepto-wrap{display:none;}
+.concepto-required{border-color:var(--red) !important;}
 @media(max-width:640px){
   .fg.c2,.fg.c3{grid-template-columns:1fr;}
   .metrics{grid-template-columns:1fr 1fr;}
-  .dt .thr,.dt .tdr{grid-template-columns:70px 1fr 140px;}
+  .dt .thr,.dt .tdr{grid-template-columns:65px 1fr 150px;}
   .dt .thr span:nth-child(3),.dt .thr span:nth-child(4),.dt .tdr span:nth-child(3),.dt .tdr span:nth-child(4){display:none;}
   .content{padding:16px 14px;}
   .header{padding:0 16px;}
@@ -142,40 +149,36 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 </head>
 <body>
 
+<!-- LOGIN -->
 <div class="login-wrap" id="login-wrap">
   <div class="login-box">
     <div class="login-icon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
     <div class="login-title">Solicitudes de Efectivo</div>
-    <div class="login-sub">Ingresa tu rol y contraseña para continuar</div>
-    <div class="lf"><label>Rol</label>
-      <select id="lrol">
-        <option value="">-- Selecciona tu rol --</option>
-        <option value="colaborador">Colaborador</option>
-        <option value="finanzas">Finanzas</option>
-        <option value="direccion">Dirección General</option>
-      </select>
-    </div>
-    <div class="lf"><label>Contraseña</label><input type="password" id="lpass" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()"></div>
-    <button class="login-btn" onclick="login()">Ingresar</button>
-    <div class="login-err" id="lerr">Contraseña incorrecta. Intenta de nuevo.</div>
+    <div class="login-sub">Ingresa tu usuario y contraseña para continuar</div>
+    <div class="lf"><label>Usuario</label><input id="lusr" placeholder="tu usuario" onkeydown="if(event.key==='Enter')document.getElementById('lpwd').focus()"></div>
+    <div class="lf"><label>Contraseña</label><input type="password" id="lpwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <button class="login-btn" id="login-btn" onclick="doLogin()">Ingresar</button>
+    <div class="login-err" id="lerr">Usuario o contraseña incorrectos.</div>
   </div>
 </div>
 
+<!-- APP -->
 <div id="app" style="display:none">
   <div class="header">
     <div class="hbrand">
       <div class="hicon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
-      <div><div class="htitle">Solicitudes de Efectivo</div><div class="hsub">Sistema de control de gastos</div></div>
+      <div><div class="htitle">Solicitudes de Efectivo</div><div class="hsub" id="hsub">Cargando...</div></div>
     </div>
     <div class="hright">
       <div class="sync-pill"><div class="sdot" id="sdot"></div><span id="stxt">Conectado</span></div>
       <div class="role-pill" id="rpill"></div>
-      <button class="logout-btn" onclick="logout()">Salir</button>
+      <button class="logout-btn" onclick="doLogout()">Salir</button>
     </div>
   </div>
   <div class="nav-wrap"><nav class="nav" id="nav"></nav></div>
   <div class="content">
 
+    <!-- NUEVA SOLICITUD -->
     <div id="sec-solicitud" class="section">
       <div class="card">
         <div class="card-title">Datos generales</div>
@@ -194,7 +197,24 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
         </div>
       </div>
       <div class="card">
-        <div class="card-title">Monto y cliente</div>
+        <div class="card-title">Trámite, monto y cliente</div>
+        <div class="fg c2">
+          <div class="field"><label>Trámite a realizar</label>
+            <select id="ftramite" onchange="checkOtroTramite()">
+              <option value="">-- Selecciona el trámite --</option>
+              <option>Viáticos</option>
+              <option>Búsqueda de propiedades</option>
+              <option>CLG</option>
+              <option>Casetas</option>
+              <option>Honorarios</option>
+              <option>Inconvenientes con tarjeta empresarial</option>
+              <option>Taxi</option>
+              <option>Comida</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+          <div class="field" id="otro-tramite-wrap" style="display:none"><label>Especifica el trámite</label><input id="fotrotramite" placeholder="Describe el trámite..."></div>
+        </div>
         <div class="fg c2">
           <div class="field"><label>Cantidad ($)</label><input id="fcant" type="number" placeholder="0.00" oninput="updLetra()"></div>
           <div class="field"><label>Con letra</label><input id="fletra" readonly placeholder="Se llena automático"></div>
@@ -205,15 +225,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
             <div class="ddm" id="ddsol"></div></div>
           </div>
           <div class="field"><label>¿Es reembolsable?</label>
-            <div class="rrow"><label><input type="radio" name="remb" value="si"> Sí</label><label><input type="radio" name="remb" value="no" checked> No</label></div>
+            <div class="rrow">
+              <label><input type="radio" name="remb" value="si" onchange="toggleConcepto(this)"> Sí</label>
+              <label><input type="radio" name="remb" value="no" checked onchange="toggleConcepto(this)"> No</label>
+            </div>
           </div>
         </div>
-        <div class="fg c1"><div class="field"><label>Concepto</label><textarea id="fconc" placeholder="Describe el concepto del gasto..."></textarea></div></div>
+        <div class="fg c1 concepto-wrap" id="concepto-wrap">
+          <div class="field"><label>Concepto de reembolso <span style="color:var(--red)">*</span></label><textarea id="fconc" placeholder="Este campo es obligatorio cuando el gasto es reembolsable..."></textarea></div>
+        </div>
         <div class="fg c1"><div class="field"><label>Motivo de la solicitud</label><textarea id="fmot" placeholder="Especifica el motivo con detalle..."></textarea></div></div>
       </div>
       <button class="btn-primary" id="btnenv" onclick="envSol()">Enviar solicitud a Finanzas</button>
     </div>
 
+    <!-- COMPROBACIÓN -->
     <div id="sec-comprobacion" class="section">
       <div class="card">
         <div class="card-title">Selecciona tu solicitud</div>
@@ -234,21 +260,25 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
           </div>
         </div>
         <div class="card">
+          <div class="card-title">Comentarios adicionales</div>
+          <div class="field"><textarea id="ccoments" placeholder="Agrega cualquier comentario, aclaración o detalle adicional sobre tus gastos..." style="min-height:90px"></textarea></div>
+        </div>
+        <div class="card">
           <div class="card-title">Documentos comprobatorios</div>
           <div id="dlist"></div>
-          <div class="fg c2" style="margin-top:10px">
-            <div class="field"><label>Tipo de documento</label>
-              <select id="dtype"><option value="factura">Factura / Ticket</option><option value="foto">Foto de evidencia</option><option value="nota">Nota de remisión</option><option value="viatico">Recibo de viáticos</option></select>
-            </div>
-            <div class="field"><label>Nombre / descripción</label><input id="dnom" placeholder="Ej. Factura gasolina..."></div>
+          <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()" ondragover="dragOver(event)" ondrop="dropFile(event)" ondragleave="dragLeave(event)">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="1.5" style="margin:0 auto;display:block"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <p>Haz clic o arrastra archivos aquí<br><span style="font-size:11px">Fotos o PDFs — máx. 10 MB por archivo</span></p>
+            <div class="upload-progress" id="uprog"><div class="upload-progress-bar" id="uprog-bar"></div></div>
           </div>
-          <button class="btn-sm btn-info" style="width:100%;padding:9px;margin-top:6px" onclick="addD()">Agregar documento</button>
+          <input type="file" id="file-input" accept="image/*,.pdf" multiple style="display:none" onchange="handleFiles(this.files)">
         </div>
         <div class="card"><div class="card-title">Devolución de efectivo</div><div id="devbox"><p style="font-size:13px;color:var(--text-3)">Completa el desglose para ver si hay sobrante.</p></div></div>
         <button class="btn-primary green" id="btncomp" onclick="envComp()">Enviar comprobación a Finanzas</button>
       </div>
     </div>
 
+    <!-- FINANZAS -->
     <div id="sec-finanzas" class="section">
       <div class="flujo"><span class="fs on">Finanzas revisa</span><span class="farr">→</span><span class="fs">DG autoriza</span><span class="farr">→</span><span class="fs on">Finanzas entrega</span><span class="farr">→</span><span class="fs on">Finanzas valida</span></div>
       <div class="metrics">
@@ -259,10 +289,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
       </div>
       <div class="toolbar"><button class="btn-sm btn-info" onclick="loadSols('finanzas')">Actualizar</button></div>
       <div class="card"><div class="card-title">Solicitudes</div>
-        <div class="dt"><div class="thr"><span class="th">Folio</span><span class="th">Solicitante</span><span class="th">Estatus</span><span class="th">Cliente</span><span class="th">Acciones</span></div><div id="lfin"><p class="empty">Cargando...</p></div></div>
+        <div class="dt"><div class="thr"><span class="th">Folio</span><span class="th">Solicitante</span><span class="th">Estatus</span><span class="th">Cliente</span><span class="th">Acciones</span></div>
+        <div id="lfin"><p class="empty">Cargando...</p></div></div>
       </div>
     </div>
 
+    <!-- DIRECCIÓN -->
     <div id="sec-direccion" class="section">
       <div class="flujo"><span class="fs">Finanzas revisa</span><span class="farr">→</span><span class="fs on">DG autoriza</span><span class="farr">→</span><span class="fs">Finanzas entrega</span><span class="farr">→</span><span class="fs">Comprobación</span></div>
       <div class="metrics">
@@ -273,10 +305,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
       </div>
       <div class="toolbar"><button class="btn-sm btn-info" onclick="loadSols('direccion')">Actualizar</button></div>
       <div class="card"><div class="card-title">Solicitudes revisadas por Finanzas</div>
-        <div class="dt"><div class="thr"><span class="th">Folio</span><span class="th">Solicitante</span><span class="th">Estatus</span><span class="th">Cliente</span><span class="th">Acciones</span></div><div id="ldir"><p class="empty">Cargando...</p></div></div>
+        <div class="dt"><div class="thr"><span class="th">Folio</span><span class="th">Solicitante</span><span class="th">Estatus</span><span class="th">Cliente</span><span class="th">Acciones</span></div>
+        <div id="ldir"><p class="empty">Cargando...</p></div></div>
       </div>
     </div>
 
+    <!-- CATÁLOGO -->
     <div id="sec-catalogo" class="section">
       <div class="card"><div class="card-title">Catálogo de clientes</div>
         <p style="font-size:13px;color:var(--text-2);margin-bottom:14px">Estos clientes aparecen en el menú desplegable del formulario.</p>
@@ -300,15 +334,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 </div>
 
 <script>
-// ══════════════════════════════════════════════════════
-//  CONTRASEÑAS — edita solo los valores entre comillas
-// ══════════════════════════════════════════════════════
-const PWD = {
-  colaborador: 'colab2024',    // Contraseña colaboradores
-  finanzas:    'finanzas2024', // Contraseña Finanzas
-  direccion:   'dg2024'        // Contraseña Dirección General
-};
-
+const API = 'https://script.google.com/macros/s/AKfycbweMLaJtFXlXP74ALJDtI9NTdf9qhAae4fNU_AimPYErFJLO9Im9FgqRvff-N3NZvd4/exec';
 const TABS = {
   colaborador: ['solicitud','comprobacion'],
   finanzas:    ['solicitud','comprobacion','finanzas','catalogo'],
@@ -316,40 +342,57 @@ const TABS = {
 };
 const TLBL = {solicitud:'Nueva solicitud',comprobacion:'Comprobación',finanzas:'Finanzas',direccion:'Dirección General',catalogo:'Catálogo'};
 const RLBL = {colaborador:'Colaborador',finanzas:'Finanzas',direccion:'Dirección General'};
-const API = 'https://script.google.com/macros/s/AKfycbzgI-74-pcg4NoYr1xarKjiZJKQliqRJEiC9JIkp4gDVhImb20xrcl61grjB9o3JZBr/exec';
 
-let rol=null,sols=[],clis=[],gastos=[],docs=[];
+let session=null, sols=[], clis=[], gastos=[], docs=[];
 
-function login(){
-  const r=document.getElementById('lrol').value;
-  const p=document.getElementById('lpass').value;
-  const e=document.getElementById('lerr');
-  if(!r){e.textContent='Selecciona tu rol.';e.style.display='block';return;}
-  if(p!==PWD[r]){e.style.display='block';return;}
-  e.style.display='none'; rol=r;
+// ── LOGIN ─────────────────────────────────────────────
+async function doLogin() {
+  const usr=document.getElementById('lusr').value.trim();
+  const pwd=document.getElementById('lpwd').value;
+  const err=document.getElementById('lerr');
+  const btn=document.getElementById('login-btn');
+  if(!usr||!pwd){err.textContent='Ingresa tu usuario y contraseña.';err.style.display='block';return;}
+  btn.textContent='Verificando...';btn.disabled=true;
+  const r=await apiCall('login',{usuario:usr,password:pwd});
+  btn.textContent='Ingresar';btn.disabled=false;
+  if(!r.ok){err.style.display='block';return;}
+  err.style.display='none';
+  session=r;
   document.getElementById('login-wrap').style.display='none';
   document.getElementById('app').style.display='block';
+  document.getElementById('hsub').textContent=r.equipo;
   const pill=document.getElementById('rpill');
-  pill.textContent=RLBL[r]; pill.className='role-pill role-'+r;
+  pill.textContent=RLBL[r.rol]||r.rol;
+  pill.className='role-pill role-'+r.rol;
   buildNav(); loadClis();
   document.getElementById('ffecha').value=new Date().toISOString().split('T')[0];
+  document.getElementById('fsol').value=r.equipo;
 }
-function logout(){rol=null;document.getElementById('lpass').value='';document.getElementById('lrol').value='';document.getElementById('app').style.display='none';document.getElementById('login-wrap').style.display='flex';}
+
+function doLogout(){
+  session=null;
+  document.getElementById('lusr').value='';
+  document.getElementById('lpwd').value='';
+  document.getElementById('app').style.display='none';
+  document.getElementById('login-wrap').style.display='flex';
+}
+
 function buildNav(){
-  const tabs=TABS[rol];
+  const tabs=TABS[session.rol]||['solicitud'];
   document.getElementById('nav').innerHTML=tabs.map((t,i)=>`<button class="nav-btn${i===0?' active':''}" onclick="go('${t}',this)">${TLBL[t]}</button>`).join('');
   document.querySelectorAll('.section').forEach(e=>e.classList.remove('active'));
   document.getElementById('sec-'+tabs[0]).classList.add('active');
   if(tabs[0]==='finanzas') loadSols('finanzas');
 }
 
-async function api(accion,data={}){
+// ── API ───────────────────────────────────────────────
+async function apiCall(accion,data={}){
   setSS('loading','Sincronizando...');
   try{
     let res;
     if(accion==='obtenerSolicitudes'||accion==='obtenerClientes') res=await fetch(API+'?accion='+accion);
     else res=await fetch(API,{method:'POST',body:JSON.stringify({accion,...data})});
-    const j=await res.json(); setSS('ok','Conectado'); return j;
+    const j=await res.json();setSS('ok','Conectado');return j;
   }catch(e){setSS('error','Sin conexión');return{ok:false,error:e.message};}
 }
 function setSS(s,t){
@@ -357,36 +400,54 @@ function setSS(s,t){
   if(d) d.className='sdot'+(s==='loading'?' loading':s==='error'?' error':'');
   if(tx) tx.textContent=t;
 }
+
+// ── TOAST ─────────────────────────────────────────────
 function toast(msg,tipo){
-  const t=document.getElementById('toast'); t.textContent=msg; t.style.display='block';
+  const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';
   const c={ok:['#EAF3DE','#27500A','1px solid #C0DD97'],error:['#FCEBEB','#791F1F','1px solid #F7C1C1'],warn:['#FAEEDA','#633806','1px solid #FAC775']};
-  const [bg,color,border]=c[tipo||'ok'];
+  const[bg,color,border]=c[tipo||'ok'];
   Object.assign(t.style,{background:bg,color,border});
   setTimeout(()=>t.style.display='none',3500);
 }
 
+// ── NAV ───────────────────────────────────────────────
 function go(sec,btn){
   document.querySelectorAll('.section').forEach(e=>e.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(e=>e.classList.remove('active'));
-  document.getElementById('sec-'+sec).classList.add('active'); btn.classList.add('active');
+  document.getElementById('sec-'+sec).classList.add('active');btn.classList.add('active');
   if(sec==='finanzas') loadSols('finanzas');
   if(sec==='direccion') loadSols('direccion');
   if(sec==='catalogo') loadClis();
   if(sec==='comprobacion') loadSols('silent').then(()=>poblarFolios());
 }
 
-async function loadClis(){const r=await api('obtenerClientes');if(r.ok&&r.clientes){clis=r.clientes;renderTags();}}
+// ── TRÁMITE OTRO ──────────────────────────────────────
+function checkOtroTramite(){
+  const v=document.getElementById('ftramite').value;
+  document.getElementById('otro-tramite-wrap').style.display=v==='otro'?'block':'none';
+}
+
+// ── CONCEPTO OBLIGATORIO SI REEMBOLSABLE ─────────────
+function toggleConcepto(radio){
+  const w=document.getElementById('concepto-wrap');
+  w.style.display=radio.value==='si'?'block':'none';
+  if(radio.value!=='si') document.getElementById('fconc').value='';
+}
+
+// ── CLIENTES ──────────────────────────────────────────
+async function loadClis(){const r=await apiCall('obtenerClientes');if(r.ok&&r.clientes){clis=r.clientes;renderTags();}}
 async function addCli(){
   const inp=document.getElementById('ncli'),val=inp.value.trim();
   if(!val) return;
   if(clis.includes(val)){toast('Ya existe','warn');return;}
-  const r=await api('agregarCliente',{nombre:val});
+  const r=await apiCall('agregarCliente',{nombre:val});
   if(r.ok){clis.push(val);inp.value='';renderTags();toast('Cliente agregado');}
   else toast('Error al guardar','error');
 }
 function delCli(n){clis=clis.filter(c=>c!==n);renderTags();}
-function renderTags(){const el=document.getElementById('tlist');if(!el) return;el.innerHTML=clis.map(c=>`<div class="tag">${c}<span class="tagx" onclick="delCli('${c.replace(/'/g,"\\'")}')">×</span></div>`).join('');}
+function renderTags(){const el=document.getElementById('tlist');if(!el)return;el.innerHTML=clis.map(c=>`<div class="tag">${c}<span class="tagx" onclick="delCli('${c.replace(/'/g,"\\'")}')">×</span></div>`).join('');}
 
+// ── DROPDOWN ──────────────────────────────────────────
 function filtDD(iid,did){const q=document.getElementById(iid).value.toLowerCase();renderDD(did,clis.filter(c=>c.toLowerCase().includes(q)),q,iid);document.getElementById(did).classList.add('open');}
 function openDD(iid,did){renderDD(did,clis,'',iid);document.getElementById(did).classList.add('open');}
 function closeDD(did){document.getElementById(did).classList.remove('open');}
@@ -400,6 +461,7 @@ function renderDD(did,lista,q,iid){
 function selDD(iid,val,did){document.getElementById(iid).value=val;closeDD(did);}
 function addSelDD(iid,val,did){if(!clis.includes(val))clis.push(val);selDD(iid,val,did);}
 
+// ── LETRA ─────────────────────────────────────────────
 function updLetra(){document.getElementById('fletra').value=numL(document.getElementById('fcant').value);}
 function numL(n){
   const u=['','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho','diecinueve'];
@@ -414,19 +476,47 @@ function numL(n){
 }
 function sub2(n){const u=['','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve'];const d=['','','veinte','treinta','cuarenta','cincuenta','sesenta','setenta','ochenta','noventa'];if(n<10)return u[n];if(n<20)return['diez','once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho','diecinueve'][n-10];return d[Math.floor(n/10)]+(n%10?' y '+u[n%10]:'');}
 
+// ── ENVIAR SOLICITUD ──────────────────────────────────
 async function envSol(){
-  const s=document.getElementById('fsol').value,dest=document.getElementById('fdest').value,cant=document.getElementById('fcant').value,mot=document.getElementById('fmot').value;
-  if(!s||!dest||!cant||!mot){toast('Completa los campos obligatorios','error');return;}
+  const s=document.getElementById('fsol').value;
+  const dest=document.getElementById('fdest').value;
+  const cant=document.getElementById('fcant').value;
+  const mot=document.getElementById('fmot').value;
+  const tramiteVal=document.getElementById('ftramite').value;
+  const tramite=tramiteVal==='otro'?document.getElementById('fotrotramite').value:tramiteVal;
+  const esReemb=document.querySelector('input[name="remb"]:checked').value==='si';
+  const concepto=document.getElementById('fconc').value;
+  if(!s||!dest||!cant||!mot||!tramite){toast('Completa todos los campos obligatorios','error');return;}
+  if(esReemb&&!concepto){
+    document.getElementById('fconc').classList.add('concepto-required');
+    toast('El concepto de reembolso es obligatorio','error');return;
+  }
+  document.getElementById('fconc').classList.remove('concepto-required');
   const btn=document.getElementById('btnenv');btn.disabled=true;btn.textContent='Guardando...';
-  const r=await api('guardarSolicitud',{solicitante:s,destino:dest,receptor:document.getElementById('frec').value,jefe:document.getElementById('fjefe').value,fechaSolicitud:document.getElementById('ffecha').value,fechaEntrega:document.getElementById('ffentrega').value,cantidad:parseFloat(cant),letra:document.getElementById('fletra').value,cliente:document.getElementById('fcli').value,reembolsable:document.querySelector('input[name="remb"]:checked').value==='si',concepto:document.getElementById('fconc').value,motivo:mot});
-  if(r.ok){toast('Solicitud '+r.folio+' guardada en Google Sheets');['fsol','fdest','frec','fjefe','fcant','fletra','fcli','fconc','fmot'].forEach(id=>document.getElementById(id).value='');}
-  else toast('Error al guardar','error');
+  const r=await apiCall('guardarSolicitud',{
+    solicitante:s,equipo:session?session.equipo:'',destino:dest,
+    receptor:document.getElementById('frec').value,jefe:document.getElementById('fjefe').value,
+    fechaSolicitud:document.getElementById('ffecha').value,
+    fechaEntrega:document.getElementById('ffentrega').value,
+    cantidad:parseFloat(cant),letra:document.getElementById('fletra').value,
+    cliente:document.getElementById('fcli').value,tramite,
+    reembolsable:esReemb,concepto,motivo:mot
+  });
+  if(r.ok){
+    toast('Solicitud '+r.folio+' guardada en Google Sheets');
+    ['fdest','frec','fjefe','fcant','fletra','fcli','fconc','fmot'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('ftramite').value='';
+    document.getElementById('otro-tramite-wrap').style.display='none';
+    document.getElementById('concepto-wrap').style.display='none';
+    document.querySelector('input[name="remb"][value="no"]').checked=true;
+  } else toast('Error al guardar','error');
   btn.disabled=false;btn.textContent='Enviar solicitud a Finanzas';
 }
 
+// ── SOLICITUDES ───────────────────────────────────────
 async function loadSols(vista){
   if(vista!=='silent'){const l=vista==='finanzas'?'lfin':'ldir';document.getElementById(l).innerHTML='<p class="empty">Cargando...</p>';}
-  const r=await api('obtenerSolicitudes');
+  const r=await apiCall('obtenerSolicitudes');
   if(!r.ok){if(vista!=='silent'){const l=vista==='finanzas'?'lfin':'ldir';document.getElementById(l).innerHTML='<p class="empty" style="color:var(--red)">Error al cargar.</p>';}return;}
   sols=r.solicitudes||[];
   if(vista==='finanzas') renderFin();
@@ -442,7 +532,7 @@ function renderFin(){
   document.getElementById('m4').textContent='$'+sols.reduce((a,s)=>a+(parseFloat(s.cantidad)||0),0).toLocaleString('es-MX',{minimumFractionDigits:2});
   const el=document.getElementById('lfin');
   if(!sols.length){el.innerHTML='<p class="empty">No hay solicitudes aún.</p>';return;}
-  el.innerHTML=sols.map(s=>`<div class="tdr"><span><span class="badge bfolio">${s.folio}</span></span><span>${s.solicitante}</span><span><span class="badge ${sBC(s.estatus)}">${s.estatus}</span></span><span style="color:var(--text-2);font-size:12px">${s.cliente||'—'}</span><div class="acts">${s.estatus==='Pendiente'?`<button class="btn-sm btn-info" onclick="cambiar(${s.folio},'En revisión','finanzas')">Revisar</button>`:''}${s.estatus==='En revisión'?`<button class="btn-sm btn-success" onclick="cambiar(${s.folio},'Revisado','finanzas')">Aprobar</button><button class="btn-sm btn-danger" onclick="cambiar(${s.folio},'Rechazado','finanzas')">Regresar</button>`:''}${s.estatus==='Autorizado'?`<button class="btn-sm btn-purple" onclick="cambiar(${s.folio},'Entregado','finanzas')">Marcar entregado</button>`:''}${s.estatus==='Por comprobar'?`<button class="btn-sm btn-success" onclick="verD(${s.folio})">Validar</button><button class="btn-sm btn-danger" onclick="cambiar(${s.folio},'Entregado','finanzas')">Regresar</button>`:''}${s.estatus==='Revisado'?`<span style="font-size:12px;color:var(--text-3)">Esperando DG</span>`:''}${s.estatus==='Comprobado'?`<span class="badge b-comprobado">Comprobado</span>`:''}${s.estatus==='Rechazado'?`<span class="badge b-rechazado">Rechazado</span>`:''}<button class="btn-sm" onclick="verD(${s.folio})">Ver</button></div></div>`).join('');
+  el.innerHTML=sols.map(s=>`<div class="tdr"><span><span class="badge bfolio">${s.folio}</span></span><span>${s.solicitante}<br><span style="font-size:11px;color:var(--text-3)">${s.equipo||''}</span></span><span><span class="badge ${sBC(s.estatus)}">${s.estatus}</span></span><span style="color:var(--text-2);font-size:12px">${s.cliente||'—'}</span><div class="acts">${s.estatus==='Pendiente'?`<button class="btn-sm btn-info" onclick="cambiar(${s.folio},'En revisión','finanzas')">Revisar</button>`:''}${s.estatus==='En revisión'?`<button class="btn-sm btn-success" onclick="cambiar(${s.folio},'Revisado','finanzas')">Aprobar</button><button class="btn-sm btn-danger" onclick="cambiar(${s.folio},'Rechazado','finanzas')">Regresar</button>`:''}${s.estatus==='Autorizado'?`<button class="btn-sm btn-purple" onclick="cambiar(${s.folio},'Entregado','finanzas')">Marcar entregado</button>`:''}${s.estatus==='Por comprobar'?`<button class="btn-sm btn-success" onclick="abrirValidacion(${s.folio})">Validar</button><button class="btn-sm btn-danger" onclick="cambiar(${s.folio},'Entregado','finanzas')">Regresar</button>`:''}${s.estatus==='Revisado'?`<span style="font-size:12px;color:var(--text-3)">Esperando DG</span>`:''}${s.estatus==='Comprobado'?`<span class="badge b-comprobado">Comprobado</span>`:''}${s.estatus==='Rechazado'?`<span class="badge b-rechazado">Rechazado</span>`:''}<button class="btn-sm" onclick="verD(${s.folio})">Ver</button></div></div>`).join('');
 }
 
 function renderDir(){
@@ -453,26 +543,73 @@ function renderDir(){
   const mostrar=sols.filter(s=>['Revisado','Autorizado','Entregado','Por comprobar','Comprobado'].includes(s.estatus));
   const el=document.getElementById('ldir');
   if(!mostrar.length){el.innerHTML='<p class="empty">No hay solicitudes revisadas todavía.</p>';return;}
-  el.innerHTML=mostrar.map(s=>`<div class="tdr"><span><span class="badge bfolio">${s.folio}</span></span><span>${s.solicitante}</span><span><span class="badge ${sBC(s.estatus)}">${s.estatus}</span></span><span style="color:var(--text-2);font-size:12px">${s.cliente||'—'}</span><div class="acts">${s.estatus==='Revisado'?`<button class="btn-sm btn-success" onclick="cambiar(${s.folio},'Autorizado','direccion')">Autorizar</button><button class="btn-sm btn-danger" onclick="cambiar(${s.folio},'Rechazado','direccion')">Rechazar</button>`:''}${['Autorizado','Entregado','Por comprobar','Comprobado'].includes(s.estatus)?`<span class="badge ${sBC(s.estatus)}">${s.estatus}</span>`:''}<button class="btn-sm" onclick="verD(${s.folio})">Ver</button></div></div>`).join('');
+  el.innerHTML=mostrar.map(s=>`<div class="tdr"><span><span class="badge bfolio">${s.folio}</span></span><span>${s.solicitante}<br><span style="font-size:11px;color:var(--text-3)">${s.equipo||''}</span></span><span><span class="badge ${sBC(s.estatus)}">${s.estatus}</span></span><span style="color:var(--text-2);font-size:12px">${s.cliente||'—'}</span><div class="acts">${s.estatus==='Revisado'?`<button class="btn-sm btn-success" onclick="cambiar(${s.folio},'Autorizado','direccion')">Autorizar</button><button class="btn-sm btn-danger" onclick="cambiar(${s.folio},'Rechazado','direccion')">Rechazar</button>`:''}${['Autorizado','Entregado','Por comprobar','Comprobado'].includes(s.estatus)?`<span class="badge ${sBC(s.estatus)}">${s.estatus}</span>`:''}<button class="btn-sm" onclick="verD(${s.folio})">Ver</button></div></div>`).join('');
 }
 
 async function cambiar(folio,estatus,vista){
-  const r=await api('actualizarEstatus',{folio,estatus});
+  const r=await apiCall('actualizarEstatus',{folio,estatus});
   if(r.ok){toast('Folio '+folio+': '+estatus);await loadSols(vista);}
   else toast('Error al actualizar','error');
 }
 
-function verD(folio){
-  const s=sols.find(x=>x.folio==folio);if(!s)return;
-  document.getElementById('mtit').textContent='Folio '+folio;
-  document.getElementById('mbody').innerHTML=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><span class="badge bfolio">${s.folio}</span><span class="badge ${sBC(s.estatus)}">${s.estatus}</span></div><div class="drow"><span class="dk">Solicitante</span><span>${s.solicitante}</span></div><div class="drow"><span class="dk">Receptor</span><span>${s.receptor||'—'}</span></div><div class="drow"><span class="dk">Destino</span><span>${s.destino}</span></div><div class="drow"><span class="dk">Fecha solicitud</span><span>${s.fechaSolicitud}</span></div><div class="drow"><span class="dk">Cantidad</span><span style="font-weight:600">$${parseFloat(s.cantidad).toLocaleString('es-MX')}</span></div><div class="drow"><span class="dk">Con letra</span><span style="font-size:12px;text-align:right;max-width:55%">${s.letra||'—'}</span></div><div class="drow"><span class="dk">Cliente</span><span>${s.cliente||'—'}</span></div><div class="drow"><span class="dk">Reembolsable</span><span>${s.reembolsable?'Sí':'No'}</span></div><div class="drow"><span class="dk">Jefe de área</span><span>${s.jefe||'—'}</span></div><div class="drow" style="border:none"><span class="dk">Motivo</span><span style="text-align:right;max-width:55%">${s.motivo||'—'}</span></div>`;
+// ── VALIDAR COMPROBACIÓN (Finanzas) ───────────────────
+function abrirValidacion(folio){
+  const s=sols.find(x=>x.folio==folio);
+  if(!s) return;
+  document.getElementById('mtit').textContent='Validar comprobación — Folio '+folio;
+  document.getElementById('mbody').innerHTML=`
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+      <span class="badge bfolio">${s.folio}</span>
+      <span class="badge b-porcomprobar">Por comprobar</span>
+    </div>
+    <div class="drow"><span class="dk">Solicitante</span><span>${s.solicitante}</span></div>
+    <div class="drow"><span class="dk">Equipo</span><span>${s.equipo||'—'}</span></div>
+    <div class="drow"><span class="dk">Monto entregado</span><span style="font-weight:600">$${parseFloat(s.cantidad).toLocaleString('es-MX')}</span></div>
+    <div class="drow"><span class="dk">Cliente</span><span>${s.cliente||'—'}</span></div>
+    <div class="drow" style="border:none"><span class="dk">Trámite</span><span>${s.tramite||'—'}</span></div>
+    <div style="display:flex;gap:8px;margin-top:1rem">
+      <button class="btn-sm btn-success" style="flex:1;padding:11px;font-size:13px" onclick="validarComp(${folio},true)">Aprobar comprobación</button>
+      <button class="btn-sm btn-danger" style="flex:1;padding:11px;font-size:13px" onclick="validarComp(${folio},false)">Regresar al colaborador</button>
+    </div>`;
   document.getElementById('overlay').classList.add('open');
 }
 
+async function validarComp(folio,aprobado){
+  const r=await apiCall('validarComprobacion',{folio,aprobado});
+  if(r.ok){toast(aprobado?'Comprobación aprobada':'Comprobación regresada al colaborador');closeModal();await loadSols('finanzas');}
+  else toast('Error','error');
+}
+
+// ── DETALLE ───────────────────────────────────────────
+function verD(folio){
+  const s=sols.find(x=>x.folio==folio);if(!s)return;
+  document.getElementById('mtit').textContent='Folio '+folio;
+  document.getElementById('mbody').innerHTML=`
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+      <span class="badge bfolio">${s.folio}</span><span class="badge ${sBC(s.estatus)}">${s.estatus}</span>
+    </div>
+    <div class="drow"><span class="dk">Equipo</span><span>${s.equipo||'—'}</span></div>
+    <div class="drow"><span class="dk">Solicitante</span><span>${s.solicitante}</span></div>
+    <div class="drow"><span class="dk">Receptor</span><span>${s.receptor||'—'}</span></div>
+    <div class="drow"><span class="dk">Destino</span><span>${s.destino}</span></div>
+    <div class="drow"><span class="dk">Trámite</span><span>${s.tramite||'—'}</span></div>
+    <div class="drow"><span class="dk">Fecha solicitud</span><span>${s.fechaSolicitud}</span></div>
+    <div class="drow"><span class="dk">Cantidad</span><span style="font-weight:600">$${parseFloat(s.cantidad).toLocaleString('es-MX')}</span></div>
+    <div class="drow"><span class="dk">Con letra</span><span style="font-size:12px;text-align:right;max-width:55%">${s.letra||'—'}</span></div>
+    <div class="drow"><span class="dk">Cliente</span><span>${s.cliente||'—'}</span></div>
+    <div class="drow"><span class="dk">Reembolsable</span><span>${s.reembolsable?'Sí':'No'}</span></div>
+    ${s.reembolsable&&s.concepto?`<div class="drow"><span class="dk">Concepto reembolso</span><span style="text-align:right;max-width:55%">${s.concepto}</span></div>`:''}
+    <div class="drow"><span class="dk">Jefe de área</span><span>${s.jefe||'—'}</span></div>
+    <div class="drow" style="border:none"><span class="dk">Motivo</span><span style="text-align:right;max-width:55%">${s.motivo||'—'}</span></div>`;
+  document.getElementById('overlay').classList.add('open');
+}
+
+// ── COMPROBACIÓN ──────────────────────────────────────
 function poblarFolios(){
   const el=sols.filter(s=>s.estatus==='Entregado'||s.estatus==='Por comprobar');
   const sel=document.getElementById('cfolio');
-  sel.innerHTML='<option value="">-- Selecciona tu folio --</option>'+el.map(s=>`<option value="${s.folio}">Folio ${s.folio} — ${s.solicitante} — ${s.destino} — $${parseFloat(s.cantidad).toLocaleString('es-MX')} — ${s.fechaSolicitud}</option>`).join('');
+  sel.innerHTML='<option value="">-- Selecciona tu folio --</option>'+
+    el.map(s=>`<option value="${s.folio}">Folio ${s.folio} — ${s.solicitante} — ${s.destino} — $${parseFloat(s.cantidad).toLocaleString('es-MX')} — ${s.fechaSolicitud}</option>`).join('');
   if(!el.length) sel.innerHTML='<option value="">No hay solicitudes entregadas aún</option>';
   document.getElementById('cbody').style.display='none';
   document.getElementById('fdetail').style.display='none';
@@ -485,15 +622,16 @@ function loadComp(){
   const det=document.getElementById('fdetail');
   if(!s){document.getElementById('cbody').style.display='none';det.style.display='none';return;}
   det.style.display='block';
-  det.innerHTML=`<strong>Folio ${s.folio}</strong> — ${s.solicitante}<br>Destino: ${s.destino} &nbsp;·&nbsp; Cliente: ${s.cliente||'Sin cliente'}<br>Monto entregado: <strong>$${parseFloat(s.cantidad).toLocaleString('es-MX',{minimumFractionDigits:2})}</strong> &nbsp;·&nbsp; Fecha: ${s.fechaSolicitud}<br>Motivo: ${s.motivo}`;
+  det.innerHTML=`<strong>Folio ${s.folio}</strong> — ${s.solicitante} (${s.equipo||''})<br>Destino: ${s.destino} · Trámite: ${s.tramite||'—'} · Cliente: ${s.cliente||'Sin cliente'}<br>Monto entregado: <strong>$${parseFloat(s.cantidad).toLocaleString('es-MX',{minimumFractionDigits:2})}</strong> · Fecha: ${s.fechaSolicitud}<br>Motivo: ${s.motivo}`;
   document.getElementById('cbody').style.display='block';
-  gastos=[];docs=[];renderG();renderD();updRes();
+  gastos=[];docs=[];renderG();renderDocList();updRes();
 }
 
 function addG(){gastos.push({fecha:'',tipo:'Traslado',concepto:'',monto:0});renderG();updRes();}
 function renderG(){
-  document.getElementById('gbody').innerHTML=gastos.map((g,i)=>`<tr><td><input type="date" value="${g.fecha}" onchange="gastos[${i}].fecha=this.value" style="width:120px"></td><td><select onchange="gastos[${i}].tipo=this.value">${['Traslado','Pasaje','Hospedaje','Alimentación','Expediente/Cuenta','Otros'].map(t=>`<option ${g.tipo===t?'selected':''}>${t}</option>`).join('')}</select></td><td><input value="${g.concepto}" placeholder="Descripción..." onchange="gastos[${i}].concepto=this.value"></td><td><input type="number" value="${g.monto||''}" placeholder="0.00" style="width:80px" oninput="gastos[${i}].monto=parseFloat(this.value)||0;updRes()"></td><td><button onclick="gastos.splice(${i},1);renderG();updRes()" style="background:none;border:none;cursor:pointer;color:var(--text-3);font-size:17px">×</button></td></tr>`).join('');
+  document.getElementById('gbody').innerHTML=gastos.map((g,i)=>`<tr><td><input type="date" value="${g.fecha}" onchange="gastos[${i}].fecha=this.value" style="width:110px"></td><td><select onchange="gastos[${i}].tipo=this.value">${['Traslado','Pasaje','Hospedaje','Alimentación','Expediente/Cuenta','Otros'].map(t=>`<option ${g.tipo===t?'selected':''}>${t}</option>`).join('')}</select></td><td><input value="${g.concepto}" placeholder="Descripción..." onchange="gastos[${i}].concepto=this.value"></td><td><input type="number" value="${g.monto||''}" placeholder="0.00" style="width:80px" oninput="gastos[${i}].monto=parseFloat(this.value)||0;updRes()"></td><td><button onclick="gastos.splice(${i},1);renderG();updRes()" style="background:none;border:none;cursor:pointer;color:var(--text-3);font-size:17px">×</button></td></tr>`).join('');
 }
+
 function updRes(){
   const folio=document.getElementById('cfolio').value;
   const s=sols.find(x=>x.folio==folio);
@@ -509,17 +647,58 @@ function updRes(){
   else if(rec>0){document.getElementById('rlbl').textContent='Diferencia';document.getElementById('rdif').style.color='var(--green)';db.innerHTML=`<div style="background:var(--green-light);border-radius:var(--radius);padding:12px 14px;font-size:13px;color:var(--green)">El gasto coincide exactamente. No hay devolución.</div>`;}
 }
 
-function addD(){
-  const tipo=document.getElementById('dtype').value,nom=document.getElementById('dnom').value.trim();
-  if(!nom){toast('Escribe un nombre para el documento','error');return;}
-  docs.push({tipo,nombre:nom,fecha:new Date().toLocaleDateString('es-MX')});
-  document.getElementById('dnom').value='';renderD();toast('Documento adjuntado');
+// ── CARGA DE ARCHIVOS ─────────────────────────────────
+function dragOver(e){e.preventDefault();document.getElementById('upload-zone').classList.add('dragover');}
+function dragLeave(e){document.getElementById('upload-zone').classList.remove('dragover');}
+function dropFile(e){e.preventDefault();dragLeave(e);handleFiles(e.dataTransfer.files);}
+
+async function handleFiles(fileList){
+  const folio=document.getElementById('cfolio').value;
+  if(!folio){toast('Primero selecciona un folio','error');return;}
+  const s=sols.find(x=>x.folio==folio);
+  for(const file of Array.from(fileList)){
+    if(file.size>10*1024*1024){toast(file.name+' supera 10 MB','error');continue;}
+    const prog=document.getElementById('uprog');
+    const bar=document.getElementById('uprog-bar');
+    prog.style.display='block';bar.style.width='30%';
+    const base64=await fileToBase64(file);
+    bar.style.width='70%';
+    const r=await apiCall('subirArchivo',{
+      folio,solicitante:s?s.solicitante:'',
+      base64,mimeType:file.type,nombre:file.name
+    });
+    bar.style.width='100%';
+    setTimeout(()=>{prog.style.display='none';bar.style.width='0%';},800);
+    if(r.ok){
+      docs.push({nombre:file.name,tipo:file.type.includes('pdf')?'PDF':'Imagen',url:r.url});
+      renderDocList();toast(file.name+' subido correctamente');
+    } else {
+      toast('Error al subir '+file.name,'error');
+    }
+  }
 }
-function renderD(){
-  const lb={factura:'FAC',foto:'FOTO',nota:'NOTA',viatico:'VIA'};
-  const cl={factura:'#E6F1FB;color:#0C447C',foto:'#EAF3DE;color:#27500A',nota:'#FAEEDA;color:#633806',viatico:'#EEEDFE;color:#3C3489'};
-  const nm={factura:'Factura/Ticket',foto:'Foto de evidencia',nota:'Nota de remisión',viatico:'Recibo de viáticos'};
-  document.getElementById('dlist').innerHTML=docs.map((d,i)=>`<div class="doci"><div class="docl"><div class="docicon" style="background:${cl[d.tipo]}">${lb[d.tipo]}</div><div><div style="font-weight:500">${d.nombre}</div><div style="font-size:11px;color:var(--text-3)">${nm[d.tipo]} · ${d.fecha}</div></div></div><button onclick="docs.splice(${i},1);renderD()" style="background:none;border:none;cursor:pointer;color:var(--text-3);font-size:17px">×</button></div>`).join('');
+
+function fileToBase64(file){
+  return new Promise((res,rej)=>{
+    const reader=new FileReader();
+    reader.onload=e=>res(e.target.result.split(',')[1]);
+    reader.onerror=rej;
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderDocList(){
+  document.getElementById('dlist').innerHTML=docs.map((d,i)=>`
+    <div class="doci">
+      <div class="docl">
+        <div class="docicon" style="background:${d.tipo==='PDF'?'#FCEBEB;color:#791F1F':'#EAF3DE;color:#27500A'}">${d.tipo==='PDF'?'PDF':'IMG'}</div>
+        <div>
+          <div style="font-weight:500">${d.nombre}</div>
+          ${d.url?`<a href="${d.url}" target="_blank" style="font-size:11px;color:var(--blue)">Ver en Drive</a>`:'<span style="font-size:11px;color:var(--text-3)">Subiendo...</span>'}
+        </div>
+      </div>
+      <button onclick="docs.splice(${i},1);renderDocList()" style="background:none;border:none;cursor:pointer;color:var(--text-3);font-size:17px">×</button>
+    </div>`).join('');
 }
 
 async function envComp(){
@@ -529,9 +708,19 @@ async function envComp(){
   if(!gastos.length){toast('Agrega al menos un gasto','error');return;}
   if(!docs.length){toast('Adjunta al menos un documento','error');return;}
   const btn=document.getElementById('btncomp');btn.disabled=true;btn.textContent='Guardando...';
-  const r=await api('guardarComprobacion',{folio:s.folio,solicitante:s.solicitante,gastos,docs,totalGastado:gastos.reduce((a,g)=>a+(g.monto||0),0)});
-  if(r.ok){toast('Comprobación enviada a Finanzas');document.getElementById('cbody').style.display='none';document.getElementById('fdetail').style.display='none';document.getElementById('cfolio').value='';gastos=[];docs=[];}
-  else toast('Error al enviar','error');
+  const r=await apiCall('guardarComprobacion',{
+    folio:s.folio,equipo:session?session.equipo:'',solicitante:s.solicitante,
+    gastos,docs,comentarios:document.getElementById('ccoments').value,
+    totalGastado:gastos.reduce((a,g)=>a+(g.monto||0),0)
+  });
+  if(r.ok){
+    toast('Comprobación enviada a Finanzas. Pendiente de validación.');
+    document.getElementById('cbody').style.display='none';
+    document.getElementById('fdetail').style.display='none';
+    document.getElementById('cfolio').value='';
+    document.getElementById('ccoments').value='';
+    gastos=[];docs=[];
+  } else toast('Error al enviar','error');
   btn.disabled=false;btn.textContent='Enviar comprobación a Finanzas';
 }
 
