@@ -351,27 +351,38 @@ const RLBL = {colaborador:'Colaborador',finanzas:'Finanzas',direccion:'Direcció
 let session=null, sols=[], clis=[], gastos=[], docs=[];
 
 // ── LOGIN ─────────────────────────────────────────────
-async function doLogin() {
-  const usr=document.getElementById('lusr').value.trim();
+// ══════════════════════════════════════════════════════
+//  USUARIOS — edita directamente aquí o en tu Google Sheet
+//  Formato: usuario: { password, equipo, rol }
+// ══════════════════════════════════════════════════════
+const USUARIOS = {
+  'miriam':      { password: 'miriam2024',     equipo: 'Equipo Miriam',  rol: 'colaborador' },
+  'hector':      { password: 'hector2024',     equipo: 'Equipo Hector',  rol: 'colaborador' },
+  'victor':      { password: 'victor2024',     equipo: 'Equipo Victor',  rol: 'colaborador' },
+  'callcenter':  { password: 'callcenter2024', equipo: 'Call Center',    rol: 'colaborador' },
+  'admin':       { password: 'admin2024',      equipo: 'Administración', rol: 'colaborador' },
+  'finanzas':    { password: 'finanzas2024',   equipo: 'Finanzas',       rol: 'finanzas'    },
+  'dg':          { password: 'dg2024',         equipo: 'DG',             rol: 'direccion'   },
+};
+
+function doLogin() {
+  const usr=document.getElementById('lusr').value.trim().toLowerCase();
   const pwd=document.getElementById('lpwd').value;
   const err=document.getElementById('lerr');
-  const btn=document.getElementById('login-btn');
   if(!usr||!pwd){err.textContent='Ingresa tu usuario y contraseña.';err.style.display='block';return;}
-  btn.textContent='Verificando...';btn.disabled=true;
-  const r=await apiCall('login',{usuario:usr,password:pwd});
-  btn.textContent='Ingresar';btn.disabled=false;
-  if(!r.ok){err.style.display='block';return;}
+  const user=USUARIOS[usr];
+  if(!user||user.password!==pwd){err.style.display='block';err.textContent='Usuario o contraseña incorrectos.';return;}
   err.style.display='none';
-  session=r;
+  session={ok:true, usuario:usr, equipo:user.equipo, rol:user.rol};
   document.getElementById('login-wrap').style.display='none';
   document.getElementById('app').style.display='block';
-  document.getElementById('hsub').textContent=r.equipo;
+  document.getElementById('hsub').textContent=user.equipo;
   const pill=document.getElementById('rpill');
-  pill.textContent=RLBL[r.rol]||r.rol;
-  pill.className='role-pill role-'+r.rol;
+  pill.textContent=RLBL[user.rol]||user.rol;
+  pill.className='role-pill role-'+user.rol;
   buildNav(); loadClis();
   document.getElementById('ffecha').value=new Date().toISOString().split('T')[0];
-  document.getElementById('fsol').value=r.equipo;
+  document.getElementById('fsol').value=user.equipo;
 }
 
 function doLogout(){
