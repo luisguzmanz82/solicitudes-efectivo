@@ -221,8 +221,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
         </div>
         <div class="fg c2">
           <div class="field"><label>Cliente</label>
-            <div class="ddw"><input id="fcli" placeholder="Buscar cliente..." autocomplete="off" oninput="filtDD('fcli','ddsol')" onfocus="openDD('fcli','ddsol')" onblur="setTimeout(()=>closeDD('ddsol'),200)">
-            <div class="ddm" id="ddsol"></div></div>
+            <select id="fcli-select" onchange="checkOtroCliente()">
+              <option value="">-- Selecciona el cliente --</option>
+            </select>
+            <div id="otro-cliente-wrap" style="display:none;margin-top:8px">
+              <input id="fcli-otro" placeholder="Escribe el nombre del cliente nuevo...">
+            </div>
+            <input type="hidden" id="fcli">
           </div>
           <div class="field"><label>¿Es reembolsable?</label>
             <div class="rrow">
@@ -445,7 +450,28 @@ async function addCli(){
   else toast('Error al guardar','error');
 }
 function delCli(n){clis=clis.filter(c=>c!==n);renderTags();}
-function renderTags(){const el=document.getElementById('tlist');if(!el)return;el.innerHTML=clis.map(c=>`<div class="tag">${c}<span class="tagx" onclick="delCli('${c.replace(/'/g,"\\'")}')">×</span></div>`).join('');}
+function renderTags(){
+  const el=document.getElementById('tlist');
+  if(el) el.innerHTML=clis.map(c=>`<div class="tag">${c}<span class="tagx" onclick="delCli('${c.replace(/'/g,"\'")}')">×</span></div>`).join('');
+  const sel=document.getElementById('fcli-select');
+  if(sel){
+    const cur=sel.value;
+    sel.innerHTML='<option value="">-- Selecciona el cliente --</option>'+
+      clis.map(c=>`<option value="${c}">${c}</option>`).join('')+
+      '<option value="otro">Otro (cliente nuevo)</option>';
+    if(cur) sel.value=cur;
+  }
+}
+function checkOtroCliente(){
+  const v=document.getElementById('fcli-select').value;
+  document.getElementById('otro-cliente-wrap').style.display=v==='otro'?'block':'none';
+  if(v!=='otro') document.getElementById('fcli-otro').value='';
+}
+function getClienteValue(){
+  const v=document.getElementById('fcli-select').value;
+  if(v==='otro') return document.getElementById('fcli-otro').value.trim();
+  return v;
+}<span class="tagx" onclick="delCli('${c.replace(/'/g,"\\'")}')">×</span></div>`).join('');}
 
 // ── DROPDOWN ──────────────────────────────────────────
 function filtDD(iid,did){const q=document.getElementById(iid).value.toLowerCase();renderDD(did,clis.filter(c=>c.toLowerCase().includes(q)),q,iid);document.getElementById(did).classList.add('open');}
@@ -499,12 +525,12 @@ async function envSol(){
     fechaSolicitud:document.getElementById('ffecha').value,
     fechaEntrega:document.getElementById('ffentrega').value,
     cantidad:parseFloat(cant),letra:document.getElementById('fletra').value,
-    cliente:document.getElementById('fcli').value,tramite,
+    cliente:getClienteValue(),tramite,
     reembolsable:esReemb,concepto,motivo:mot
   });
   if(r.ok){
     toast('Solicitud '+r.folio+' guardada en Google Sheets');
-    ['fdest','frec','fjefe','fcant','fletra','fcli','fconc','fmot'].forEach(id=>document.getElementById(id).value='');
+    ['fdest','frec','fjefe','fcant','fletra','fconc','fmot'].forEach(id=>document.getElementById(id).value='');document.getElementById('fcli-select').value='';document.getElementById('otro-cliente-wrap').style.display='none';
     document.getElementById('ftramite').value='';
     document.getElementById('otro-tramite-wrap').style.display='none';
     document.getElementById('concepto-wrap').style.display='none';
