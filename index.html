@@ -4,203 +4,197 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Solicitudes de Efectivo</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono&display=swap" rel="stylesheet">
 <style>
-:root{--blue:#185FA5;--blue-light:#E6F1FB;--blue-dark:#0C447C;--green:#3B6D11;--green-light:#EAF3DE;--red:#A32D2D;--red-light:#FCEBEB;--amber-light:#FAEEDA;--amber-dark:#633806;--purple-light:#EEEDFE;--purple-dark:#3C3489;--teal-light:#E1F5EE;--teal-dark:#085041;--bg:#F7F6F3;--surface:#FFFFFF;--border:rgba(0,0,0,0.09);--border-med:rgba(0,0,0,0.14);--text:#1A1A1A;--text-2:#555550;--text-3:#999994;--radius:10px;--radius-lg:14px;--shadow:0 1px 3px rgba(0,0,0,0.07),0 4px 16px rgba(0,0,0,0.04);}
+:root{--blue:#185FA5;--blue-l:#E6F1FB;--blue-d:#0C447C;--green:#3B6D11;--green-l:#EAF3DE;--red:#A32D2D;--red-l:#FCEBEB;--amber-l:#FAEEDA;--amber-d:#633806;--purple-l:#EEEDFE;--purple-d:#3C3489;--teal-l:#E1F5EE;--teal-d:#085041;--bg:#F7F6F3;--surface:#fff;--border:rgba(0,0,0,0.09);--bmed:rgba(0,0,0,0.14);--text:#1A1A1A;--t2:#555550;--t3:#999994;--r:10px;--rl:14px;--sh:0 1px 3px rgba(0,0,0,.07),0 4px 16px rgba(0,0,0,.04);}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:15px;min-height:100vh;}
-.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
-.login-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:40px 36px;width:400px;max-width:100%;box-shadow:0 8px 40px rgba(0,0,0,0.10);}
-.login-icon{width:48px;height:48px;background:var(--blue);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
-.login-icon svg{width:24px;height:24px;fill:none;stroke:white;stroke-width:2;stroke-linecap:round;}
-.login-title{font-size:22px;font-weight:600;margin-bottom:6px;}
-.login-sub{font-size:13px;color:var(--text-3);margin-bottom:28px;}
+.lw{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+.lb{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:40px 36px;width:400px;max-width:100%;box-shadow:0 8px 40px rgba(0,0,0,.1);}
+.li{width:48px;height:48px;background:var(--blue);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
+.li svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;}
+.lt{font-size:22px;font-weight:600;margin-bottom:6px;}
+.ls{font-size:13px;color:var(--t3);margin-bottom:28px;}
 .lf{margin-bottom:14px;}
-.lf label{display:block;font-size:12px;font-weight:500;color:var(--text-2);margin-bottom:5px;}
-.lf input{width:100%;padding:11px 14px;border:1px solid var(--border-med);border-radius:var(--radius);font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--surface);}
+.lf label{display:block;font-size:12px;font-weight:500;color:var(--t2);margin-bottom:5px;}
+.lf input{width:100%;padding:11px 14px;border:1px solid var(--bmed);border-radius:var(--r);font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--surface);}
 .lf input:focus{outline:none;border-color:var(--blue);}
-.login-btn{width:100%;padding:12px;background:var(--blue);color:white;border:none;border-radius:var(--radius);font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:6px;}
-.login-btn:hover{background:var(--blue-dark);}
-.login-err{background:var(--red-light);color:var(--red);border-radius:var(--radius);padding:10px 14px;font-size:13px;margin-top:12px;display:none;}
-.header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:58px;position:sticky;top:0;z-index:10;}
-.hbrand{display:flex;align-items:center;gap:10px;}
-.hicon{width:32px;height:32px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;}
-.hicon svg{width:18px;height:18px;fill:none;stroke:white;stroke-width:2;stroke-linecap:round;}
-.htitle{font-size:15px;font-weight:600;}
-.hsub{font-size:12px;color:var(--text-3);margin-top:1px;}
-.hright{display:flex;align-items:center;gap:10px;}
-.role-pill{font-size:12px;font-weight:500;padding:5px 12px;border-radius:20px;}
-.role-colaborador{background:var(--blue-light);color:var(--blue-dark);}
-.role-finanzas{background:var(--green-light);color:var(--green);}
-.role-direccion{background:var(--purple-light);color:var(--purple-dark);}
-.sync-pill{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2);background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:5px 12px;}
-.sdot{width:6px;height:6px;border-radius:50%;background:#3B6D11;}
-.sdot.loading{background:#E9A23B;animation:blink 1s infinite;}
-.sdot.error{background:var(--red);}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
-.logout-btn{font-size:12px;color:var(--text-3);background:none;border:1px solid var(--border);border-radius:20px;padding:5px 12px;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.logout-btn:hover{color:var(--red);border-color:var(--red);}
-.nav-wrap{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;overflow-x:auto;}
+.lbtn{width:100%;padding:12px;background:var(--blue);color:#fff;border:none;border-radius:var(--r);font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:6px;}
+.lbtn:hover{background:var(--blue-d);}
+.lerr{background:var(--red-l);color:var(--red);border-radius:var(--r);padding:10px 14px;font-size:13px;margin-top:12px;display:none;}
+.hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:58px;position:sticky;top:0;z-index:10;}
+.hbr{display:flex;align-items:center;gap:10px;}
+.hic{width:32px;height:32px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.hic svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;}
+.htl{font-size:15px;font-weight:600;}
+.hsl{font-size:12px;color:var(--t3);margin-top:1px;}
+.hrt{display:flex;align-items:center;gap:10px;}
+.rpl{font-size:12px;font-weight:500;padding:5px 12px;border-radius:20px;}
+.rc{background:var(--blue-l);color:var(--blue-d);}
+.rf{background:var(--green-l);color:var(--green);}
+.rd{background:var(--purple-l);color:var(--purple-d);}
+.spl{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--t2);background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:5px 12px;}
+.sd{width:6px;height:6px;border-radius:50%;background:#3B6D11;}
+.sd.ld{background:#E9A23B;animation:bk 1s infinite;}
+.sd.er{background:var(--red);}
+@keyframes bk{0%,100%{opacity:1}50%{opacity:.2}}
+.out{font-size:12px;color:var(--t3);background:none;border:1px solid var(--border);border-radius:20px;padding:5px 12px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.out:hover{color:var(--red);border-color:var(--red);}
+.nw{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;overflow-x:auto;}
 .nav{display:flex;gap:2px;}
-.nav-btn{padding:14px 16px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;color:var(--text-3);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;}
-.nav-btn.active{color:var(--blue);border-bottom-color:var(--blue);}
-.content{max-width:960px;margin:0 auto;padding:24px 20px;}
-.section{display:none;}
-.section.active{display:block;}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;margin-bottom:16px;box-shadow:var(--shadow);}
-.card-title{font-size:11px;font-weight:600;letter-spacing:0.07em;color:var(--text-3);text-transform:uppercase;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.nb{padding:14px 16px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;color:var(--t3);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;}
+.nb.active{color:var(--blue);border-bottom-color:var(--blue);}
+.ct{max-width:960px;margin:0 auto;padding:24px 20px;}
+.sc{display:none;}
+.sc.active{display:block;}
+.cd{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:20px;margin-bottom:16px;box-shadow:var(--sh);}
+.ct2{font-size:11px;font-weight:600;letter-spacing:.07em;color:var(--t3);text-transform:uppercase;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);}
 .fg{display:grid;gap:14px;margin-bottom:14px;}
 .fg.c2{grid-template-columns:1fr 1fr;}
 .fg.c3{grid-template-columns:1fr 1fr 1fr;}
 .fg.c1{grid-template-columns:1fr;}
-.field label{display:block;font-size:12px;font-weight:500;color:var(--text-2);margin-bottom:5px;}
-.field input,.field select,.field textarea{width:100%;padding:9px 12px;border:1px solid var(--border-med);border-radius:var(--radius);background:var(--surface);color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;}
-.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue);}
-.field input[readonly]{background:var(--bg);color:var(--text-2);}
-.field textarea{resize:vertical;min-height:72px;}
-.rrow{display:flex;gap:20px;padding:10px 0;}
-.rrow label{display:flex;align-items:center;gap:7px;font-size:14px;color:var(--text);cursor:pointer;font-weight:400;}
-.btn-primary{width:100%;padding:12px;background:var(--blue);color:white;border:none;border-radius:var(--radius);font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:6px;}
-.btn-primary:hover{background:var(--blue-dark);}
-.btn-primary:disabled{background:#C5C5C0;cursor:not-allowed;}
-.btn-primary.green{background:var(--green);}
-.btn-primary.green:hover{background:#2A5009;}
-.btn-sm{padding:5px 10px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;border-radius:7px;cursor:pointer;border:1px solid var(--border-med);background:var(--surface);color:var(--text);}
-.btn-info{background:var(--blue-light);color:var(--blue-dark);border-color:#B5D4F4;}
-.btn-success{background:var(--green-light);color:var(--green);border-color:#C0DD97;}
-.btn-danger{background:var(--red-light);color:var(--red);border-color:#F7C1C1;}
-.btn-purple{background:var(--purple-light);color:var(--purple-dark);border-color:#CECBF6;}
-.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;}
-.bfolio{background:var(--blue-light);color:var(--blue-dark);font-family:'DM Mono',monospace;}
-.b-pendiente{background:var(--amber-light);color:var(--amber-dark);}
-.b-revision{background:var(--blue-light);color:var(--blue-dark);}
-.b-autorizado{background:var(--green-light);color:var(--green);}
-.b-entregado{background:var(--teal-light);color:var(--teal-dark);}
-.b-porcomprobar{background:var(--amber-light);color:var(--amber-dark);}
-.b-comprobado{background:var(--purple-light);color:var(--purple-dark);}
-.b-rechazado{background:var(--red-light);color:var(--red);}
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
-.metric{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;box-shadow:var(--shadow);}
-.mval{font-size:26px;font-weight:600;margin-bottom:4px;}
-.mlbl{font-size:12px;color:var(--text-3);}
-.dt .thr{display:grid;grid-template-columns:76px 1fr 110px 100px 170px;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);}
-.dt .tdr{display:grid;grid-template-columns:76px 1fr 110px 100px 170px;gap:8px;padding:12px 0;border-bottom:1px solid var(--border);align-items:center;font-size:13px;}
-.dt .tdr:last-child{border-bottom:none;}
-.th{font-size:11px;font-weight:600;color:var(--text-3);letter-spacing:0.05em;text-transform:uppercase;}
-.acts{display:flex;gap:5px;flex-wrap:wrap;}
-.toast{position:fixed;bottom:24px;right:24px;padding:12px 18px;border-radius:var(--radius);font-size:13px;font-weight:500;display:none;z-index:999;box-shadow:0 4px 20px rgba(0,0,0,0.15);max-width:320px;}
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:100;align-items:center;justify-content:center;padding:20px;}
-.overlay.open{display:flex;}
-.modal{background:var(--surface);border-radius:var(--radius-lg);padding:24px;width:560px;max-width:100%;max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.2);}
-.mhd{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
-.mhd h3{font-size:15px;font-weight:600;}
-.mcls{background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-3);}
-.drow{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;}
-.drow:last-child{border-bottom:none;}
-.dk{color:var(--text-2);}
+.fl label{display:block;font-size:12px;font-weight:500;color:var(--t2);margin-bottom:5px;}
+.fl input,.fl select,.fl textarea{width:100%;padding:9px 12px;border:1px solid var(--bmed);border-radius:var(--r);background:var(--surface);color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;}
+.fl input:focus,.fl select:focus,.fl textarea:focus{outline:none;border-color:var(--blue);}
+.fl input[readonly]{background:var(--bg);color:var(--t2);}
+.fl textarea{resize:vertical;min-height:72px;}
+.rr{display:flex;gap:20px;padding:10px 0;}
+.rr label{display:flex;align-items:center;gap:7px;font-size:14px;cursor:pointer;font-weight:400;}
+.bp{width:100%;padding:12px;background:var(--blue);color:#fff;border:none;border-radius:var(--r);font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:6px;}
+.bp:hover{background:var(--blue-d);}
+.bp:disabled{background:#C5C5C0;cursor:not-allowed;}
+.bp.gr{background:var(--green);}
+.bp.gr:hover{background:#2A5009;}
+.bs{padding:5px 10px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;border-radius:7px;cursor:pointer;border:1px solid var(--bmed);background:var(--surface);color:var(--text);}
+.bi{background:var(--blue-l);color:var(--blue-d);border-color:#B5D4F4;}
+.bsu{background:var(--green-l);color:var(--green);border-color:#C0DD97;}
+.bd{background:var(--red-l);color:var(--red);border-color:#F7C1C1;}
+.bpu{background:var(--purple-l);color:var(--purple-d);border-color:#CECBF6;}
+.bg{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;}
+.bfo{background:var(--blue-l);color:var(--blue-d);font-family:'DM Mono',monospace;}
+.bp0{background:var(--amber-l);color:var(--amber-d);}
+.bp1{background:var(--blue-l);color:var(--blue-d);}
+.bp2{background:var(--green-l);color:var(--green);}
+.bp3{background:var(--teal-l);color:var(--teal-d);}
+.bp4{background:var(--amber-l);color:var(--amber-d);}
+.bp5{background:var(--purple-l);color:var(--purple-d);}
+.bp6{background:var(--red-l);color:var(--red);}
+.mts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+.mt{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:16px;box-shadow:var(--sh);}
+.mv{font-size:26px;font-weight:600;margin-bottom:4px;}
+.ml{font-size:12px;color:var(--t3);}
+.dt .th{display:grid;grid-template-columns:76px 1fr 110px 100px 170px;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);}
+.dt .td{display:grid;grid-template-columns:76px 1fr 110px 100px 170px;gap:8px;padding:12px 0;border-bottom:1px solid var(--border);align-items:center;font-size:13px;}
+.dt .td:last-child{border-bottom:none;}
+.thc{font-size:11px;font-weight:600;color:var(--t3);letter-spacing:.05em;text-transform:uppercase;}
+.ac{display:flex;gap:5px;flex-wrap:wrap;}
+.toast{position:fixed;bottom:24px;right:24px;padding:12px 18px;border-radius:var(--r);font-size:13px;font-weight:500;display:none;z-index:999;box-shadow:0 4px 20px rgba(0,0,0,.15);max-width:320px;}
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:100;align-items:center;justify-content:center;padding:20px;}
+.ov.open{display:flex;}
+.mo{background:var(--surface);border-radius:var(--rl);padding:24px;width:560px;max-width:100%;max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);}
+.mh{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.mh h3{font-size:15px;font-weight:600;}
+.mc{background:none;border:none;font-size:22px;cursor:pointer;color:var(--t3);}
+.dr{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.dr:last-child{border-bottom:none;}
+.dk{color:var(--t2);}
 .ddw{position:relative;}
-.ddm{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--surface);border:1px solid var(--border-med);border-radius:var(--radius);z-index:50;max-height:180px;overflow-y:auto;display:none;box-shadow:var(--shadow);}
+.ddm{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--surface);border:1px solid var(--bmed);border-radius:var(--r);z-index:50;max-height:180px;overflow-y:auto;display:none;box-shadow:var(--sh);}
 .ddm.open{display:block;}
-.ddopt{padding:9px 12px;font-size:13px;cursor:pointer;border-bottom:1px solid var(--border);}
-.ddopt:last-child{border-bottom:none;}
-.ddopt:hover{background:var(--bg);}
-.ddopt.new{color:var(--blue);font-style:italic;}
-.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
-.tag{display:inline-flex;align-items:center;gap:5px;background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:4px 10px;font-size:12px;}
-.tagx{cursor:pointer;color:var(--text-3);font-size:15px;line-height:1;}
-.gtbl{width:100%;border-collapse:collapse;font-size:13px;}
-.gtbl th{font-size:11px;color:var(--text-3);font-weight:600;text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);}
-.gtbl td{padding:7px 8px;border-bottom:1px solid var(--border);}
-.gtbl td input,.gtbl td select{border:none;background:transparent;font-size:13px;font-family:'DM Sans',sans-serif;width:100%;}
-.gtbl td input:focus,.gtbl td select:focus{outline:none;border-bottom:1.5px solid var(--blue);}
-.addrow{font-size:12px;color:var(--blue);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:8px 0;font-weight:500;}
-.resumen{background:var(--bg);border-radius:var(--radius);padding:14px;margin-top:12px;}
-.rrow2{display:flex;justify-content:space-between;font-size:14px;padding:4px 0;}
-.rtot{font-weight:600;font-size:15px;padding-top:10px;border-top:1px solid var(--border-med);margin-top:6px;}
-.doci{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--bg);border-radius:var(--radius);font-size:13px;margin-bottom:6px;}
-.docl{display:flex;align-items:center;gap:10px;}
-.docicon{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;}
-.flujo{display:flex;align-items:center;gap:6px;font-size:11px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:6px 14px;margin-bottom:16px;flex-wrap:wrap;width:fit-content;}
-.fs{font-weight:500;color:var(--text-3);}
+.ddo{padding:9px 12px;font-size:13px;cursor:pointer;border-bottom:1px solid var(--border);}
+.ddo:last-child{border-bottom:none;}
+.ddo:hover{background:var(--bg);}
+.tgl{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.tg{display:inline-flex;align-items:center;gap:5px;background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:4px 10px;font-size:12px;}
+.tx{cursor:pointer;color:var(--t3);font-size:15px;line-height:1;}
+.gt{width:100%;border-collapse:collapse;font-size:13px;}
+.gt th{font-size:11px;color:var(--t3);font-weight:600;text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);}
+.gt td{padding:7px 8px;border-bottom:1px solid var(--border);}
+.gt td input,.gt td select{border:none;background:transparent;font-size:13px;font-family:'DM Sans',sans-serif;width:100%;}
+.gt td input:focus,.gt td select:focus{outline:none;border-bottom:1.5px solid var(--blue);}
+.ar{font-size:12px;color:var(--blue);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:8px 0;font-weight:500;}
+.rs{background:var(--bg);border-radius:var(--r);padding:14px;margin-top:12px;}
+.rw{display:flex;justify-content:space-between;font-size:14px;padding:4px 0;}
+.rt{font-weight:600;font-size:15px;padding-top:10px;border-top:1px solid var(--bmed);margin-top:6px;}
+.di{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--bg);border-radius:var(--r);font-size:13px;margin-bottom:6px;}
+.dl{display:flex;align-items:center;gap:10px;}
+.dc{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;}
+.fl2{display:flex;align-items:center;gap:6px;font-size:11px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:6px 14px;margin-bottom:16px;flex-wrap:wrap;width:fit-content;}
+.fs{font-weight:500;color:var(--t3);}
 .fs.on{color:var(--blue);}
-.farr{color:var(--border-med);}
-.toolbar{display:flex;justify-content:flex-end;margin-bottom:10px;}
-.empty{color:var(--text-3);font-size:13px;padding:20px 0;text-align:center;}
-.folio-detail{background:var(--blue-light);border-radius:var(--radius);padding:12px 14px;font-size:13px;color:var(--blue-dark);margin-top:8px;display:none;line-height:1.7;}
-.upload-zone{border:2px dashed var(--border-med);border-radius:var(--radius);padding:20px;text-align:center;cursor:pointer;transition:all 0.15s;margin-bottom:8px;}
-.upload-zone:hover{border-color:var(--blue);background:var(--blue-light);}
-.upload-zone p{font-size:13px;color:var(--text-3);margin-top:6px;}
-.upload-zone.dragover{border-color:var(--blue);background:var(--blue-light);}
-.upload-progress{height:4px;background:var(--border);border-radius:2px;margin-top:6px;overflow:hidden;display:none;}
-.upload-progress-bar{height:100%;background:var(--blue);border-radius:2px;transition:width 0.3s;}
-.concepto-wrap{display:none;}
-.concepto-required{border-color:var(--red) !important;}
+.fa{color:var(--bmed);}
+.tb{display:flex;justify-content:flex-end;margin-bottom:10px;}
+.em{color:var(--t3);font-size:13px;padding:20px 0;text-align:center;}
+.fd{background:var(--blue-l);border-radius:var(--r);padding:12px 14px;font-size:13px;color:var(--blue-d);margin-top:8px;display:none;line-height:1.7;}
+.uz{border:2px dashed var(--bmed);border-radius:var(--r);padding:20px;text-align:center;cursor:pointer;margin-bottom:8px;}
+.uz:hover{border-color:var(--blue);background:var(--blue-l);}
+.uz p{font-size:13px;color:var(--t3);margin-top:6px;}
+.up{height:4px;background:var(--border);border-radius:2px;margin-top:6px;overflow:hidden;display:none;}
+.upb{height:100%;background:var(--blue);border-radius:2px;transition:width .3s;}
+.cw{display:none;}
 @media(max-width:640px){
   .fg.c2,.fg.c3{grid-template-columns:1fr;}
-  .metrics{grid-template-columns:1fr 1fr;}
-  .dt .thr,.dt .tdr{grid-template-columns:65px 1fr 150px;}
-  .dt .thr span:nth-child(3),.dt .thr span:nth-child(4),.dt .tdr span:nth-child(3),.dt .tdr span:nth-child(4){display:none;}
-  .content{padding:16px 14px;}
-  .header{padding:0 16px;}
-  .nav-wrap{padding:0 14px;}
-  .hright .sync-pill{display:none;}
+  .mts{grid-template-columns:1fr 1fr;}
+  .dt .th,.dt .td{grid-template-columns:65px 1fr 150px;}
+  .dt .th span:nth-child(3),.dt .th span:nth-child(4),.dt .td span:nth-child(3),.dt .td span:nth-child(4){display:none;}
+  .ct{padding:16px 14px;}
+  .hdr{padding:0 16px;}
+  .nw{padding:0 14px;}
+  .hrt .spl{display:none;}
 }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div class="login-wrap" id="login-wrap">
-  <div class="login-box">
-    <div class="login-icon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
-    <div class="login-title">Solicitudes de Efectivo</div>
-    <div class="login-sub">Ingresa tu usuario y contraseña para continuar</div>
-    <div class="lf"><label>Usuario</label><input id="lusr" placeholder="tu usuario" onkeydown="if(event.key==='Enter')document.getElementById('lpwd').focus()"></div>
-    <div class="lf"><label>Contraseña</label><input type="password" id="lpwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
-    <button class="login-btn" id="login-btn" onclick="doLogin()">Ingresar</button>
-    <div class="login-err" id="lerr">Usuario o contraseña incorrectos.</div>
+<div class="lw" id="lw">
+  <div class="lb">
+    <div class="li"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+    <div class="lt">Solicitudes de Efectivo</div>
+    <div class="ls">Ingresa tu usuario y contraseña para continuar</div>
+    <div class="lf"><label>Usuario</label><input id="usr" placeholder="tu usuario" onkeydown="if(event.key==='Enter')document.getElementById('pwd').focus()"></div>
+    <div class="lf"><label>Contraseña</label><input type="password" id="pwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <button class="lbtn" onclick="doLogin()">Ingresar</button>
+    <div class="lerr" id="lerr">Usuario o contraseña incorrectos.</div>
   </div>
 </div>
 
-<!-- APP -->
 <div id="app" style="display:none">
-  <div class="header">
-    <div class="hbrand">
-      <div class="hicon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
-      <div><div class="htitle">Solicitudes de Efectivo</div><div class="hsub" id="hsub">Cargando...</div></div>
+  <div class="hdr">
+    <div class="hbr">
+      <div class="hic"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+      <div><div class="htl">Solicitudes de Efectivo</div><div class="hsl" id="hsl">—</div></div>
     </div>
-    <div class="hright">
-      <div class="sync-pill"><div class="sdot" id="sdot"></div><span id="stxt">Conectado</span></div>
-      <div class="role-pill" id="rpill"></div>
-      <button class="logout-btn" onclick="doLogout()">Salir</button>
+    <div class="hrt">
+      <div class="spl"><div class="sd" id="sd"></div><span id="stx">Conectado</span></div>
+      <div class="rpl" id="rpl"></div>
+      <button class="out" onclick="doLogout()">Salir</button>
     </div>
   </div>
-  <div class="nav-wrap"><nav class="nav" id="nav"></nav></div>
-  <div class="content">
+  <div class="nw"><nav class="nav" id="nav"></nav></div>
+  <div class="ct">
 
-    <!-- NUEVA SOLICITUD -->
-    <div id="sec-solicitud" class="section">
-      <div class="card">
-        <div class="card-title">Datos generales</div>
+    <div id="ss" class="sc active">
+      <div class="cd">
+        <div class="ct2">Datos generales</div>
         <div class="fg c3">
-          <div class="field"><label>Folio</label><input id="ffolio" value="..." readonly></div>
-          <div class="field"><label>Fecha de solicitud</label><input id="ffecha" type="date"></div>
-          <div class="field"><label>Fecha de entrega estimada</label><input id="ffentrega" type="date"></div>
+          <div class="fl"><label>Folio</label><input id="ffo" value="..." readonly></div>
+          <div class="fl"><label>Fecha de solicitud</label><input id="ffe" type="date"></div>
+          <div class="fl"><label>Fecha de entrega estimada</label><input id="fen" type="date"></div>
         </div>
         <div class="fg c2">
-          <div class="field"><label>Nombre del solicitante</label><input id="fsol" placeholder="Nombre completo"></div>
-          <div class="field"><label>Destino</label><input id="fdest" placeholder="Ej. Oaxaca, CDMX..."></div>
+          <div class="fl"><label>Nombre del solicitante</label><input id="fso" placeholder="Nombre completo"></div>
+          <div class="fl"><label>Destino</label><input id="fde" placeholder="Ej. Oaxaca, CDMX..."></div>
         </div>
         <div class="fg c2">
-          <div class="field"><label>Quien recibe el efectivo</label><input id="frec" placeholder="Nombre completo"></div>
-          <div class="field"><label>Jefe de área</label><input id="fjefe" placeholder="Nombre del jefe"></div>
+          <div class="fl"><label>Quien recibe el efectivo</label><input id="fre" placeholder="Nombre completo"></div>
+          <div class="fl"><label>Jefe de área</label><input id="fje" placeholder="Nombre del jefe"></div>
         </div>
       </div>
-      <div class="card">
-        <div class="card-title">Trámite, monto y cliente</div>
+      <div class="cd">
+        <div class="ct2">Trámite, monto y cliente</div>
         <div class="fg c2">
-          <div class="field"><label>Trámite a realizar</label>
-            <select id="ftramite" onchange="checkOtroTramite()">
+          <div class="fl"><label>Trámite a realizar</label>
+            <select id="ftr" onchange="chkTramite()">
               <option value="">-- Selecciona el trámite --</option>
               <option>Viáticos</option>
               <option>Búsqueda de propiedades</option>
@@ -213,556 +207,529 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
               <option value="otro">Otro</option>
             </select>
           </div>
-          <div class="field" id="otro-tramite-wrap" style="display:none"><label>Especifica el trámite</label><input id="fotrotramite" placeholder="Describe el trámite..."></div>
+          <div class="fl" id="otr-wrap" style="display:none"><label>Especifica el trámite</label><input id="fotr" placeholder="Describe el trámite..."></div>
         </div>
         <div class="fg c2">
-          <div class="field"><label>Cantidad ($)</label><input id="fcant" type="number" placeholder="0.00" oninput="updLetra()"></div>
-          <div class="field"><label>Con letra</label><input id="fletra" readonly placeholder="Se llena automático"></div>
+          <div class="fl"><label>Cantidad ($)</label><input id="fca" type="number" placeholder="0.00" oninput="updL()"></div>
+          <div class="fl"><label>Con letra</label><input id="fle" readonly placeholder="Se llena automático"></div>
         </div>
         <div class="fg c2">
-          <div class="field"><label>Cliente</label>
-            <select id="fcli-select" onchange="checkOtroCliente()">
+          <div class="fl"><label>Cliente</label>
+            <select id="fcs" onchange="chkCliente()">
               <option value="">-- Selecciona el cliente --</option>
+              <option value="otro">Otro (cliente nuevo)</option>
             </select>
-            <div id="otro-cliente-wrap" style="display:none;margin-top:8px">
-              <input id="fcli-otro" placeholder="Escribe el nombre del cliente nuevo...">
-            </div>
-            <input type="hidden" id="fcli">
-          </div>
-          <div class="field"><label>¿Es reembolsable?</label>
-            <div class="rrow">
-              <label><input type="radio" name="remb" value="si" onchange="toggleConcepto(this)"> Sí</label>
-              <label><input type="radio" name="remb" value="no" checked onchange="toggleConcepto(this)"> No</label>
+            <div id="ocl-wrap" style="display:none;margin-top:8px">
+              <input id="focl" placeholder="Escribe el nombre del cliente nuevo...">
             </div>
           </div>
-        </div>
-        <div class="fg c1 concepto-wrap" id="concepto-wrap">
-          <div class="field"><label>Concepto de reembolso <span style="color:var(--red)">*</span></label><textarea id="fconc" placeholder="Este campo es obligatorio cuando el gasto es reembolsable..."></textarea></div>
-        </div>
-        <div class="fg c1"><div class="field"><label>Motivo de la solicitud</label><textarea id="fmot" placeholder="Especifica el motivo con detalle..."></textarea></div></div>
-      </div>
-      <button class="btn-primary" id="btnenv" onclick="envSol()">Enviar solicitud a Finanzas</button>
-    </div>
-
-    <!-- COMPROBACIÓN -->
-    <div id="sec-comprobacion" class="section">
-      <div class="card">
-        <div class="card-title">Selecciona tu solicitud</div>
-        <div class="field"><label>Folio de tu solicitud</label>
-          <select id="cfolio" onchange="loadComp()"><option value="">-- Selecciona tu folio --</option></select>
-          <div class="folio-detail" id="fdetail"></div>
-        </div>
-      </div>
-      <div id="cbody" style="display:none">
-        <div class="card">
-          <div class="card-title">Desglose de gastos</div>
-          <table class="gtbl"><thead><tr><th>Fecha</th><th>Tipo</th><th>Concepto</th><th>Monto ($)</th><th></th></tr></thead><tbody id="gbody"></tbody></table>
-          <button class="addrow" onclick="addG()">+ Agregar gasto</button>
-          <div class="resumen">
-            <div class="rrow2"><span style="color:var(--text-2)">Dinero recibido</span><span id="rrec">$0.00</span></div>
-            <div class="rrow2"><span style="color:var(--text-2)">Total gastado</span><span id="rgast">$0.00</span></div>
-            <div class="rrow2 rtot"><span id="rlbl">Diferencia</span><span id="rdif">$0.00</span></div>
+          <div class="fl"><label>¿Es reembolsable?</label>
+            <div class="rr">
+              <label><input type="radio" name="rmb" value="si" onchange="chkReemb(this)"> Sí</label>
+              <label><input type="radio" name="rmb" value="no" checked onchange="chkReemb(this)"> No</label>
+            </div>
           </div>
         </div>
-        <div class="card">
-          <div class="card-title">Comentarios adicionales</div>
-          <div class="field"><textarea id="ccoments" placeholder="Agrega cualquier comentario, aclaración o detalle adicional sobre tus gastos..." style="min-height:90px"></textarea></div>
+        <div class="fg c1 cw" id="conc-wrap">
+          <div class="fl"><label>Concepto de reembolso <span style="color:var(--red)">*</span></label><textarea id="fco" placeholder="Campo obligatorio cuando el gasto es reembolsable..."></textarea></div>
         </div>
-        <div class="card">
-          <div class="card-title">Documentos comprobatorios</div>
-          <div id="dlist"></div>
-          <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()" ondragover="dragOver(event)" ondrop="dropFile(event)" ondragleave="dragLeave(event)">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="1.5" style="margin:0 auto;display:block"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            <p>Haz clic o arrastra archivos aquí<br><span style="font-size:11px">Fotos o PDFs — máx. 10 MB por archivo</span></p>
-            <div class="upload-progress" id="uprog"><div class="upload-progress-bar" id="uprog-bar"></div></div>
+        <div class="fg c1"><div class="fl"><label>Motivo de la solicitud</label><textarea id="fmo" placeholder="Especifica el motivo con detalle..."></textarea></div></div>
+      </div>
+      <button class="bp" id="benv" onclick="envSol()">Enviar solicitud a Finanzas</button>
+    </div>
+
+    <div id="sc" class="sc">
+      <div class="cd">
+        <div class="ct2">Selecciona tu solicitud</div>
+        <div class="fl"><label>Folio</label>
+          <select id="cfo" onchange="loadComp()"><option value="">-- Selecciona tu folio --</option></select>
+          <div class="fd" id="fdt"></div>
+        </div>
+      </div>
+      <div id="cbdy" style="display:none">
+        <div class="cd">
+          <div class="ct2">Desglose de gastos</div>
+          <table class="gt"><thead><tr><th>Fecha</th><th>Tipo</th><th>Concepto</th><th>Monto ($)</th><th></th></tr></thead><tbody id="gb"></tbody></table>
+          <button class="ar" onclick="addG()">+ Agregar gasto</button>
+          <div class="rs">
+            <div class="rw"><span style="color:var(--t2)">Dinero recibido</span><span id="rrc">$0.00</span></div>
+            <div class="rw"><span style="color:var(--t2)">Total gastado</span><span id="rgt">$0.00</span></div>
+            <div class="rw rt"><span id="rlb">Diferencia</span><span id="rdf">$0.00</span></div>
           </div>
-          <input type="file" id="file-input" accept="image/*,.pdf" multiple style="display:none" onchange="handleFiles(this.files)">
         </div>
-        <div class="card"><div class="card-title">Devolución de efectivo</div><div id="devbox"><p style="font-size:13px;color:var(--text-3)">Completa el desglose para ver si hay sobrante.</p></div></div>
-        <button class="btn-primary green" id="btncomp" onclick="envComp()">Enviar comprobación a Finanzas</button>
+        <div class="cd">
+          <div class="ct2">Comentarios adicionales</div>
+          <div class="fl"><textarea id="ccom" placeholder="Agrega cualquier comentario o detalle sobre tus gastos..." style="min-height:80px"></textarea></div>
+        </div>
+        <div class="cd">
+          <div class="ct2">Documentos comprobatorios</div>
+          <div id="dlst"></div>
+          <div class="uz" onclick="document.getElementById('fi').click()" ondragover="dov(event)" ondrop="ddr(event)" ondragleave="dlv(event)">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="1.5" style="margin:0 auto;display:block"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <p>Haz clic o arrastra archivos aquí<br><span style="font-size:11px">Fotos o PDFs — máx. 10 MB</span></p>
+            <div class="up" id="upg"><div class="upb" id="upb"></div></div>
+          </div>
+          <input type="file" id="fi" accept="image/*,.pdf" multiple style="display:none" onchange="hndFiles(this.files)">
+        </div>
+        <div class="cd"><div class="ct2">Devolución de efectivo</div><div id="dvb"><p style="font-size:13px;color:var(--t3)">Completa el desglose para ver si hay sobrante.</p></div></div>
+        <button class="bp gr" id="bcmp" onclick="envComp()">Enviar comprobación a Finanzas</button>
       </div>
     </div>
 
-    <!-- FINANZAS -->
-    <div id="sec-finanzas" class="section">
-      <div class="flujo"><span class="fs on">Finanzas revisa</span><span class="farr">→</span><span class="fs">DG autoriza</span><span class="farr">→</span><span class="fs on">Finanzas entrega</span><span class="farr">→</span><span class="fs on">Finanzas valida</span></div>
-      <div class="metrics">
-        <div class="metric"><div class="mval" id="m1">—</div><div class="mlbl">Por revisar</div></div>
-        <div class="metric"><div class="mval" id="m2">—</div><div class="mlbl">Por entregar</div></div>
-        <div class="metric"><div class="mval" id="m3">—</div><div class="mlbl">Por comprobar</div></div>
-        <div class="metric"><div class="mval" id="m4">—</div><div class="mlbl">Total solicitado</div></div>
+    <div id="sf" class="sc">
+      <div class="fl2"><span class="fs on">Finanzas revisa</span><span class="fa">→</span><span class="fs">DG autoriza</span><span class="fa">→</span><span class="fs on">Finanzas entrega</span><span class="fa">→</span><span class="fs on">Finanzas valida</span></div>
+      <div class="mts">
+        <div class="mt"><div class="mv" id="m1">—</div><div class="ml">Por revisar</div></div>
+        <div class="mt"><div class="mv" id="m2">—</div><div class="ml">Por entregar</div></div>
+        <div class="mt"><div class="mv" id="m3">—</div><div class="ml">Por comprobar</div></div>
+        <div class="mt"><div class="mv" id="m4">—</div><div class="ml">Total solicitado</div></div>
       </div>
-      <div class="toolbar"><button class="btn-sm btn-info" onclick="loadSols('finanzas')">Actualizar</button></div>
-      <div class="card"><div class="card-title">Solicitudes</div>
-        <div class="dt"><div class="thr"><span class="th">Folio</span><span class="th">Solicitante</span><span class="th">Estatus</span><span class="th">Cliente</span><span class="th">Acciones</span></div>
-        <div id="lfin"><p class="empty">Cargando...</p></div></div>
-      </div>
-    </div>
-
-    <!-- DIRECCIÓN -->
-    <div id="sec-direccion" class="section">
-      <div class="flujo"><span class="fs">Finanzas revisa</span><span class="farr">→</span><span class="fs on">DG autoriza</span><span class="farr">→</span><span class="fs">Finanzas entrega</span><span class="farr">→</span><span class="fs">Comprobación</span></div>
-      <div class="metrics">
-        <div class="metric"><div class="mval" id="d1">—</div><div class="mlbl">Por autorizar</div></div>
-        <div class="metric"><div class="mval" id="d2">—</div><div class="mlbl">Autorizadas</div></div>
-        <div class="metric"><div class="mval" id="d3">—</div><div class="mlbl">Comprobadas</div></div>
-        <div class="metric"><div class="mval" id="d4">—</div><div class="mlbl">Sin comprobar</div></div>
-      </div>
-      <div class="toolbar"><button class="btn-sm btn-info" onclick="loadSols('direccion')">Actualizar</button></div>
-      <div class="card"><div class="card-title">Solicitudes revisadas por Finanzas</div>
-        <div class="dt"><div class="thr"><span class="th">Folio</span><span class="th">Solicitante</span><span class="th">Estatus</span><span class="th">Cliente</span><span class="th">Acciones</span></div>
-        <div id="ldir"><p class="empty">Cargando...</p></div></div>
+      <div class="tb"><button class="bs bi" onclick="loadSols('f')">Actualizar</button></div>
+      <div class="cd"><div class="ct2">Solicitudes</div>
+        <div class="dt"><div class="th"><span class="thc">Folio</span><span class="thc">Solicitante</span><span class="thc">Estatus</span><span class="thc">Cliente</span><span class="thc">Acciones</span></div>
+        <div id="lf"><p class="em">Cargando...</p></div></div>
       </div>
     </div>
 
-    <!-- CATÁLOGO -->
-    <div id="sec-catalogo" class="section">
-      <div class="card"><div class="card-title">Catálogo de clientes</div>
-        <p style="font-size:13px;color:var(--text-2);margin-bottom:14px">Estos clientes aparecen en el menú desplegable del formulario.</p>
+    <div id="sd2" class="sc">
+      <div class="fl2"><span class="fs">Finanzas revisa</span><span class="fa">→</span><span class="fs on">DG autoriza</span><span class="fa">→</span><span class="fs">Finanzas entrega</span><span class="fa">→</span><span class="fs">Comprobación</span></div>
+      <div class="mts">
+        <div class="mt"><div class="mv" id="d1">—</div><div class="ml">Por autorizar</div></div>
+        <div class="mt"><div class="mv" id="d2">—</div><div class="ml">Autorizadas</div></div>
+        <div class="mt"><div class="mv" id="d3">—</div><div class="ml">Comprobadas</div></div>
+        <div class="mt"><div class="mv" id="d4">—</div><div class="ml">Sin comprobar</div></div>
+      </div>
+      <div class="tb"><button class="bs bi" onclick="loadSols('d')">Actualizar</button></div>
+      <div class="cd"><div class="ct2">Solicitudes revisadas por Finanzas</div>
+        <div class="dt"><div class="th"><span class="thc">Folio</span><span class="thc">Solicitante</span><span class="thc">Estatus</span><span class="thc">Cliente</span><span class="thc">Acciones</span></div>
+        <div id="ld"><p class="em">Cargando...</p></div></div>
+      </div>
+    </div>
+
+    <div id="scat" class="sc">
+      <div class="cd"><div class="ct2">Catálogo de clientes</div>
+        <p style="font-size:13px;color:var(--t2);margin-bottom:14px">Estos clientes aparecen en el menú desplegable del formulario.</p>
         <div style="display:flex;gap:8px">
-          <input id="ncli" placeholder="Nombre del cliente..." style="flex:1;padding:9px 12px;border:1px solid var(--border-med);border-radius:var(--radius);font-size:14px;font-family:'DM Sans',sans-serif" onkeydown="if(event.key==='Enter')addCli()">
-          <button class="btn-sm btn-info" style="padding:9px 14px" onclick="addCli()">Agregar</button>
+          <input id="ncl" placeholder="Nombre del cliente..." style="flex:1;padding:9px 12px;border:1px solid var(--bmed);border-radius:var(--r);font-size:14px;font-family:'DM Sans',sans-serif" onkeydown="if(event.key==='Enter')addCli()">
+          <button class="bs bi" style="padding:9px 14px" onclick="addCli()">Agregar</button>
         </div>
-        <div class="tag-list" id="tlist"></div>
+        <div class="tgl" id="tgl"></div>
       </div>
     </div>
 
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
-<div class="overlay" id="overlay">
-  <div class="modal">
-    <div class="mhd"><h3 id="mtit">Detalle</h3><button class="mcls" onclick="closeModal()">×</button></div>
-    <div id="mbody"></div>
+<div class="toast" id="tst"></div>
+<div class="ov" id="ov">
+  <div class="mo">
+    <div class="mh"><h3 id="mtt">Detalle</h3><button class="mc" onclick="closeMod()">×</button></div>
+    <div id="mbd"></div>
   </div>
 </div>
 
 <script>
 const API = 'https://script.google.com/macros/s/AKfycbweMLaJtFXlXP74ALJDtI9NTdf9qhAae4fNU_AimPYErFJLO9Im9FgqRvff-N3NZvd4/exec';
-const TABS = {
-  colaborador: ['solicitud','comprobacion'],
-  finanzas:    ['solicitud','comprobacion','finanzas','catalogo'],
-  direccion:   ['solicitud','comprobacion','finanzas','direccion','catalogo']
-};
-const TLBL = {solicitud:'Nueva solicitud',comprobacion:'Comprobación',finanzas:'Finanzas',direccion:'Dirección General',catalogo:'Catálogo'};
-const RLBL = {colaborador:'Colaborador',finanzas:'Finanzas',direccion:'Dirección General'};
 
-let session=null, sols=[], clis=[], gastos=[], docs=[];
-
-// ── LOGIN ─────────────────────────────────────────────
 // ══════════════════════════════════════════════════════
-//  USUARIOS — edita directamente aquí o en tu Google Sheet
-//  Formato: usuario: { password, equipo, rol }
+//  USUARIOS — para cambiar contraseñas edita aquí
 // ══════════════════════════════════════════════════════
 const USUARIOS = {
-  'miriam':      { password: 'miriam2024',     equipo: 'Equipo Miriam',  rol: 'colaborador' },
-  'hector':      { password: 'hector2024',     equipo: 'Equipo Hector',  rol: 'colaborador' },
-  'victor':      { password: 'victor2024',     equipo: 'Equipo Victor',  rol: 'colaborador' },
-  'callcenter':  { password: 'callcenter2024', equipo: 'Call Center',    rol: 'colaborador' },
-  'admin':       { password: 'admin2024',      equipo: 'Administración', rol: 'colaborador' },
-  'finanzas':    { password: 'finanzas2024',   equipo: 'Finanzas',       rol: 'finanzas'    },
-  'dg':          { password: 'dg2024',         equipo: 'DG',             rol: 'direccion'   },
+  miriam:     { pw: 'miriam2024',     eq: 'Equipo Miriam',  rol: 'c' },
+  hector:     { pw: 'hector2024',     eq: 'Equipo Hector',  rol: 'c' },
+  victor:     { pw: 'victor2024',     eq: 'Equipo Victor',  rol: 'c' },
+  callcenter: { pw: 'callcenter2024', eq: 'Call Center',    rol: 'c' },
+  admin:      { pw: 'admin2024',      eq: 'Administración', rol: 'c' },
+  finanzas:   { pw: 'finanzas2024',   eq: 'Finanzas',       rol: 'f' },
+  dg:         { pw: 'dg2024',         eq: 'DG',             rol: 'd' }
 };
 
+const TABS = {
+  c: [['ss','Nueva solicitud'],['sc','Comprobación']],
+  f: [['ss','Nueva solicitud'],['sc','Comprobación'],['sf','Finanzas'],['scat','Catálogo']],
+  d: [['ss','Nueva solicitud'],['sc','Comprobación'],['sf','Finanzas'],['sd2','Dirección General'],['scat','Catálogo']]
+};
+const RLBL = { c:'Colaborador', f:'Finanzas', d:'Dirección General' };
+const RCLS = { c:'rc', f:'rf', d:'rd' };
+
+let ses=null, sols=[], clis=[], gastos=[], docs=[];
+
 function doLogin() {
-  const usr=document.getElementById('lusr').value.trim().toLowerCase();
-  const pwd=document.getElementById('lpwd').value;
-  const err=document.getElementById('lerr');
-  if(!usr||!pwd){err.textContent='Ingresa tu usuario y contraseña.';err.style.display='block';return;}
-  const user=USUARIOS[usr];
-  if(!user||user.password!==pwd){err.style.display='block';err.textContent='Usuario o contraseña incorrectos.';return;}
-  err.style.display='none';
-  session={ok:true, usuario:usr, equipo:user.equipo, rol:user.rol};
-  document.getElementById('login-wrap').style.display='none';
+  const u = document.getElementById('usr').value.trim().toLowerCase();
+  const p = document.getElementById('pwd').value;
+  const e = document.getElementById('lerr');
+  if (!u || !p) { e.textContent='Ingresa usuario y contraseña.'; e.style.display='block'; return; }
+  const usr = USUARIOS[u];
+  if (!usr || usr.pw !== p) { e.textContent='Usuario o contraseña incorrectos.'; e.style.display='block'; return; }
+  e.style.display='none';
+  ses = { u, eq: usr.eq, rol: usr.rol };
+  document.getElementById('lw').style.display='none';
   document.getElementById('app').style.display='block';
-  document.getElementById('hsub').textContent=user.equipo;
-  const pill=document.getElementById('rpill');
-  pill.textContent=RLBL[user.rol]||user.rol;
-  pill.className='role-pill role-'+user.rol;
-  buildNav(); loadClis();
-  document.getElementById('ffecha').value=new Date().toISOString().split('T')[0];
-  document.getElementById('fsol').value=user.equipo;
+  document.getElementById('hsl').textContent = usr.eq;
+  const rpl = document.getElementById('rpl');
+  rpl.textContent = RLBL[usr.rol];
+  rpl.className = 'rpl ' + RCLS[usr.rol];
+  buildNav();
+  loadClis();
+  document.getElementById('ffe').value = new Date().toISOString().split('T')[0];
+  document.getElementById('fso').value = usr.eq;
 }
 
-function doLogout(){
-  session=null;
-  document.getElementById('lusr').value='';
-  document.getElementById('lpwd').value='';
+function doLogout() {
+  ses = null;
+  document.getElementById('usr').value='';
+  document.getElementById('pwd').value='';
   document.getElementById('app').style.display='none';
-  document.getElementById('login-wrap').style.display='flex';
+  document.getElementById('lw').style.display='flex';
 }
 
-function buildNav(){
-  const tabs=TABS[session.rol]||['solicitud'];
-  document.getElementById('nav').innerHTML=tabs.map((t,i)=>`<button class="nav-btn${i===0?' active':''}" onclick="go('${t}',this)">${TLBL[t]}</button>`).join('');
-  document.querySelectorAll('.section').forEach(e=>e.classList.remove('active'));
-  document.getElementById('sec-'+tabs[0]).classList.add('active');
-  if(tabs[0]==='finanzas') loadSols('finanzas');
+function buildNav() {
+  const tabs = TABS[ses.rol] || TABS.c;
+  document.getElementById('nav').innerHTML = tabs.map((t,i) =>
+    '<button class="nb' + (i===0?' active':'') + '" onclick="go(\'' + t[0] + '\',this)">' + t[1] + '</button>'
+  ).join('');
+  document.querySelectorAll('.sc').forEach(function(e){ e.classList.remove('active'); });
+  document.getElementById(tabs[0][0]).classList.add('active');
+  if (tabs[0][0]==='sf') loadSols('f');
 }
 
-// ── API ───────────────────────────────────────────────
-async function apiCall(accion,data={}){
-  setSS('loading','Sincronizando...');
-  try{
-    let res;
-    if(accion==='obtenerSolicitudes'||accion==='obtenerClientes') res=await fetch(API+'?accion='+accion);
-    else res=await fetch(API,{method:'POST',body:JSON.stringify({accion,...data})});
-    const j=await res.json();setSS('ok','Conectado');return j;
-  }catch(e){setSS('error','Sin conexión');return{ok:false,error:e.message};}
+function go(id, btn) {
+  document.querySelectorAll('.sc').forEach(function(e){ e.classList.remove('active'); });
+  document.querySelectorAll('.nb').forEach(function(e){ e.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  if (id==='sf') loadSols('f');
+  if (id==='sd2') loadSols('d');
+  if (id==='scat') loadClis();
+  if (id==='sc') loadSols('silent').then(function(){ poblarFolios(); });
 }
-function setSS(s,t){
-  const d=document.getElementById('sdot'),tx=document.getElementById('stxt');
-  if(d) d.className='sdot'+(s==='loading'?' loading':s==='error'?' error':'');
+
+async function apiCall(accion, data) {
+  data = data || {};
+  setSS('ld','Sincronizando...');
+  try {
+    var res;
+    if (accion==='obtenerSolicitudes' || accion==='obtenerClientes') {
+      res = await fetch(API + '?accion=' + accion);
+    } else {
+      res = await fetch(API, { method:'POST', body: JSON.stringify(Object.assign({ accion: accion }, data)) });
+    }
+    var j = await res.json();
+    setSS('ok','Conectado');
+    return j;
+  } catch(e) {
+    setSS('er','Sin conexión');
+    return { ok:false, error:e.message };
+  }
+}
+
+function setSS(s,t) {
+  var d=document.getElementById('sd'), tx=document.getElementById('stx');
+  if(d) d.className='sd'+(s==='ld'?' ld':s==='er'?' er':'');
   if(tx) tx.textContent=t;
 }
 
-// ── TOAST ─────────────────────────────────────────────
-function toast(msg,tipo){
-  const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';
-  const c={ok:['#EAF3DE','#27500A','1px solid #C0DD97'],error:['#FCEBEB','#791F1F','1px solid #F7C1C1'],warn:['#FAEEDA','#633806','1px solid #FAC775']};
-  const[bg,color,border]=c[tipo||'ok'];
-  Object.assign(t.style,{background:bg,color,border});
-  setTimeout(()=>t.style.display='none',3500);
+function toast(msg,tipo) {
+  var t=document.getElementById('tst');
+  t.textContent=msg; t.style.display='block';
+  var c={ok:['#EAF3DE','#27500A','1px solid #C0DD97'],error:['#FCEBEB','#791F1F','1px solid #F7C1C1'],warn:['#FAEEDA','#633806','1px solid #FAC775']};
+  var r=c[tipo||'ok'];
+  t.style.background=r[0]; t.style.color=r[1]; t.style.border=r[2];
+  setTimeout(function(){ t.style.display='none'; }, 3500);
 }
 
-// ── NAV ───────────────────────────────────────────────
-function go(sec,btn){
-  document.querySelectorAll('.section').forEach(e=>e.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(e=>e.classList.remove('active'));
-  document.getElementById('sec-'+sec).classList.add('active');btn.classList.add('active');
-  if(sec==='finanzas') loadSols('finanzas');
-  if(sec==='direccion') loadSols('direccion');
-  if(sec==='catalogo') loadClis();
-  if(sec==='comprobacion') loadSols('silent').then(()=>poblarFolios());
+function chkTramite() {
+  var v=document.getElementById('ftr').value;
+  document.getElementById('otr-wrap').style.display = v==='otro' ? 'block' : 'none';
 }
 
-// ── TRÁMITE OTRO ──────────────────────────────────────
-function checkOtroTramite(){
-  const v=document.getElementById('ftramite').value;
-  document.getElementById('otro-tramite-wrap').style.display=v==='otro'?'block':'none';
+function chkCliente() {
+  var v=document.getElementById('fcs').value;
+  document.getElementById('ocl-wrap').style.display = v==='otro' ? 'block' : 'none';
 }
 
-// ── CONCEPTO OBLIGATORIO SI REEMBOLSABLE ─────────────
-function toggleConcepto(radio){
-  const w=document.getElementById('concepto-wrap');
-  w.style.display=radio.value==='si'?'block':'none';
-  if(radio.value!=='si') document.getElementById('fconc').value='';
+function chkReemb(r) {
+  document.getElementById('conc-wrap').style.display = r.value==='si' ? 'block' : 'none';
+  if (r.value!=='si') document.getElementById('fco').value='';
 }
 
-// ── CLIENTES ──────────────────────────────────────────
-async function loadClis(){const r=await apiCall('obtenerClientes');if(r.ok&&r.clientes){clis=r.clientes;renderTags();}}
-async function addCli(){
-  const inp=document.getElementById('ncli'),val=inp.value.trim();
-  if(!val) return;
-  if(clis.includes(val)){toast('Ya existe','warn');return;}
-  const r=await apiCall('agregarCliente',{nombre:val});
-  if(r.ok){clis.push(val);inp.value='';renderTags();toast('Cliente agregado');}
+function getCliente() {
+  var v=document.getElementById('fcs').value;
+  return v==='otro' ? document.getElementById('focl').value.trim() : v;
+}
+
+async function loadClis() {
+  var r = await apiCall('obtenerClientes');
+  if (r.ok && r.clientes) { clis=r.clientes; renderTags(); renderCliSelect(); }
+}
+
+async function addCli() {
+  var inp=document.getElementById('ncl'), val=inp.value.trim();
+  if (!val) return;
+  if (clis.indexOf(val)>-1) { toast('Ya existe','warn'); return; }
+  var r = await apiCall('agregarCliente',{ nombre:val });
+  if (r.ok) { clis.push(val); inp.value=''; renderTags(); renderCliSelect(); toast('Cliente agregado'); }
   else toast('Error al guardar','error');
 }
-function delCli(n){clis=clis.filter(c=>c!==n);renderTags();}
-function renderTags(){
-  const el=document.getElementById('tlist');
-  if(el) el.innerHTML=clis.map(c=>`<div class="tag">${c}<span class="tagx" onclick="delCli('${c.replace(/'/g,"\'")}')">×</span></div>`).join('');
-  const sel=document.getElementById('fcli-select');
-  if(sel){
-    const cur=sel.value;
-    sel.innerHTML='<option value="">-- Selecciona el cliente --</option>'+
-      clis.map(c=>`<option value="${c}">${c}</option>`).join('')+
-      '<option value="otro">Otro (cliente nuevo)</option>';
-    if(cur) sel.value=cur;
-  }
-}
-function checkOtroCliente(){
-  const v=document.getElementById('fcli-select').value;
-  document.getElementById('otro-cliente-wrap').style.display=v==='otro'?'block':'none';
-  if(v!=='otro') document.getElementById('fcli-otro').value='';
-}
-function getClienteValue(){
-  const v=document.getElementById('fcli-select').value;
-  if(v==='otro') return document.getElementById('fcli-otro').value.trim();
-  return v;
-}<span class="tagx" onclick="delCli('${c.replace(/'/g,"\\'")}')">×</span></div>`).join('');}
 
-// ── DROPDOWN ──────────────────────────────────────────
-function filtDD(iid,did){const q=document.getElementById(iid).value.toLowerCase();renderDD(did,clis.filter(c=>c.toLowerCase().includes(q)),q,iid);document.getElementById(did).classList.add('open');}
-function openDD(iid,did){renderDD(did,clis,'',iid);document.getElementById(did).classList.add('open');}
-function closeDD(did){document.getElementById(did).classList.remove('open');}
-function renderDD(did,lista,q,iid){
-  const dd=document.getElementById(did);
-  let h=lista.map(c=>`<div class="ddopt" onmousedown="selDD('${iid}','${c.replace(/'/g,"\\'")}','${did}')">${c}</div>`).join('');
-  if(q&&!clis.find(c=>c.toLowerCase()===q)) h+=`<div class="ddopt new" onmousedown="addSelDD('${iid}','${q.replace(/'/g,"\\'")}','${did}')">+ Agregar "${q}"</div>`;
-  if(!h) h=`<div style="padding:9px 12px;font-size:13px;color:var(--text-3)">Sin resultados</div>`;
-  dd.innerHTML=h;
-}
-function selDD(iid,val,did){document.getElementById(iid).value=val;closeDD(did);}
-function addSelDD(iid,val,did){if(!clis.includes(val))clis.push(val);selDD(iid,val,did);}
+function delCli(n) { clis=clis.filter(function(c){ return c!==n; }); renderTags(); renderCliSelect(); }
 
-// ── LETRA ─────────────────────────────────────────────
-function updLetra(){document.getElementById('fletra').value=numL(document.getElementById('fcant').value);}
-function numL(n){
-  const u=['','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho','diecinueve'];
-  const d=['','','veinte','treinta','cuarenta','cincuenta','sesenta','setenta','ochenta','noventa'];
-  const c=['','cien','doscientos','trescientos','cuatrocientos','quinientos','seiscientos','setecientos','ochocientos','novecientos'];
-  n=parseInt(n);if(!n||isNaN(n))return'';
-  let r='';
-  if(n>=1000){r+=(Math.floor(n/1000)===1?'mil':sub2(Math.floor(n/1000))+' mil');n=n%1000;if(n)r+=' ';}
-  if(n>=100){r+=c[Math.floor(n/100)];n=n%100;if(n)r+=' ';}
-  if(n>0){if(n<20)r+=u[n];else{r+=d[Math.floor(n/10)];if(n%10)r+=' y '+u[n%10];}}
+function renderTags() {
+  var el=document.getElementById('tgl');
+  if (!el) return;
+  el.innerHTML = clis.map(function(c){
+    return '<div class="tg">' + c + '<span class="tx" onclick="delCli(\'' + c.replace(/'/g,"\\'") + '\')">×</span></div>';
+  }).join('');
+}
+
+function renderCliSelect() {
+  var sel=document.getElementById('fcs');
+  if (!sel) return;
+  var cur=sel.value;
+  sel.innerHTML = '<option value="">-- Selecciona el cliente --</option>' +
+    clis.map(function(c){ return '<option value="' + c + '">' + c + '</option>'; }).join('') +
+    '<option value="otro">Otro (cliente nuevo)</option>';
+  if (cur) sel.value=cur;
+}
+
+function updL() { document.getElementById('fle').value = numL(document.getElementById('fca').value); }
+
+function numL(n) {
+  var u=['','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho','diecinueve'];
+  var d=['','','veinte','treinta','cuarenta','cincuenta','sesenta','setenta','ochenta','noventa'];
+  var c=['','cien','doscientos','trescientos','cuatrocientos','quinientos','seiscientos','setecientos','ochocientos','novecientos'];
+  n=parseInt(n); if(!n||isNaN(n)) return '';
+  var r='';
+  if(n>=1000){ r+=(Math.floor(n/1000)===1?'mil':sb(Math.floor(n/1000))+' mil'); n=n%1000; if(n)r+=' '; }
+  if(n>=100){ r+=c[Math.floor(n/100)]; n=n%100; if(n)r+=' '; }
+  if(n>0){ if(n<20)r+=u[n]; else{ r+=d[Math.floor(n/10)]; if(n%10)r+=' y '+u[n%10]; } }
   return r.charAt(0).toUpperCase()+r.slice(1)+' pesos 00/100 M.N.';
 }
-function sub2(n){const u=['','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve'];const d=['','','veinte','treinta','cuarenta','cincuenta','sesenta','setenta','ochenta','noventa'];if(n<10)return u[n];if(n<20)return['diez','once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho','diecinueve'][n-10];return d[Math.floor(n/10)]+(n%10?' y '+u[n%10]:'');}
+function sb(n) {
+  var u=['','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve'];
+  var d=['','','veinte','treinta','cuarenta','cincuenta','sesenta','setenta','ochenta','noventa'];
+  if(n<10)return u[n];
+  if(n<20)return['diez','once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho','diecinueve'][n-10];
+  return d[Math.floor(n/10)]+(n%10?' y '+u[n%10]:'');
+}
 
-// ── ENVIAR SOLICITUD ──────────────────────────────────
-async function envSol(){
-  const s=document.getElementById('fsol').value;
-  const dest=document.getElementById('fdest').value;
-  const cant=document.getElementById('fcant').value;
-  const mot=document.getElementById('fmot').value;
-  const tramiteVal=document.getElementById('ftramite').value;
-  const tramite=tramiteVal==='otro'?document.getElementById('fotrotramite').value:tramiteVal;
-  const esReemb=document.querySelector('input[name="remb"]:checked').value==='si';
-  const concepto=document.getElementById('fconc').value;
-  if(!s||!dest||!cant||!mot||!tramite){toast('Completa todos los campos obligatorios','error');return;}
-  if(esReemb&&!concepto){
-    document.getElementById('fconc').classList.add('concepto-required');
-    toast('El concepto de reembolso es obligatorio','error');return;
-  }
-  document.getElementById('fconc').classList.remove('concepto-required');
-  const btn=document.getElementById('btnenv');btn.disabled=true;btn.textContent='Guardando...';
-  const r=await apiCall('guardarSolicitud',{
-    solicitante:s,equipo:session?session.equipo:'',destino:dest,
-    receptor:document.getElementById('frec').value,jefe:document.getElementById('fjefe').value,
-    fechaSolicitud:document.getElementById('ffecha').value,
-    fechaEntrega:document.getElementById('ffentrega').value,
-    cantidad:parseFloat(cant),letra:document.getElementById('fletra').value,
-    cliente:getClienteValue(),tramite,
-    reembolsable:esReemb,concepto,motivo:mot
+async function envSol() {
+  var so=document.getElementById('fso').value;
+  var de=document.getElementById('fde').value;
+  var ca=document.getElementById('fca').value;
+  var mo=document.getElementById('fmo').value;
+  var tv=document.getElementById('ftr').value;
+  var tr=tv==='otro'?document.getElementById('fotr').value:tv;
+  var esR=document.querySelector('input[name="rmb"]:checked').value==='si';
+  var co=document.getElementById('fco').value;
+  if(!so||!de||!ca||!mo||!tr){ toast('Completa todos los campos obligatorios','error'); return; }
+  if(esR&&!co){ document.getElementById('fco').style.borderColor='var(--red)'; toast('El concepto de reembolso es obligatorio','error'); return; }
+  document.getElementById('fco').style.borderColor='';
+  var btn=document.getElementById('benv'); btn.disabled=true; btn.textContent='Guardando...';
+  var r=await apiCall('guardarSolicitud',{
+    solicitante:so, equipo:ses?ses.eq:'', destino:de,
+    receptor:document.getElementById('fre').value, jefe:document.getElementById('fje').value,
+    fechaSolicitud:document.getElementById('ffe').value, fechaEntrega:document.getElementById('fen').value,
+    cantidad:parseFloat(ca), letra:document.getElementById('fle').value,
+    cliente:getCliente(), tramite:tr, reembolsable:esR, concepto:co, motivo:mo
   });
   if(r.ok){
     toast('Solicitud '+r.folio+' guardada en Google Sheets');
-    ['fdest','frec','fjefe','fcant','fletra','fconc','fmot'].forEach(id=>document.getElementById(id).value='');document.getElementById('fcli-select').value='';document.getElementById('otro-cliente-wrap').style.display='none';
-    document.getElementById('ftramite').value='';
-    document.getElementById('otro-tramite-wrap').style.display='none';
-    document.getElementById('concepto-wrap').style.display='none';
-    document.querySelector('input[name="remb"][value="no"]').checked=true;
+    ['fde','fre','fje','fca','fle','fco','fmo'].forEach(function(id){ document.getElementById(id).value=''; });
+    document.getElementById('ftr').value=''; document.getElementById('fcs').value='';
+    document.getElementById('otr-wrap').style.display='none';
+    document.getElementById('ocl-wrap').style.display='none';
+    document.getElementById('conc-wrap').style.display='none';
+    document.querySelector('input[name="rmb"][value="no"]').checked=true;
   } else toast('Error al guardar','error');
-  btn.disabled=false;btn.textContent='Enviar solicitud a Finanzas';
+  btn.disabled=false; btn.textContent='Enviar solicitud a Finanzas';
 }
 
-// ── SOLICITUDES ───────────────────────────────────────
-async function loadSols(vista){
-  if(vista!=='silent'){const l=vista==='finanzas'?'lfin':'ldir';document.getElementById(l).innerHTML='<p class="empty">Cargando...</p>';}
-  const r=await apiCall('obtenerSolicitudes');
-  if(!r.ok){if(vista!=='silent'){const l=vista==='finanzas'?'lfin':'ldir';document.getElementById(l).innerHTML='<p class="empty" style="color:var(--red)">Error al cargar.</p>';}return;}
+async function loadSols(vista) {
+  if(vista!=='silent'){
+    var l=vista==='f'?'lf':'ld';
+    document.getElementById(l).innerHTML='<p class="em">Cargando...</p>';
+  }
+  var r=await apiCall('obtenerSolicitudes');
+  if(!r.ok){ if(vista!=='silent'){ var l2=vista==='f'?'lf':'ld'; document.getElementById(l2).innerHTML='<p class="em" style="color:var(--red)">Error al cargar.</p>'; } return; }
   sols=r.solicitudes||[];
-  if(vista==='finanzas') renderFin();
-  else if(vista==='direccion') renderDir();
+  if(vista==='f') renderF();
+  else if(vista==='d') renderD();
 }
 
-function sBC(s){return{Pendiente:'b-pendiente','En revisión':'b-revision',Revisado:'b-revision',Autorizado:'b-autorizado',Entregado:'b-entregado','Por comprobar':'b-porcomprobar',Comprobado:'b-comprobado',Rechazado:'b-rechazado'}[s]||'';}
-
-function renderFin(){
-  document.getElementById('m1').textContent=sols.filter(s=>['Pendiente','En revisión'].includes(s.estatus)).length;
-  document.getElementById('m2').textContent=sols.filter(s=>s.estatus==='Autorizado').length;
-  document.getElementById('m3').textContent=sols.filter(s=>s.estatus==='Por comprobar').length;
-  document.getElementById('m4').textContent='$'+sols.reduce((a,s)=>a+(parseFloat(s.cantidad)||0),0).toLocaleString('es-MX',{minimumFractionDigits:2});
-  const el=document.getElementById('lfin');
-  if(!sols.length){el.innerHTML='<p class="empty">No hay solicitudes aún.</p>';return;}
-  el.innerHTML=sols.map(s=>`<div class="tdr"><span><span class="badge bfolio">${s.folio}</span></span><span>${s.solicitante}<br><span style="font-size:11px;color:var(--text-3)">${s.equipo||''}</span></span><span><span class="badge ${sBC(s.estatus)}">${s.estatus}</span></span><span style="color:var(--text-2);font-size:12px">${s.cliente||'—'}</span><div class="acts">${s.estatus==='Pendiente'?`<button class="btn-sm btn-info" onclick="cambiar(${s.folio},'En revisión','finanzas')">Revisar</button>`:''}${s.estatus==='En revisión'?`<button class="btn-sm btn-success" onclick="cambiar(${s.folio},'Revisado','finanzas')">Aprobar</button><button class="btn-sm btn-danger" onclick="cambiar(${s.folio},'Rechazado','finanzas')">Regresar</button>`:''}${s.estatus==='Autorizado'?`<button class="btn-sm btn-purple" onclick="cambiar(${s.folio},'Entregado','finanzas')">Marcar entregado</button>`:''}${s.estatus==='Por comprobar'?`<button class="btn-sm btn-success" onclick="abrirValidacion(${s.folio})">Validar</button><button class="btn-sm btn-danger" onclick="cambiar(${s.folio},'Entregado','finanzas')">Regresar</button>`:''}${s.estatus==='Revisado'?`<span style="font-size:12px;color:var(--text-3)">Esperando DG</span>`:''}${s.estatus==='Comprobado'?`<span class="badge b-comprobado">Comprobado</span>`:''}${s.estatus==='Rechazado'?`<span class="badge b-rechazado">Rechazado</span>`:''}<button class="btn-sm" onclick="verD(${s.folio})">Ver</button></div></div>`).join('');
+function sBC(s) {
+  return {Pendiente:'bp0','En revisión':'bp1',Revisado:'bp1',Autorizado:'bp2',Entregado:'bp3','Por comprobar':'bp4',Comprobado:'bp5',Rechazado:'bp6'}[s]||'';
 }
 
-function renderDir(){
-  document.getElementById('d1').textContent=sols.filter(s=>s.estatus==='Revisado').length;
-  document.getElementById('d2').textContent=sols.filter(s=>['Autorizado','Entregado','Por comprobar','Comprobado'].includes(s.estatus)).length;
-  document.getElementById('d3').textContent=sols.filter(s=>s.estatus==='Comprobado').length;
-  document.getElementById('d4').textContent=sols.filter(s=>['Entregado','Por comprobar'].includes(s.estatus)).length;
-  const mostrar=sols.filter(s=>['Revisado','Autorizado','Entregado','Por comprobar','Comprobado'].includes(s.estatus));
-  const el=document.getElementById('ldir');
-  if(!mostrar.length){el.innerHTML='<p class="empty">No hay solicitudes revisadas todavía.</p>';return;}
-  el.innerHTML=mostrar.map(s=>`<div class="tdr"><span><span class="badge bfolio">${s.folio}</span></span><span>${s.solicitante}<br><span style="font-size:11px;color:var(--text-3)">${s.equipo||''}</span></span><span><span class="badge ${sBC(s.estatus)}">${s.estatus}</span></span><span style="color:var(--text-2);font-size:12px">${s.cliente||'—'}</span><div class="acts">${s.estatus==='Revisado'?`<button class="btn-sm btn-success" onclick="cambiar(${s.folio},'Autorizado','direccion')">Autorizar</button><button class="btn-sm btn-danger" onclick="cambiar(${s.folio},'Rechazado','direccion')">Rechazar</button>`:''}${['Autorizado','Entregado','Por comprobar','Comprobado'].includes(s.estatus)?`<span class="badge ${sBC(s.estatus)}">${s.estatus}</span>`:''}<button class="btn-sm" onclick="verD(${s.folio})">Ver</button></div></div>`).join('');
+function renderF() {
+  document.getElementById('m1').textContent=sols.filter(function(s){ return ['Pendiente','En revisión'].indexOf(s.estatus)>-1; }).length;
+  document.getElementById('m2').textContent=sols.filter(function(s){ return s.estatus==='Autorizado'; }).length;
+  document.getElementById('m3').textContent=sols.filter(function(s){ return s.estatus==='Por comprobar'; }).length;
+  document.getElementById('m4').textContent='$'+sols.reduce(function(a,s){ return a+(parseFloat(s.cantidad)||0); },0).toLocaleString('es-MX',{minimumFractionDigits:2});
+  var el=document.getElementById('lf');
+  if(!sols.length){ el.innerHTML='<p class="em">No hay solicitudes aún.</p>'; return; }
+  el.innerHTML=sols.map(function(s){
+    var ac='';
+    if(s.estatus==='Pendiente') ac+='<button class="bs bi" onclick="cambiar('+s.folio+',\'En revisión\',\'f\')">Revisar</button>';
+    if(s.estatus==='En revisión') ac+='<button class="bs bsu" onclick="cambiar('+s.folio+',\'Revisado\',\'f\')">Aprobar</button><button class="bs bd" onclick="cambiar('+s.folio+',\'Rechazado\',\'f\')">Regresar</button>';
+    if(s.estatus==='Autorizado') ac+='<button class="bs bpu" onclick="cambiar('+s.folio+',\'Entregado\',\'f\')">Marcar entregado</button>';
+    if(s.estatus==='Por comprobar') ac+='<button class="bs bsu" onclick="abrirVal('+s.folio+')">Validar</button><button class="bs bd" onclick="cambiar('+s.folio+',\'Entregado\',\'f\')">Regresar</button>';
+    if(s.estatus==='Revisado') ac+='<span style="font-size:12px;color:var(--t3)">Esperando DG</span>';
+    if(s.estatus==='Comprobado') ac+='<span class="bg bp5">Comprobado</span>';
+    if(s.estatus==='Rechazado') ac+='<span class="bg bp6">Rechazado</span>';
+    ac+='<button class="bs" onclick="verD('+s.folio+')">Ver</button>';
+    return '<div class="td"><span><span class="bg bfo">'+s.folio+'</span></span><span>'+s.solicitante+'<br><span style="font-size:11px;color:var(--t3)">'+(s.equipo||'')+'</span></span><span><span class="bg '+sBC(s.estatus)+'">'+s.estatus+'</span></span><span style="color:var(--t2);font-size:12px">'+(s.cliente||'—')+'</span><div class="ac">'+ac+'</div></div>';
+  }).join('');
 }
 
-async function cambiar(folio,estatus,vista){
-  const r=await apiCall('actualizarEstatus',{folio,estatus});
-  if(r.ok){toast('Folio '+folio+': '+estatus);await loadSols(vista);}
+function renderD() {
+  document.getElementById('d1').textContent=sols.filter(function(s){ return s.estatus==='Revisado'; }).length;
+  document.getElementById('d2').textContent=sols.filter(function(s){ return ['Autorizado','Entregado','Por comprobar','Comprobado'].indexOf(s.estatus)>-1; }).length;
+  document.getElementById('d3').textContent=sols.filter(function(s){ return s.estatus==='Comprobado'; }).length;
+  document.getElementById('d4').textContent=sols.filter(function(s){ return ['Entregado','Por comprobar'].indexOf(s.estatus)>-1; }).length;
+  var mostrar=sols.filter(function(s){ return ['Revisado','Autorizado','Entregado','Por comprobar','Comprobado'].indexOf(s.estatus)>-1; });
+  var el=document.getElementById('ld');
+  if(!mostrar.length){ el.innerHTML='<p class="em">No hay solicitudes revisadas.</p>'; return; }
+  el.innerHTML=mostrar.map(function(s){
+    var ac='';
+    if(s.estatus==='Revisado') ac+='<button class="bs bsu" onclick="cambiar('+s.folio+',\'Autorizado\',\'d\')">Autorizar</button><button class="bs bd" onclick="cambiar('+s.folio+',\'Rechazado\',\'d\')">Rechazar</button>';
+    if(['Autorizado','Entregado','Por comprobar','Comprobado'].indexOf(s.estatus)>-1) ac+='<span class="bg '+sBC(s.estatus)+'">'+s.estatus+'</span>';
+    ac+='<button class="bs" onclick="verD('+s.folio+')">Ver</button>';
+    return '<div class="td"><span><span class="bg bfo">'+s.folio+'</span></span><span>'+s.solicitante+'<br><span style="font-size:11px;color:var(--t3)">'+(s.equipo||'')+'</span></span><span><span class="bg '+sBC(s.estatus)+'">'+s.estatus+'</span></span><span style="color:var(--t2);font-size:12px">'+(s.cliente||'—')+'</span><div class="ac">'+ac+'</div></div>';
+  }).join('');
+}
+
+async function cambiar(folio,estatus,vista) {
+  var r=await apiCall('actualizarEstatus',{folio:folio,estatus:estatus});
+  if(r.ok){ toast('Folio '+folio+': '+estatus); await loadSols(vista); }
   else toast('Error al actualizar','error');
 }
 
-// ── VALIDAR COMPROBACIÓN (Finanzas) ───────────────────
-function abrirValidacion(folio){
-  const s=sols.find(x=>x.folio==folio);
+function abrirVal(folio) {
+  var s=sols.find(function(x){ return x.folio==folio; });
   if(!s) return;
-  document.getElementById('mtit').textContent='Validar comprobación — Folio '+folio;
-  document.getElementById('mbody').innerHTML=`
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
-      <span class="badge bfolio">${s.folio}</span>
-      <span class="badge b-porcomprobar">Por comprobar</span>
-    </div>
-    <div class="drow"><span class="dk">Solicitante</span><span>${s.solicitante}</span></div>
-    <div class="drow"><span class="dk">Equipo</span><span>${s.equipo||'—'}</span></div>
-    <div class="drow"><span class="dk">Monto entregado</span><span style="font-weight:600">$${parseFloat(s.cantidad).toLocaleString('es-MX')}</span></div>
-    <div class="drow"><span class="dk">Cliente</span><span>${s.cliente||'—'}</span></div>
-    <div class="drow" style="border:none"><span class="dk">Trámite</span><span>${s.tramite||'—'}</span></div>
-    <div style="display:flex;gap:8px;margin-top:1rem">
-      <button class="btn-sm btn-success" style="flex:1;padding:11px;font-size:13px" onclick="validarComp(${folio},true)">Aprobar comprobación</button>
-      <button class="btn-sm btn-danger" style="flex:1;padding:11px;font-size:13px" onclick="validarComp(${folio},false)">Regresar al colaborador</button>
-    </div>`;
-  document.getElementById('overlay').classList.add('open');
+  document.getElementById('mtt').textContent='Validar — Folio '+folio;
+  document.getElementById('mbd').innerHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><span class="bg bfo">'+s.folio+'</span><span class="bg bp4">Por comprobar</span></div><div class="dr"><span class="dk">Equipo</span><span>'+(s.equipo||'—')+'</span></div><div class="dr"><span class="dk">Solicitante</span><span>'+s.solicitante+'</span></div><div class="dr"><span class="dk">Monto entregado</span><span style="font-weight:600">$'+parseFloat(s.cantidad).toLocaleString('es-MX')+'</span></div><div class="dr"><span class="dk">Cliente</span><span>'+(s.cliente||'—')+'</span></div><div class="dr" style="border:none"><span class="dk">Trámite</span><span>'+(s.tramite||'—')+'</span></div><div style="display:flex;gap:8px;margin-top:1rem"><button class="bs bsu" style="flex:1;padding:11px;font-size:13px" onclick="valComp('+folio+',true)">Aprobar comprobación</button><button class="bs bd" style="flex:1;padding:11px;font-size:13px" onclick="valComp('+folio+',false)">Regresar al colaborador</button></div>';
+  document.getElementById('ov').classList.add('open');
 }
 
-async function validarComp(folio,aprobado){
-  const r=await apiCall('validarComprobacion',{folio,aprobado});
-  if(r.ok){toast(aprobado?'Comprobación aprobada':'Comprobación regresada al colaborador');closeModal();await loadSols('finanzas');}
+async function valComp(folio,aprobado) {
+  var r=await apiCall('validarComprobacion',{folio:folio,aprobado:aprobado});
+  if(r.ok){ toast(aprobado?'Comprobación aprobada':'Regresada al colaborador'); closeMod(); await loadSols('f'); }
   else toast('Error','error');
 }
 
-// ── DETALLE ───────────────────────────────────────────
-function verD(folio){
-  const s=sols.find(x=>x.folio==folio);if(!s)return;
-  document.getElementById('mtit').textContent='Folio '+folio;
-  document.getElementById('mbody').innerHTML=`
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
-      <span class="badge bfolio">${s.folio}</span><span class="badge ${sBC(s.estatus)}">${s.estatus}</span>
-    </div>
-    <div class="drow"><span class="dk">Equipo</span><span>${s.equipo||'—'}</span></div>
-    <div class="drow"><span class="dk">Solicitante</span><span>${s.solicitante}</span></div>
-    <div class="drow"><span class="dk">Receptor</span><span>${s.receptor||'—'}</span></div>
-    <div class="drow"><span class="dk">Destino</span><span>${s.destino}</span></div>
-    <div class="drow"><span class="dk">Trámite</span><span>${s.tramite||'—'}</span></div>
-    <div class="drow"><span class="dk">Fecha solicitud</span><span>${s.fechaSolicitud}</span></div>
-    <div class="drow"><span class="dk">Cantidad</span><span style="font-weight:600">$${parseFloat(s.cantidad).toLocaleString('es-MX')}</span></div>
-    <div class="drow"><span class="dk">Con letra</span><span style="font-size:12px;text-align:right;max-width:55%">${s.letra||'—'}</span></div>
-    <div class="drow"><span class="dk">Cliente</span><span>${s.cliente||'—'}</span></div>
-    <div class="drow"><span class="dk">Reembolsable</span><span>${s.reembolsable?'Sí':'No'}</span></div>
-    ${s.reembolsable&&s.concepto?`<div class="drow"><span class="dk">Concepto reembolso</span><span style="text-align:right;max-width:55%">${s.concepto}</span></div>`:''}
-    <div class="drow"><span class="dk">Jefe de área</span><span>${s.jefe||'—'}</span></div>
-    <div class="drow" style="border:none"><span class="dk">Motivo</span><span style="text-align:right;max-width:55%">${s.motivo||'—'}</span></div>`;
-  document.getElementById('overlay').classList.add('open');
+function verD(folio) {
+  var s=sols.find(function(x){ return x.folio==folio; });
+  if(!s) return;
+  document.getElementById('mtt').textContent='Folio '+folio;
+  document.getElementById('mbd').innerHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><span class="bg bfo">'+s.folio+'</span><span class="bg '+sBC(s.estatus)+'">'+s.estatus+'</span></div><div class="dr"><span class="dk">Equipo</span><span>'+(s.equipo||'—')+'</span></div><div class="dr"><span class="dk">Solicitante</span><span>'+s.solicitante+'</span></div><div class="dr"><span class="dk">Receptor</span><span>'+(s.receptor||'—')+'</span></div><div class="dr"><span class="dk">Destino</span><span>'+s.destino+'</span></div><div class="dr"><span class="dk">Trámite</span><span>'+(s.tramite||'—')+'</span></div><div class="dr"><span class="dk">Fecha</span><span>'+s.fechaSolicitud+'</span></div><div class="dr"><span class="dk">Cantidad</span><span style="font-weight:600">$'+parseFloat(s.cantidad).toLocaleString('es-MX')+'</span></div><div class="dr"><span class="dk">Con letra</span><span style="font-size:12px;text-align:right;max-width:55%">'+(s.letra||'—')+'</span></div><div class="dr"><span class="dk">Cliente</span><span>'+(s.cliente||'—')+'</span></div><div class="dr"><span class="dk">Reembolsable</span><span>'+(s.reembolsable?'Sí':'No')+'</span></div>'+(s.reembolsable&&s.concepto?'<div class="dr"><span class="dk">Concepto</span><span style="text-align:right;max-width:55%">'+s.concepto+'</span></div>':'')+'<div class="dr"><span class="dk">Jefe de área</span><span>'+(s.jefe||'—')+'</span></div><div class="dr" style="border:none"><span class="dk">Motivo</span><span style="text-align:right;max-width:55%">'+(s.motivo||'—')+'</span></div>';
+  document.getElementById('ov').classList.add('open');
 }
 
-// ── COMPROBACIÓN ──────────────────────────────────────
-function poblarFolios(){
-  const el=sols.filter(s=>s.estatus==='Entregado'||s.estatus==='Por comprobar');
-  const sel=document.getElementById('cfolio');
+function poblarFolios() {
+  var el=sols.filter(function(s){ return s.estatus==='Entregado'||s.estatus==='Por comprobar'; });
+  var sel=document.getElementById('cfo');
   sel.innerHTML='<option value="">-- Selecciona tu folio --</option>'+
-    el.map(s=>`<option value="${s.folio}">Folio ${s.folio} — ${s.solicitante} — ${s.destino} — $${parseFloat(s.cantidad).toLocaleString('es-MX')} — ${s.fechaSolicitud}</option>`).join('');
+    el.map(function(s){ return '<option value="'+s.folio+'">Folio '+s.folio+' — '+s.solicitante+' — '+s.destino+' — $'+parseFloat(s.cantidad).toLocaleString('es-MX')+' — '+s.fechaSolicitud+'</option>'; }).join('');
   if(!el.length) sel.innerHTML='<option value="">No hay solicitudes entregadas aún</option>';
-  document.getElementById('cbody').style.display='none';
-  document.getElementById('fdetail').style.display='none';
-  gastos=[];docs=[];
+  document.getElementById('cbdy').style.display='none';
+  document.getElementById('fdt').style.display='none';
+  gastos=[]; docs=[];
 }
 
-function loadComp(){
-  const folio=document.getElementById('cfolio').value;
-  const s=sols.find(x=>x.folio==folio);
-  const det=document.getElementById('fdetail');
-  if(!s){document.getElementById('cbody').style.display='none';det.style.display='none';return;}
+function loadComp() {
+  var folio=document.getElementById('cfo').value;
+  var s=sols.find(function(x){ return x.folio==folio; });
+  var det=document.getElementById('fdt');
+  if(!s){ document.getElementById('cbdy').style.display='none'; det.style.display='none'; return; }
   det.style.display='block';
-  det.innerHTML=`<strong>Folio ${s.folio}</strong> — ${s.solicitante} (${s.equipo||''})<br>Destino: ${s.destino} · Trámite: ${s.tramite||'—'} · Cliente: ${s.cliente||'Sin cliente'}<br>Monto entregado: <strong>$${parseFloat(s.cantidad).toLocaleString('es-MX',{minimumFractionDigits:2})}</strong> · Fecha: ${s.fechaSolicitud}<br>Motivo: ${s.motivo}`;
-  document.getElementById('cbody').style.display='block';
-  gastos=[];docs=[];renderG();renderDocList();updRes();
+  det.innerHTML='<strong>Folio '+s.folio+'</strong> — '+s.solicitante+' ('+( s.equipo||'')+')' +'<br>Destino: '+s.destino+' · Trámite: '+(s.tramite||'—')+' · Cliente: '+(s.cliente||'Sin cliente')+'<br>Monto entregado: <strong>$'+parseFloat(s.cantidad).toLocaleString('es-MX',{minimumFractionDigits:2})+'</strong> · Fecha: '+s.fechaSolicitud+'<br>Motivo: '+s.motivo;
+  document.getElementById('cbdy').style.display='block';
+  gastos=[]; docs=[]; renderG(); renderDL(); updR();
 }
 
-function addG(){gastos.push({fecha:'',tipo:'Traslado',concepto:'',monto:0});renderG();updRes();}
-function renderG(){
-  document.getElementById('gbody').innerHTML=gastos.map((g,i)=>`<tr><td><input type="date" value="${g.fecha}" onchange="gastos[${i}].fecha=this.value" style="width:110px"></td><td><select onchange="gastos[${i}].tipo=this.value">${['Traslado','Pasaje','Hospedaje','Alimentación','Expediente/Cuenta','Otros'].map(t=>`<option ${g.tipo===t?'selected':''}>${t}</option>`).join('')}</select></td><td><input value="${g.concepto}" placeholder="Descripción..." onchange="gastos[${i}].concepto=this.value"></td><td><input type="number" value="${g.monto||''}" placeholder="0.00" style="width:80px" oninput="gastos[${i}].monto=parseFloat(this.value)||0;updRes()"></td><td><button onclick="gastos.splice(${i},1);renderG();updRes()" style="background:none;border:none;cursor:pointer;color:var(--text-3);font-size:17px">×</button></td></tr>`).join('');
+function addG() { gastos.push({fecha:'',tipo:'Traslado',concepto:'',monto:0}); renderG(); updR(); }
+function renderG() {
+  document.getElementById('gb').innerHTML=gastos.map(function(g,i){
+    return '<tr><td><input type="date" value="'+g.fecha+'" onchange="gastos['+i+'].fecha=this.value" style="width:110px"></td><td><select onchange="gastos['+i+'].tipo=this.value">'+['Traslado','Pasaje','Hospedaje','Alimentación','Expediente/Cuenta','Otros'].map(function(t){ return '<option'+(g.tipo===t?' selected':'')+'>'+t+'</option>'; }).join('')+'</select></td><td><input value="'+g.concepto+'" placeholder="Descripción..." onchange="gastos['+i+'].concepto=this.value"></td><td><input type="number" value="'+(g.monto||'')+'" placeholder="0.00" style="width:80px" oninput="gastos['+i+'].monto=parseFloat(this.value)||0;updR()"></td><td><button onclick="gastos.splice('+i+',1);renderG();updR()" style="background:none;border:none;cursor:pointer;color:var(--t3);font-size:17px">×</button></td></tr>';
+  }).join('');
 }
 
-function updRes(){
-  const folio=document.getElementById('cfolio').value;
-  const s=sols.find(x=>x.folio==folio);
-  const rec=s?parseFloat(s.cantidad):0;
-  const gast=gastos.reduce((a,g)=>a+(g.monto||0),0);
-  const dif=rec-gast;
-  document.getElementById('rrec').textContent='$'+rec.toFixed(2);
-  document.getElementById('rgast').textContent='$'+gast.toFixed(2);
-  document.getElementById('rdif').textContent='$'+Math.abs(dif).toFixed(2);
-  const db=document.getElementById('devbox');
-  if(dif>0){document.getElementById('rlbl').textContent='Sobrante a devolver';document.getElementById('rdif').style.color='var(--blue)';db.innerHTML=`<div style="background:var(--blue-light);border-radius:var(--radius);padding:12px 14px;font-size:13px;color:#0C447C"><strong>Hay $${dif.toFixed(2)} de sobrante.</strong> Deberás devolverlo en efectivo a Finanzas.</div>`;}
-  else if(dif<0){document.getElementById('rlbl').textContent='Gasto mayor al entregado';document.getElementById('rdif').style.color='var(--red)';db.innerHTML=`<div style="background:var(--red-light);border-radius:var(--radius);padding:12px 14px;font-size:13px;color:var(--red)"><strong>El gasto excede $${Math.abs(dif).toFixed(2)} lo entregado.</strong> Finanzas revisará si aplica reembolso.</div>`;}
-  else if(rec>0){document.getElementById('rlbl').textContent='Diferencia';document.getElementById('rdif').style.color='var(--green)';db.innerHTML=`<div style="background:var(--green-light);border-radius:var(--radius);padding:12px 14px;font-size:13px;color:var(--green)">El gasto coincide exactamente. No hay devolución.</div>`;}
+function updR() {
+  var folio=document.getElementById('cfo').value;
+  var s=sols.find(function(x){ return x.folio==folio; });
+  var rec=s?parseFloat(s.cantidad):0;
+  var gast=gastos.reduce(function(a,g){ return a+(g.monto||0); },0);
+  var dif=rec-gast;
+  document.getElementById('rrc').textContent='$'+rec.toFixed(2);
+  document.getElementById('rgt').textContent='$'+gast.toFixed(2);
+  document.getElementById('rdf').textContent='$'+Math.abs(dif).toFixed(2);
+  var db=document.getElementById('dvb');
+  if(dif>0){ document.getElementById('rlb').textContent='Sobrante a devolver'; document.getElementById('rdf').style.color='var(--blue)'; db.innerHTML='<div style="background:var(--blue-l);border-radius:var(--r);padding:12px 14px;font-size:13px;color:#0C447C"><strong>Hay $'+dif.toFixed(2)+' de sobrante.</strong> Deberás devolverlo a Finanzas.</div>'; }
+  else if(dif<0){ document.getElementById('rlb').textContent='Gasto mayor al entregado'; document.getElementById('rdf').style.color='var(--red)'; db.innerHTML='<div style="background:var(--red-l);border-radius:var(--r);padding:12px 14px;font-size:13px;color:var(--red)"><strong>El gasto excede $'+Math.abs(dif).toFixed(2)+' lo entregado.</strong> Finanzas revisará si aplica reembolso.</div>'; }
+  else if(rec>0){ document.getElementById('rlb').textContent='Diferencia'; document.getElementById('rdf').style.color='var(--green)'; db.innerHTML='<div style="background:var(--green-l);border-radius:var(--r);padding:12px 14px;font-size:13px;color:var(--green)">El gasto coincide exactamente. No hay devolución.</div>'; }
 }
 
-// ── CARGA DE ARCHIVOS ─────────────────────────────────
-function dragOver(e){e.preventDefault();document.getElementById('upload-zone').classList.add('dragover');}
-function dragLeave(e){document.getElementById('upload-zone').classList.remove('dragover');}
-function dropFile(e){e.preventDefault();dragLeave(e);handleFiles(e.dataTransfer.files);}
+function dov(e){ e.preventDefault(); document.querySelector('.uz').style.borderColor='var(--blue)'; }
+function dlv(e){ document.querySelector('.uz').style.borderColor=''; }
+function ddr(e){ e.preventDefault(); dlv(e); hndFiles(e.dataTransfer.files); }
 
-async function handleFiles(fileList){
-  const folio=document.getElementById('cfolio').value;
-  if(!folio){toast('Primero selecciona un folio','error');return;}
-  const s=sols.find(x=>x.folio==folio);
-  for(const file of Array.from(fileList)){
-    if(file.size>10*1024*1024){toast(file.name+' supera 10 MB','error');continue;}
-    const prog=document.getElementById('uprog');
-    const bar=document.getElementById('uprog-bar');
-    prog.style.display='block';bar.style.width='30%';
-    const base64=await fileToBase64(file);
-    bar.style.width='70%';
-    const r=await apiCall('subirArchivo',{
-      folio,solicitante:s?s.solicitante:'',
-      base64,mimeType:file.type,nombre:file.name
-    });
-    bar.style.width='100%';
-    setTimeout(()=>{prog.style.display='none';bar.style.width='0%';},800);
-    if(r.ok){
-      docs.push({nombre:file.name,tipo:file.type.includes('pdf')?'PDF':'Imagen',url:r.url});
-      renderDocList();toast(file.name+' subido correctamente');
-    } else {
-      toast('Error al subir '+file.name,'error');
-    }
+async function hndFiles(fileList) {
+  var folio=document.getElementById('cfo').value;
+  if(!folio){ toast('Primero selecciona un folio','error'); return; }
+  var s=sols.find(function(x){ return x.folio==folio; });
+  for(var i=0;i<fileList.length;i++) {
+    var file=fileList[i];
+    if(file.size>10*1024*1024){ toast(file.name+' supera 10 MB','error'); continue; }
+    var pg=document.getElementById('upg'), pb=document.getElementById('upb');
+    pg.style.display='block'; pb.style.width='30%';
+    var b64=await f2b64(file);
+    pb.style.width='70%';
+    var r=await apiCall('subirArchivo',{ folio:folio, solicitante:s?s.solicitante:'', base64:b64, mimeType:file.type, nombre:file.name });
+    pb.style.width='100%';
+    setTimeout(function(){ pg.style.display='none'; pb.style.width='0%'; },800);
+    if(r.ok){ docs.push({nombre:file.name,tipo:file.type.indexOf('pdf')>-1?'PDF':'Imagen',url:r.url}); renderDL(); toast(file.name+' subido'); }
+    else toast('Error al subir '+file.name,'error');
   }
 }
 
-function fileToBase64(file){
-  return new Promise((res,rej)=>{
-    const reader=new FileReader();
-    reader.onload=e=>res(e.target.result.split(',')[1]);
-    reader.onerror=rej;
-    reader.readAsDataURL(file);
-  });
+function f2b64(file) {
+  return new Promise(function(res,rej){ var rd=new FileReader(); rd.onload=function(e){ res(e.target.result.split(',')[1]); }; rd.onerror=rej; rd.readAsDataURL(file); });
 }
 
-function renderDocList(){
-  document.getElementById('dlist').innerHTML=docs.map((d,i)=>`
-    <div class="doci">
-      <div class="docl">
-        <div class="docicon" style="background:${d.tipo==='PDF'?'#FCEBEB;color:#791F1F':'#EAF3DE;color:#27500A'}">${d.tipo==='PDF'?'PDF':'IMG'}</div>
-        <div>
-          <div style="font-weight:500">${d.nombre}</div>
-          ${d.url?`<a href="${d.url}" target="_blank" style="font-size:11px;color:var(--blue)">Ver en Drive</a>`:'<span style="font-size:11px;color:var(--text-3)">Subiendo...</span>'}
-        </div>
-      </div>
-      <button onclick="docs.splice(${i},1);renderDocList()" style="background:none;border:none;cursor:pointer;color:var(--text-3);font-size:17px">×</button>
-    </div>`).join('');
+function renderDL() {
+  document.getElementById('dlst').innerHTML=docs.map(function(d,i){
+    var cls=d.tipo==='PDF'?'background:#FCEBEB;color:#791F1F':'background:#EAF3DE;color:#27500A';
+    return '<div class="di"><div class="dl"><div class="dc" style="'+cls+'">'+d.tipo+'</div><div><div style="font-weight:500">'+d.nombre+'</div>'+(d.url?'<a href="'+d.url+'" target="_blank" style="font-size:11px;color:var(--blue)">Ver en Drive</a>':'<span style="font-size:11px;color:var(--t3)">Subiendo...</span>')+'</div></div><button onclick="docs.splice('+i+',1);renderDL()" style="background:none;border:none;cursor:pointer;color:var(--t3);font-size:17px">×</button></div>';
+  }).join('');
 }
 
-async function envComp(){
-  const folio=document.getElementById('cfolio').value;
-  const s=sols.find(x=>x.folio==folio);
-  if(!s){toast('Selecciona un folio','error');return;}
-  if(!gastos.length){toast('Agrega al menos un gasto','error');return;}
-  if(!docs.length){toast('Adjunta al menos un documento','error');return;}
-  const btn=document.getElementById('btncomp');btn.disabled=true;btn.textContent='Guardando...';
-  const r=await apiCall('guardarComprobacion',{
-    folio:s.folio,equipo:session?session.equipo:'',solicitante:s.solicitante,
-    gastos,docs,comentarios:document.getElementById('ccoments').value,
-    totalGastado:gastos.reduce((a,g)=>a+(g.monto||0),0)
+async function envComp() {
+  var folio=document.getElementById('cfo').value;
+  var s=sols.find(function(x){ return x.folio==folio; });
+  if(!s){ toast('Selecciona un folio','error'); return; }
+  if(!gastos.length){ toast('Agrega al menos un gasto','error'); return; }
+  if(!docs.length){ toast('Adjunta al menos un documento','error'); return; }
+  var btn=document.getElementById('bcmp'); btn.disabled=true; btn.textContent='Guardando...';
+  var r=await apiCall('guardarComprobacion',{
+    folio:s.folio, equipo:ses?ses.eq:'', solicitante:s.solicitante,
+    gastos:gastos, docs:docs, comentarios:document.getElementById('ccom').value,
+    totalGastado:gastos.reduce(function(a,g){ return a+(g.monto||0); },0)
   });
   if(r.ok){
-    toast('Comprobación enviada a Finanzas. Pendiente de validación.');
-    document.getElementById('cbody').style.display='none';
-    document.getElementById('fdetail').style.display='none';
-    document.getElementById('cfolio').value='';
-    document.getElementById('ccoments').value='';
-    gastos=[];docs=[];
+    toast('Comprobación enviada. Pendiente de validación por Finanzas.');
+    document.getElementById('cbdy').style.display='none';
+    document.getElementById('fdt').style.display='none';
+    document.getElementById('cfo').value='';
+    document.getElementById('ccom').value='';
+    gastos=[]; docs=[];
   } else toast('Error al enviar','error');
-  btn.disabled=false;btn.textContent='Enviar comprobación a Finanzas';
+  btn.disabled=false; btn.textContent='Enviar comprobación a Finanzas';
 }
 
-function closeModal(){document.getElementById('overlay').classList.remove('open');}
-document.getElementById('overlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
+function closeMod(){ document.getElementById('ov').classList.remove('open'); }
+document.getElementById('ov').addEventListener('click',function(e){ if(e.target===this)closeMod(); });
 </script>
 </body>
 </html>
