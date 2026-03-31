@@ -291,6 +291,53 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
       </div>
     </div>
 
+    <div id="sr" class="sc">
+      <div class="cd">
+        <div class="ct2">Resumen general</div>
+        <div class="mts" id="rep-resumen">
+          <div class="mt"><div class="mv" id="rep-total-monto">—</div><div class="ml">Total solicitado</div></div>
+          <div class="mt"><div class="mv" id="rep-comprobados">—</div><div class="ml">Comprobados</div></div>
+          <div class="mt"><div class="mv" id="rep-pendientes">—</div><div class="ml">Pendientes comprobar</div></div>
+          <div class="mt"><div class="mv" id="rep-reembolsable">—</div><div class="ml">Reembolsables</div></div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+
+        <div class="cd">
+          <div class="ct2">Total de gastos por cliente</div>
+          <div id="rep-por-cliente"><p class="em">Cargando...</p></div>
+        </div>
+
+        <div class="cd">
+          <div class="ct2">Total de gastos por área / equipo</div>
+          <div id="rep-por-equipo"><p class="em">Cargando...</p></div>
+        </div>
+
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+
+        <div class="cd">
+          <div class="ct2">Gastos reembolsables por cliente</div>
+          <div id="rep-reemb-cliente"><p class="em">Cargando...</p></div>
+        </div>
+
+        <div class="cd">
+          <div class="ct2">Total gastos comprobados</div>
+          <div id="rep-comprobados-det"><p class="em">Cargando...</p></div>
+        </div>
+
+      </div>
+
+      <div class="cd">
+        <div class="ct2">Pendientes por comprobar — días transcurridos</div>
+        <div id="rep-pendientes-det"><p class="em">Cargando...</p></div>
+      </div>
+
+      <div class="tb"><button class="bs bi" onclick="loadReporte()">Actualizar reportes</button></div>
+    </div>
+
     <div id="sd2" class="sc">
       <div class="fl2"><span class="fs">Finanzas revisa</span><span class="fa">→</span><span class="fs on">DG autoriza</span><span class="fa">→</span><span class="fs">Finanzas entrega</span><span class="fa">→</span><span class="fs">Comprobación</span></div>
       <div class="mts">
@@ -346,8 +393,8 @@ const USUARIOS = {
 
 const TABS = {
   c: [['ss','Nueva solicitud'],['sc','Comprobación']],
-  f: [['ss','Nueva solicitud'],['sc','Comprobación'],['sf','Finanzas'],['scat','Catálogo']],
-  d: [['ss','Nueva solicitud'],['sc','Comprobación'],['sf','Finanzas'],['sd2','Dirección General'],['scat','Catálogo']]
+  f: [['ss','Nueva solicitud'],['sc','Comprobación'],['sf','Finanzas'],['sr','Reportes'],['scat','Catálogo']],
+  d: [['ss','Nueva solicitud'],['sc','Comprobación'],['sf','Finanzas'],['sd2','Dirección General'],['sr','Reportes'],['scat','Catálogo']]
 };
 const RLBL = { c:'Colaborador', f:'Finanzas', d:'Dirección General' };
 const RCLS = { c:'rc', f:'rf', d:'rd' };
@@ -400,6 +447,7 @@ function go(id, btn) {
   btn.classList.add('active');
   if (id==='sf') loadSols('f');
   if (id==='sd2') loadSols('d');
+  if (id==='sr') loadReporte();
   if (id==='scat') loadClis();
   if (id==='sc') loadSols('silent').then(function(){ poblarFolios(); });
 }
@@ -726,6 +774,77 @@ async function envComp() {
     gastos=[]; docs=[];
   } else toast('Error al enviar','error');
   btn.disabled=false; btn.textContent='Enviar comprobación a Finanzas';
+}
+
+
+async function loadReporte() {
+  var r = await apiCall('obtenerReporte', {});
+  if (!r.ok) { toast('Error al cargar reportes','error'); return; }
+  var rep = r.reporte;
+
+  // Resumen
+  var totalMonto = Object.values(rep.totalPorCliente).reduce(function(a,b){ return a+b; }, 0);
+  document.getElementById('rep-total-monto').textContent = '$' + totalMonto.toLocaleString('es-MX', {minimumFractionDigits:2});
+  document.getElementById('rep-comprobados').textContent = rep.comprobados.count + ' ($' + rep.comprobados.monto.toLocaleString('es-MX', {minimumFractionDigits:2}) + ')';
+  document.getElementById('rep-pendientes').textContent = rep.pendientesComprobar.length;
+  var totalReemb = Object.values(rep.reembolsablesPorCliente).reduce(function(a,b){ return a+b; }, 0);
+  document.getElementById('rep-reembolsable').textContent = '$' + totalReemb.toLocaleString('es-MX', {minimumFractionDigits:2});
+
+  // Por cliente
+  var cliKeys = Object.keys(rep.totalPorCliente).sort(function(a,b){ return rep.totalPorCliente[b]-rep.totalPorCliente[a]; });
+  document.getElementById('rep-por-cliente').innerHTML = cliKeys.length ? renderTabla2Col(cliKeys, rep.totalPorCliente, 'Cliente', 'Total') : '<p class="em">Sin datos</p>';
+
+  // Por equipo
+  var eqKeys = Object.keys(rep.totalPorEquipo).sort(function(a,b){ return rep.totalPorEquipo[b]-rep.totalPorEquipo[a]; });
+  document.getElementById('rep-por-equipo').innerHTML = eqKeys.length ? renderTabla2Col(eqKeys, rep.totalPorEquipo, 'Equipo', 'Total') : '<p class="em">Sin datos</p>';
+
+  // Reembolsables por cliente
+  var reKeys = Object.keys(rep.reembolsablesPorCliente).sort(function(a,b){ return rep.reembolsablesPorCliente[b]-rep.reembolsablesPorCliente[a]; });
+  document.getElementById('rep-reemb-cliente').innerHTML = reKeys.length ? renderTabla2Col(reKeys, rep.reembolsablesPorCliente, 'Cliente', 'Reembolsable') : '<p class="em">Sin gastos reembolsables</p>';
+
+  // Comprobados detalle
+  document.getElementById('rep-comprobados-det').innerHTML = rep.comprobados.count > 0 ?
+    '<div style="text-align:center;padding:1rem"><div style="font-size:28px;font-weight:600;color:var(--green)">'+rep.comprobados.count+'</div><div style="font-size:13px;color:var(--t2)">solicitudes comprobadas</div><div style="font-size:20px;font-weight:600;margin-top:8px">$'+rep.comprobados.monto.toLocaleString('es-MX',{minimumFractionDigits:2})+'</div><div style="font-size:13px;color:var(--t2)">monto total comprobado</div></div>' :
+    '<p class="em">Sin comprobaciones aprobadas aún</p>';
+
+  // Pendientes con días
+  if (rep.diasSinComprobar.length) {
+    var rows = rep.diasSinComprobar.map(function(d) {
+      var color = d.alerta==='vencido' ? 'var(--red)' : d.alerta==='urgente' ? '#E9A23B' : 'var(--green)';
+      var label = d.alerta==='vencido' ? 'Vencido' : d.alerta==='urgente' ? 'Urgente' : 'OK';
+      return '<div style="display:grid;grid-template-columns:70px 1fr 100px 80px 80px;gap:8px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;align-items:center">'+
+        '<span><span class="bg bfo">'+d.folio+'</span></span>'+
+        '<span>'+d.solicitante+'<br><span style="font-size:11px;color:var(--t3)">'+d.equipo+'</span></span>'+
+        '<span style="color:var(--t2)">$'+parseFloat(d.monto).toLocaleString('es-MX')+'</span>'+
+        '<span style="font-weight:600;color:'+color+'">'+d.dias+' días</span>'+
+        '<span><span class="bg" style="background:'+color+'22;color:'+color+'">'+label+'</span></span>'+
+        '</div>';
+    }).join('');
+    document.getElementById('rep-pendientes-det').innerHTML =
+      '<div style="display:grid;grid-template-columns:70px 1fr 100px 80px 80px;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)">'+
+      '<span style="font-size:11px;font-weight:600;color:var(--t3)">FOLIO</span>'+
+      '<span style="font-size:11px;font-weight:600;color:var(--t3)">SOLICITANTE</span>'+
+      '<span style="font-size:11px;font-weight:600;color:var(--t3)">MONTO</span>'+
+      '<span style="font-size:11px;font-weight:600;color:var(--t3)">DÍAS</span>'+
+      '<span style="font-size:11px;font-weight:600;color:var(--t3)">ALERTA</span>'+
+      '</div>' + rows;
+  } else {
+    document.getElementById('rep-pendientes-det').innerHTML = '<p class="em" style="color:var(--green)">No hay comprobaciones pendientes. ¡Todo al día!</p>';
+  }
+}
+
+function renderTabla2Col(keys, obj, col1, col2) {
+  var total = keys.reduce(function(a,k){ return a+obj[k]; }, 0);
+  var rows = keys.map(function(k) {
+    var pct = total > 0 ? Math.round((obj[k]/total)*100) : 0;
+    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px">'+
+      '<span>'+k+'</span>'+
+      '<div style="display:flex;align-items:center;gap:10px">'+
+      '<div style="width:80px;height:6px;background:var(--border);border-radius:3px"><div style="width:'+pct+'%;height:100%;background:var(--blue);border-radius:3px"></div></div>'+
+      '<span style="font-weight:600;min-width:80px;text-align:right">$'+obj[k].toLocaleString('es-MX',{minimumFractionDigits:2})+'</span>'+
+      '</div></div>';
+  }).join('');
+  return rows + '<div style="display:flex;justify-content:space-between;padding:8px 0;font-size:13px;font-weight:600;border-top:1px solid var(--bmed);margin-top:4px"><span>Total</span><span>$'+total.toLocaleString('es-MX',{minimumFractionDigits:2})+'</span></div>';
 }
 
 function closeMod(){ document.getElementById('ov').classList.remove('open'); }
