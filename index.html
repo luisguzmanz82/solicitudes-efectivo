@@ -142,6 +142,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
   .nw{padding:0 14px;}
   .hrt .spl{display:none;}
 }
+.alerta-banner{background:#FAEEDA;border:1px solid #FAC775;border-radius:var(--rl);padding:14px 18px;margin-bottom:16px;display:none;font-size:13px;color:#633806;}
+.alerta-banner strong{font-weight:600;}
+.alerta-banner .ab-folios{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px;}
 </style>
 </head>
 <body>
@@ -174,6 +177,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
   <div class="ct">
 
     <div id="ss" class="sc active">
+      <div class="alerta-banner" id="banner-pendientes"><strong>Tienes solicitudes pendientes por comprobar:</strong><div class="ab-folios" id="banner-folios"></div></div>
       <div class="cd">
         <div class="ct2">Datos generales</div>
         <div class="fg c3">
@@ -420,6 +424,7 @@ function doLogin() {
   loadClis();
   document.getElementById('ffe').value = new Date().toISOString().split('T')[0];
   document.getElementById('fso').value = usr.eq;
+  if (usr.rol === 'c') checkPendientesAlIngreso();
 }
 
 function doLogout() {
@@ -676,7 +681,10 @@ function verD(folio) {
 }
 
 function poblarFolios() {
-  var el=sols.filter(function(s){ return s.estatus==='Entregado'||s.estatus==='Por comprobar'; });
+  var el=sols.filter(function(s){
+    return (s.estatus==='Entregado'||s.estatus==='Por comprobar') &&
+           (ses && (s.equipo===ses.eq || s.solicitante===ses.eq));
+  });
   var sel=document.getElementById('cfo');
   sel.innerHTML='<option value="">-- Selecciona tu folio --</option>'+
     el.map(function(s){ return '<option value="'+s.folio+'">Folio '+s.folio+' — '+s.solicitante+' — '+s.destino+' — $'+parseFloat(s.cantidad).toLocaleString('es-MX')+' — '+s.fechaSolicitud+'</option>'; }).join('');
@@ -845,6 +853,42 @@ function renderTabla2Col(keys, obj, col1, col2) {
       '</div></div>';
   }).join('');
   return rows + '<div style="display:flex;justify-content:space-between;padding:8px 0;font-size:13px;font-weight:600;border-top:1px solid var(--bmed);margin-top:4px"><span>Total</span><span>$'+total.toLocaleString('es-MX',{minimumFractionDigits:2})+'</span></div>';
+}
+
+
+async function checkPendientesAlIngreso() {
+  var r = await apiCall('obtenerSolicitudes');
+  if (!r.ok) return;
+  var pendientes = (r.solicitudes || []).filter(function(s) {
+    return (s.estatus==='Entregado' || s.estatus==='Por comprobar') &&
+           (ses && (s.equipo===ses.eq || s.solicitante===ses.eq));
+  });
+  var banner = document.getElementById('banner-pendientes');
+  var foliosEl = document.getElementById('banner-folios');
+  if (pendientes.length > 0) {
+    banner.style.display = 'block';
+    foliosEl.innerHTML = pendientes.map(function(s) {
+      var dias = s.diasSinComprobar || 0;
+      var color = dias >= 12 ? 'var(--red)' : dias >= 10 ? '#E9A23B' : 'var(--amber-d)';
+      return '<span class="bg" style="background:#fff;border:1px solid '+color+';color:'+color+';cursor:pointer" onclick="irAComprobar('+s.folio+')">Folio #'+s.folio+' — '+s.tramite+' — $'+parseFloat(s.cantidad).toLocaleString('es-MX')+(dias>0?' ('+dias+' días)':'')+'</span>';
+    }).join('');
+    sols = r.solicitudes;
+  } else {
+    banner.style.display = 'none';
+  }
+}
+
+function irAComprobar(folio) {
+  var btn = document.querySelector('.nb[onclick*="sc"]');
+  if (btn) { btn.click(); }
+  setTimeout(function() {
+    var sel = document.getElementById('cfo');
+    if (sel) {
+      poblarFolios();
+      sel.value = folio;
+      loadComp();
+    }
+  }, 300);
 }
 
 function closeMod(){ document.getElementById('ov').classList.remove('open'); }
