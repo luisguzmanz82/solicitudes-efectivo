@@ -380,7 +380,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 </div>
 
 <script>
-const API = 'https://script.google.com/macros/s/AKfycbwulepCxCoNV6X5KOBRnKDLw3DHJ8pmFkDl8z-enOsu0dyq8cP94QhSJLNq5xcbVEX5/exec';
+const API = 'https://script.google.com/macros/s/AKfycbyBr_99pnhjsi4IJTLKqr3I6_cprnW6VNYlN67PPgjEjm9O-oiaBlYguiLTdH-FBYo/exec';
 
 // ══════════════════════════════════════════════════════
 //  USUARIOS — para cambiar contraseñas edita aquí
@@ -425,6 +425,7 @@ function doLogin() {
   document.getElementById('ffe').value = new Date().toISOString().split('T')[0];
   document.getElementById('fso').value = usr.eq;
   if (usr.rol === 'c') checkPendientesAlIngreso();
+  if (usr.rol === 'f') checkPendientesFinanzas();
 }
 
 function doLogout() {
@@ -595,7 +596,10 @@ async function envSol() {
     document.getElementById('conc-wrap').style.display='none';
     document.querySelector('input[name="rmb"][value="no"]').checked=true;
   } else toast('Error al guardar','error');
-  btn.disabled=false; btn.textContent='Enviar solicitud a Finanzas';
+  btn.disabled=false;
+  var wasReenvio = btn.getAttribute('data-reenvio');
+  btn.textContent = wasReenvio ? 'Reenviar solicitud corregida' : 'Enviar solicitud a Finanzas';
+  if (r.ok) { btn.removeAttribute('data-reenvio'); btn.textContent='Enviar solicitud a Finanzas'; }
 }
 
 async function loadSols(vista) {
@@ -658,11 +662,54 @@ async function cambiar(folio,estatus,vista) {
   else toast('Error al actualizar','error');
 }
 
-function abrirVal(folio) {
+async function abrirVal(folio) {
   var s=sols.find(function(x){ return x.folio==folio; });
   if(!s) return;
-  document.getElementById('mtt').textContent='Validar — Folio '+folio;
-  document.getElementById('mbd').innerHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><span class="bg bfo">'+s.folio+'</span><span class="bg bp4">Por comprobar</span></div><div class="dr"><span class="dk">Equipo</span><span>'+(s.equipo||'—')+'</span></div><div class="dr"><span class="dk">Solicitante</span><span>'+s.solicitante+'</span></div><div class="dr"><span class="dk">Monto entregado</span><span style="font-weight:600">$'+parseFloat(s.cantidad).toLocaleString('es-MX')+'</span></div><div class="dr"><span class="dk">Cliente</span><span>'+(s.cliente||'—')+'</span></div><div class="dr" style="border:none"><span class="dk">Trámite</span><span>'+(s.tramite||'—')+'</span></div><div style="display:flex;gap:8px;margin-top:1rem"><button class="bs bsu" style="flex:1;padding:11px;font-size:13px" onclick="valComp('+folio+',true)">Aprobar comprobación</button><button class="bs bd" style="flex:1;padding:11px;font-size:13px" onclick="valComp('+folio+',false)">Regresar al colaborador</button></div>';
+  document.getElementById('mtt').textContent='Validar comprobación — Folio '+folio;
+  // Fetch comprobacion detail
+  var r = await apiCall('obtenerComprobacion', {folio: folio});
+  var comp = (r.ok && r.comprobacion) ? r.comprobacion : null;
+  var compHtml = '';
+  if (comp) {
+    compHtml += '<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">';
+    compHtml += '<div style="font-size:11px;font-weight:600;color:var(--t3);letter-spacing:.06em;margin-bottom:8px">COMPROBACIÓN ENVIADA</div>';
+    compHtml += '<div class="dr"><span class="dk">Total comprobado</span><span style="font-weight:600">$'+parseFloat(comp.totalComprobado||0).toLocaleString('es-MX')+'</span></div>';
+    compHtml += '<div class="dr"><span class="dk">Diferencia</span><span style="font-weight:600;color:'+(comp.tipo&&comp.tipo.includes('Sobrante')?'var(--blue)':comp.tipo&&comp.tipo.includes('Faltante')?'var(--red)':'var(--green)')+'">'+( comp.tipo||'—')+'</span></div>';
+    if (comp.comentarios) compHtml += '<div class="dr"><span class="dk">Comentarios</span><span style="text-align:right;max-width:60%">'+comp.comentarios+'</span></div>';
+    if (comp.detalleGastos) {
+      compHtml += '<div style="margin-top:10px"><div style="font-size:11px;font-weight:600;color:var(--t3);margin-bottom:6px">DESGLOSE DE GASTOS</div>';
+      comp.detalleGastos.split('\n').forEach(function(g){
+        if(g) compHtml += '<div style="font-size:12px;padding:5px 0;border-bottom:1px solid var(--border);color:var(--t2)">'+g+'</div>';
+      });
+      compHtml += '</div>';
+    }
+    if (comp.documentos) {
+      compHtml += '<div style="margin-top:10px"><div style="font-size:11px;font-weight:600;color:var(--t3);margin-bottom:6px">DOCUMENTOS ADJUNTOS</div>';
+      comp.documentos.split(', ').forEach(function(d){
+        if(d){
+          var parts = d.match(/^(.*?)\s*\((https?:\/\/[^)]+)\)$/);
+          if(parts) compHtml += '<div style="font-size:12px;padding:5px 0;border-bottom:1px solid var(--border)"><a href="'+parts[2]+'" target="_blank" style="color:var(--blue)">'+parts[1]+'</a></div>';
+          else compHtml += '<div style="font-size:12px;padding:5px 0;border-bottom:1px solid var(--border);color:var(--t2)">'+d+'</div>';
+        }
+      });
+      compHtml += '</div>';
+    }
+    compHtml += '</div>';
+  } else {
+    compHtml = '<div style="margin-top:12px;padding:10px;background:var(--amber-l);border-radius:var(--r);font-size:13px;color:var(--amber-d)">El colaborador aún no ha enviado el desglose de comprobación.</div>';
+  }
+  document.getElementById('mbd').innerHTML=
+    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><span class="bg bfo">'+s.folio+'</span><span class="bg bp4">Por comprobar</span></div>'+
+    '<div class="dr"><span class="dk">Equipo</span><span>'+(s.equipo||'—')+'</span></div>'+
+    '<div class="dr"><span class="dk">Solicitante</span><span>'+s.solicitante+'</span></div>'+
+    '<div class="dr"><span class="dk">Monto entregado</span><span style="font-weight:600">$'+parseFloat(s.cantidad).toLocaleString('es-MX')+'</span></div>'+
+    '<div class="dr"><span class="dk">Cliente</span><span>'+(s.cliente||'—')+'</span></div>'+
+    '<div class="dr"><span class="dk">Trámite</span><span>'+(s.tramite||'—')+'</span></div>'+
+    compHtml+
+    '<div style="display:flex;gap:8px;margin-top:1rem">'+
+    '<button class="bs bsu" style="flex:1;padding:11px;font-size:13px" onclick="valComp('+folio+',true)">Aprobar comprobación</button>'+
+    '<button class="bs bd" style="flex:1;padding:11px;font-size:13px" onclick="valComp('+folio+',false)">Regresar al colaborador</button>'+
+    '</div>';
   document.getElementById('ov').classList.add('open');
 }
 
@@ -682,7 +729,7 @@ function verD(folio) {
 
 function poblarFolios() {
   var el=sols.filter(function(s){
-    return (s.estatus==='Entregado'||s.estatus==='Por comprobar') &&
+    return s.estatus==='Entregado' &&
            (ses && (s.equipo===ses.eq || s.solicitante===ses.eq));
   });
   var sel=document.getElementById('cfo');
@@ -708,7 +755,7 @@ function loadComp() {
 function addG() { gastos.push({fecha:'',tipo:'Traslado',concepto:'',monto:0}); renderG(); updR(); }
 function renderG() {
   document.getElementById('gb').innerHTML=gastos.map(function(g,i){
-    return '<tr><td><input type="date" value="'+g.fecha+'" onchange="gastos['+i+'].fecha=this.value" style="width:110px"></td><td><select onchange="gastos['+i+'].tipo=this.value">'+['Traslado','Pasaje','Hospedaje','Alimentación','Expediente/Cuenta','Otros'].map(function(t){ return '<option'+(g.tipo===t?' selected':'')+'>'+t+'</option>'; }).join('')+'</select></td><td><input value="'+g.concepto+'" placeholder="Descripción..." onchange="gastos['+i+'].concepto=this.value"></td><td><input type="number" value="'+(g.monto||'')+'" placeholder="0.00" style="width:80px" oninput="gastos['+i+'].monto=parseFloat(this.value)||0;updR()"></td><td><button onclick="gastos.splice('+i+',1);renderG();updR()" style="background:none;border:none;cursor:pointer;color:var(--t3);font-size:17px">×</button></td></tr>';
+    return '<tr><td><input type="date" value="'+g.fecha+'" onchange="gastos['+i+'].fecha=this.value" style="width:110px"></td><td><select onchange="gastos['+i+'].tipo=this.value">'+['Traslado','Pasaje','Hospedaje','Alimentación','Expediente/Cuenta','Honorarios','Trámite','Compras','Otros'].map(function(t){ return '<option'+(g.tipo===t?' selected':'')+'>'+t+'</option>'; }).join('')+'</select></td><td><input value="'+g.concepto+'" placeholder="Descripción..." onchange="gastos['+i+'].concepto=this.value"></td><td><input type="number" value="'+(g.monto||'')+'" placeholder="0.00" style="width:80px" oninput="gastos['+i+'].monto=parseFloat(this.value)||0;updR()"></td><td><button onclick="gastos.splice('+i+',1);renderG();updR()" style="background:none;border:none;cursor:pointer;color:var(--t3);font-size:17px">×</button></td></tr>';
   }).join('');
 }
 
@@ -859,23 +906,76 @@ function renderTabla2Col(keys, obj, col1, col2) {
 async function checkPendientesAlIngreso() {
   var r = await apiCall('obtenerSolicitudes');
   if (!r.ok) return;
-  var pendientes = (r.solicitudes || []).filter(function(s) {
-    return (s.estatus==='Entregado' || s.estatus==='Por comprobar') &&
+  sols = r.solicitudes || [];
+  var pendientes = sols.filter(function(s) {
+    return s.estatus==='Entregado' &&
+           (ses && (s.equipo===ses.eq || s.solicitante===ses.eq));
+  });
+  var rechazadas = sols.filter(function(s) {
+    return s.estatus==='Rechazado' &&
            (ses && (s.equipo===ses.eq || s.solicitante===ses.eq));
   });
   var banner = document.getElementById('banner-pendientes');
   var foliosEl = document.getElementById('banner-folios');
+  var items = [];
+  if (rechazadas.length > 0) {
+    items = items.concat(rechazadas.map(function(s) {
+      return '<span class="bg" style="background:#fff;border:1px solid var(--red);color:var(--red);cursor:pointer" onclick="corregirSolicitud('+s.folio+')">Folio #'+s.folio+' requiere corrección — clic para editar</span>';
+    }));
+  }
   if (pendientes.length > 0) {
-    banner.style.display = 'block';
-    foliosEl.innerHTML = pendientes.map(function(s) {
+    items = items.concat(pendientes.map(function(s) {
       var dias = s.diasSinComprobar || 0;
       var color = dias >= 12 ? 'var(--red)' : dias >= 10 ? '#E9A23B' : 'var(--amber-d)';
       return '<span class="bg" style="background:#fff;border:1px solid '+color+';color:'+color+';cursor:pointer" onclick="irAComprobar('+s.folio+')">Folio #'+s.folio+' — '+s.tramite+' — $'+parseFloat(s.cantidad).toLocaleString('es-MX')+(dias>0?' ('+dias+' días)':'')+'</span>';
-    }).join('');
-    sols = r.solicitudes;
-  } else {
-    banner.style.display = 'none';
+    }));
   }
+  if (items.length > 0) {
+    banner.style.display='block';
+    var titulo = [];
+    if (rechazadas.length) titulo.push(rechazadas.length+' solicitud(es) requieren corrección');
+    if (pendientes.length) titulo.push(pendientes.length+' pendiente(s) por comprobar');
+    banner.querySelector('strong').textContent = titulo.join(' · ');
+    foliosEl.innerHTML = items.join('');
+  } else {
+    banner.style.display='none';
+  }
+}
+
+function corregirSolicitud(folio) {
+  var s = sols.find(function(x){ return x.folio==folio; });
+  if (!s) return;
+  // Populate form with existing data
+  document.getElementById('fso').value = s.solicitante || '';
+  document.getElementById('fde').value = s.destino || '';
+  document.getElementById('fre').value = s.receptor || '';
+  document.getElementById('fje').value = s.jefe || '';
+  document.getElementById('fca').value = s.cantidad || '';
+  document.getElementById('fle').value = s.letra || '';
+  document.getElementById('fmo').value = s.motivo || '';
+  document.getElementById('fco').value = s.concepto || '';
+  // Set tramite
+  var ftr = document.getElementById('ftr');
+  var tramiteOpts = Array.from(ftr.options).map(function(o){ return o.value||o.text; });
+  if (tramiteOpts.indexOf(s.tramite) > -1) { ftr.value = s.tramite; }
+  else { ftr.value='otro'; document.getElementById('fotr').value=s.tramite||''; document.getElementById('otr-wrap').style.display='block'; }
+  // Set cliente
+  var fcs = document.getElementById('fcs');
+  var cliOpts = Array.from(fcs.options).map(function(o){ return o.value; });
+  if (cliOpts.indexOf(s.cliente) > -1) { fcs.value = s.cliente; }
+  else { fcs.value='otro'; document.getElementById('focl').value=s.cliente||''; document.getElementById('ocl-wrap').style.display='block'; }
+  // Set reembolsable
+  if (s.reembolsable) {
+    document.querySelector('input[name="rmb"][value="si"]').checked=true;
+    document.getElementById('conc-wrap').style.display='block';
+  }
+  // Store folio to reuse on submit
+  document.getElementById('benv').setAttribute('data-reenvio', folio);
+  document.getElementById('benv').textContent = 'Reenviar solicitud corregida';
+  // Navigate to solicitud tab
+  var btnSol = Array.from(document.querySelectorAll('.nb')).find(function(b){ return b.textContent==='Nueva solicitud'; });
+  if (btnSol) btnSol.click();
+  toast('Solicitud cargada. Corrige lo necesario y reenvía.','warn');
 }
 
 function irAComprobar(folio) {
@@ -889,6 +989,30 @@ function irAComprobar(folio) {
       loadComp();
     }
   }, 300);
+}
+
+
+async function checkPendientesFinanzas() {
+  var r = await apiCall('obtenerSolicitudes');
+  if (!r.ok) return;
+  sols = r.solicitudes || [];
+  var pendVal = sols.filter(function(s){ return s.estatus==='Por comprobar'; });
+  var banner = document.getElementById('banner-pendientes');
+  var foliosEl = document.getElementById('banner-folios');
+  if (pendVal.length > 0) {
+    banner.style.background='#E6F1FB'; banner.style.borderColor='#B5D4F4'; banner.style.color='#0C447C';
+    banner.style.display='block';
+    banner.querySelector('strong').textContent='Tienes comprobaciones pendientes por validar:';
+    foliosEl.innerHTML = pendVal.map(function(s) {
+      return '<span class="bg" style="background:#fff;border:1px solid #185FA5;color:#185FA5;cursor:pointer" onclick="irAValidar('+s.folio+')">Folio #'+s.folio+' — '+s.solicitante+' — $'+parseFloat(s.cantidad).toLocaleString('es-MX')+'</span>';
+    }).join('');
+  }
+}
+
+function irAValidar(folio) {
+  var btn = Array.from(document.querySelectorAll('.nb')).find(function(b){ return b.textContent==='Finanzas'; });
+  if (btn) btn.click();
+  setTimeout(function(){ abrirVal(folio); }, 500);
 }
 
 function closeMod(){ document.getElementById('ov').classList.remove('open'); }
