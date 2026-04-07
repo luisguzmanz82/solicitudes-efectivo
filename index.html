@@ -219,7 +219,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
         </div>
         <div class="fg c2">
           <div class="fl"><label>Cliente</label>
-            <select id="fcs" onchange="chkCliente()">
+            <select id="fcs" onchange="chkCliente()" onfocus="refreshCliSelect()">
               <option value="">-- Selecciona el cliente --</option>
               <option value="otro">Otro (cliente nuevo)</option>
             </select>
@@ -534,6 +534,13 @@ function renderTags() {
   el.innerHTML = clis.map(function(c){
     return '<div class="tg">' + c + '<span class="tx" onclick="delCli(\'' + c.replace(/'/g,"\\'") + '\')">×</span></div>';
   }).join('');
+}
+
+
+function refreshCliSelect() {
+  if (clis.length > 0) { renderCliSelect(); return; }
+  // If clis is empty, reload from server
+  loadClis();
 }
 
 function renderCliSelect() {
