@@ -1097,6 +1097,29 @@ function irAValidar(folio) {
   setTimeout(function(){ abrirVal(folio); }, 500);
 }
 
+
+function filtrarLista(vista) {
+  var desde = document.getElementById(vista==='f'?'ffil-desde':'dfil-desde').value;
+  var hasta = document.getElementById(vista==='f'?'ffil-hasta':'dfil-hasta').value;
+  var filtrados = sols.filter(function(s) {
+    if (!desde && !hasta) return true;
+    var parts = String(s.fechaSolicitud).split('/');
+    var fechaISO = parts.length===3 ? parts[2]+'-'+parts[1]+'-'+parts[0] : s.fechaSolicitud;
+    if (desde && fechaISO < desde) return false;
+    if (hasta && fechaISO > hasta) return false;
+    return true;
+  });
+  if (vista==='f') renderF(filtrados);
+  else renderD(filtrados);
+}
+
+function limpiarFiltro(vista) {
+  document.getElementById(vista==='f'?'ffil-desde':'dfil-desde').value='';
+  document.getElementById(vista==='f'?'ffil-hasta':'dfil-hasta').value='';
+  if (vista==='f') renderF(sols);
+  else renderD(sols);
+}
+
 function closeMod(){ document.getElementById('ov').classList.remove('open'); }
 document.getElementById('ov').addEventListener('click',function(e){ if(e.target===this)closeMod(); });
 </script>
