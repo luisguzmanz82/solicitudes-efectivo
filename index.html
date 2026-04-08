@@ -288,7 +288,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
         <div class="mt"><div class="mv" id="m3">—</div><div class="ml">Por comprobar</div></div>
         <div class="mt"><div class="mv" id="m4">—</div><div class="ml">Total solicitado</div></div>
       </div>
-      <div class="tb"><button class="bs bi" onclick="loadSols('f')">Actualizar</button></div>
+      <div class="tb" style="gap:8px;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:6px;font-size:13px">
+          <label style="color:var(--t2);font-size:12px">Desde</label>
+          <input type="date" id="ffil-desde" style="padding:5px 8px;border:1px solid var(--bmed);border-radius:var(--r);font-size:13px;font-family:'DM Sans',sans-serif" onchange="filtrarLista('f')">
+          <label style="color:var(--t2);font-size:12px">Hasta</label>
+          <input type="date" id="ffil-hasta" style="padding:5px 8px;border:1px solid var(--bmed);border-radius:var(--r);font-size:13px;font-family:'DM Sans',sans-serif" onchange="filtrarLista('f')">
+          <button class="bs" onclick="limpiarFiltro('f')" style="font-size:12px">Limpiar</button>
+        </div>
+        <button class="bs bi" onclick="loadSols('f')">Actualizar</button>
+      </div>
       <div class="cd"><div class="ct2">Solicitudes</div>
         <div class="dt"><div class="th"><span class="thc">Folio</span><span class="thc">Solicitante</span><span class="thc">Estatus</span><span class="thc">Cliente</span><span class="thc">Acciones</span></div>
         <div id="lf"><p class="em">Cargando...</p></div></div>
@@ -350,7 +359,25 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
         <div class="mt"><div class="mv" id="d3">—</div><div class="ml">Comprobadas</div></div>
         <div class="mt"><div class="mv" id="d4">—</div><div class="ml">Sin comprobar</div></div>
       </div>
-      <div class="tb"><button class="bs bi" onclick="loadSols('d')">Actualizar</button></div>
+      <div class="cd" style="background:var(--green-l);border-color:#C0DD97;margin-bottom:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-size:12px;color:var(--green);font-weight:500;margin-bottom:4px">Total autorizado en esta sesion</div>
+            <div style="font-size:28px;font-weight:600;color:var(--green)" id="dg-contador">$0.00</div>
+          </div>
+          <button class="bs" style="font-size:12px;color:var(--green);border-color:#C0DD97" onclick="resetContador()">Reiniciar contador</button>
+        </div>
+      </div>
+      <div class="tb" style="gap:8px;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:6px;font-size:13px">
+          <label style="color:var(--t2);font-size:12px">Desde</label>
+          <input type="date" id="dfil-desde" style="padding:5px 8px;border:1px solid var(--bmed);border-radius:var(--r);font-size:13px;font-family:'DM Sans',sans-serif" onchange="filtrarLista('d')">
+          <label style="color:var(--t2);font-size:12px">Hasta</label>
+          <input type="date" id="dfil-hasta" style="padding:5px 8px;border:1px solid var(--bmed);border-radius:var(--r);font-size:13px;font-family:'DM Sans',sans-serif" onchange="filtrarLista('d')">
+          <button class="bs" onclick="limpiarFiltro('d')" style="font-size:12px">Limpiar</button>
+        </div>
+        <button class="bs bi" onclick="loadSols('d')">Actualizar</button>
+      </div>
       <div class="cd"><div class="ct2">Solicitudes revisadas por Finanzas</div>
         <div class="dt"><div class="th"><span class="thc">Folio</span><span class="thc">Solicitante</span><span class="thc">Estatus</span><span class="thc">Cliente</span><span class="thc">Acciones</span></div>
         <div id="ld"><p class="em">Cargando...</p></div></div>
@@ -380,7 +407,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 </div>
 
 <script>
-const API = 'https://script.google.com/macros/s/AKfycbxS8gne_l_Yk__ii9P37curKBTrjm5p829QP0h9HspmSKWv9NHbW8WtOYtmkvWPNnRD/exec';
+const API = 'https://script.google.com/macros/s/AKfycbxha0E-yplGOh6RgAhYU9mn4vtIHY8DAeDxppH_hZH1xFCUfbwpQH1wPGcDEI0bTpWr/exec';
 
 // ══════════════════════════════════════════════════════
 //  USUARIOS — para cambiar contraseñas edita aquí
@@ -610,26 +637,36 @@ async function envSol() {
 }
 
 async function loadSols(vista) {
+  var now = Date.now();
+  if (vista === 'silent' && window._solsCache && (now - window._solsCacheTime) < 30000) {
+    sols = window._solsCache;
+    if(vista==='f') renderF();
+    else if(vista==='d') renderD();
+    return;
+  }
   if(vista!=='silent'){
     var l=vista==='f'?'lf':'ld';
     document.getElementById(l).innerHTML='<p class="em">Cargando...</p>';
   }
   var r=await apiCall('obtenerSolicitudes');
-  if(!r.ok){ if(vista!=='silent'){ var l2=vista==='f'?'lf':'ld'; document.getElementById(l2).innerHTML='<p class="em" style="color:var(--red)">Error al cargar.</p>'; } return; }
+  if(!r.ok){ if(vista!=='silent'){var l2=vista==='f'?'lf':'ld';document.getElementById(l2).innerHTML='<p class="em" style="color:var(--red)">Error al cargar.</p>';} return; }
   sols=r.solicitudes||[];
+  window._solsCache=sols; window._solsCacheTime=now;
   if(vista==='f') renderF();
   else if(vista==='d') renderD();
 }
+
+function invalidarCache(){ window._solsCache=null; window._solsCacheTime=0; }
 
 function sBC(s) {
   return {Pendiente:'bp0','En revisión':'bp1',Revisado:'bp1',Autorizado:'bp2',Entregado:'bp3','Por comprobar':'bp4',Comprobado:'bp5',Rechazado:'bp6'}[s]||'';
 }
 
-function renderF() {
+function renderF(lista) { var solsToRender = lista || sols;
   document.getElementById('m1').textContent=sols.filter(function(s){ return ['Pendiente','En revisión'].indexOf(s.estatus)>-1; }).length;
-  document.getElementById('m2').textContent=sols.filter(function(s){ return s.estatus==='Autorizado'; }).length;
-  document.getElementById('m3').textContent=sols.filter(function(s){ return s.estatus==='Por comprobar'; }).length;
-  document.getElementById('m4').textContent='$'+sols.reduce(function(a,s){ return a+(parseFloat(s.cantidad)||0); },0).toLocaleString('es-MX',{minimumFractionDigits:2});
+  document.getElementById('m2').textContent=solsToRender.filter(function(s){ return s.estatus==='Autorizado'; }).length;
+  document.getElementById('m3').textContent=solsToRender.filter(function(s){ return s.estatus==='Por comprobar'; }).length;
+  document.getElementById('m4').textContent='$'+solsToRender.reduce(function(a,s){ return a+(parseFloat(s.cantidad)||0); },0).toLocaleString('es-MX',{minimumFractionDigits:2});
   var el=document.getElementById('lf');
   if(!sols.length){ el.innerHTML='<p class="em">No hay solicitudes aún.</p>'; return; }
   el.innerHTML=sols.map(function(s){
@@ -646,12 +683,12 @@ function renderF() {
   }).join('');
 }
 
-function renderD() {
-  document.getElementById('d1').textContent=sols.filter(function(s){ return s.estatus==='Revisado'; }).length;
-  document.getElementById('d2').textContent=sols.filter(function(s){ return ['Autorizado','Entregado','Por comprobar','Comprobado'].indexOf(s.estatus)>-1; }).length;
-  document.getElementById('d3').textContent=sols.filter(function(s){ return s.estatus==='Comprobado'; }).length;
-  document.getElementById('d4').textContent=sols.filter(function(s){ return ['Entregado','Por comprobar'].indexOf(s.estatus)>-1; }).length;
-  var mostrar=sols.filter(function(s){ return ['Revisado','Autorizado','Entregado','Por comprobar','Comprobado'].indexOf(s.estatus)>-1; });
+function renderD(lista) { var solsToRender = lista || sols;
+  document.getElementById('d1').textContent=solsToRender.filter(function(s){ return s.estatus==='Revisado'; }).length;
+  document.getElementById('d2').textContent=solsToRender.filter(function(s){ return ['Autorizado','Entregado','Por comprobar','Comprobado'].indexOf(s.estatus)>-1; }).length;
+  document.getElementById('d3').textContent=solsToRender.filter(function(s){ return s.estatus==='Comprobado'; }).length;
+  document.getElementById('d4').textContent=solsToRender.filter(function(s){ return ['Entregado','Por comprobar'].indexOf(s.estatus)>-1; }).length;
+  var mostrar=solsToRender.filter(function(s){ return ['Revisado','Autorizado','Entregado','Por comprobar','Comprobado'].indexOf(s.estatus)>-1; });
   var el=document.getElementById('ld');
   if(!mostrar.length){ el.innerHTML='<p class="em">No hay solicitudes revisadas.</p>'; return; }
   el.innerHTML=mostrar.map(function(s){
@@ -663,9 +700,47 @@ function renderD() {
   }).join('');
 }
 
-async function cambiar(folio,estatus,vista) {
-  var r=await apiCall('actualizarEstatus',{folio:folio,estatus:estatus});
-  if(r.ok){ toast('Folio '+folio+': '+estatus); await loadSols(vista); }
+function cambiar(folio, estatus, vista) {
+  var needsComment = ['Rechazado','Revisado'].indexOf(estatus) > -1 ||
+    (estatus === 'Entregado' && vista === 'f');
+  if (needsComment || estatus === 'Rechazado' || estatus === 'Autorizado') {
+    abrirModalComentario(folio, estatus, vista);
+  } else {
+    ejecutarCambio(folio, estatus, vista, '');
+  }
+}
+
+function abrirModalComentario(folio, estatus, vista) {
+  var s = sols.find(function(x){ return x.folio==folio; });
+  var etiquetas = {
+    'Rechazado': 'Motivo del rechazo',
+    'Revisado': 'Comentario para DG (opcional)',
+    'Autorizado': 'Comentario para Finanzas (opcional)',
+    'Entregado': 'Comentario de entrega (opcional)'
+  };
+  document.getElementById('mtt').textContent = etiquetas[estatus] || 'Comentario';
+  document.getElementById('mbd').innerHTML =
+    '<div class="dr"><span class="dk">Folio</span><span class="bg bfo">' + folio + '</span></div>' +
+    '<div class="dr"><span class="dk">Solicitante</span><span>' + (s ? s.solicitante : '') + '</span></div>' +
+    '<div class="dr" style="border:none"><span class="dk">Accion</span><span><span class="bg ' + sBC(estatus) + '">' + estatus + '</span></span></div>' +
+    '<div class="fl" style="margin-top:14px"><label>' + (etiquetas[estatus] || 'Comentario') + '</label>' +
+    '<textarea id="modal-comentario" placeholder="Escribe aqui..." style="min-height:80px;width:100%;padding:9px 12px;border:1px solid var(--bmed);border-radius:var(--r);font-size:14px;font-family:'DM Sans',sans-serif;margin-top:4px"></textarea></div>' +
+    '<div style="display:flex;gap:8px;margin-top:14px">' +
+    '<button class="bs bsu" style="flex:1;padding:11px" onclick="ejecutarCambio(' + folio + ','' + estatus + '','' + vista + '',document.getElementById('modal-comentario').value)">Confirmar</button>' +
+    '<button class="bs" style="flex:1;padding:11px" onclick="closeMod()">Cancelar</button>' +
+    '</div>';
+  document.getElementById('ov').classList.add('open');
+}
+
+async function ejecutarCambio(folio, estatus, vista, comentario) {
+  closeMod();
+  var s = sols.find(function(x){ return x.folio==folio; });
+  var r = await apiCall('actualizarEstatus', { folio: folio, estatus: estatus, comentario: comentario || '' });
+  if(r.ok){
+    toast('Folio ' + folio + ': ' + estatus);
+    if (estatus === 'Autorizado' && s) actualizarContador(s.cantidad);
+    invalidarCache(); await loadSols(vista);
+  }
   else toast('Error al actualizar','error');
 }
 
