@@ -156,7 +156,7 @@ body{font-family:DM Sans,sans-serif;background:var(--bg);color:var(--text);font-
     <div class="ls">Ingresa tu usuario y contraseña para continuar</div>
     <div class="lf"><label>Usuario</label><input id="usr" placeholder="tu usuario" onkeydown="if(event.key==='Enter')document.getElementById('pwd').focus()"></div>
     <div class="lf"><label>Contraseña</label><input type="password" id="pwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
-    <button class="lbtn" onclick="doLogin()">Ingresar</button>
+    <button class="lbtn" id="lbtn" onclick="doLogin()">Ingresar</button>
     <div class="lerr" id="lerr">Usuario o contraseña incorrectos.</div>
   </div>
 </div>
@@ -432,27 +432,42 @@ const RCLS = { c:'rc', f:'rf', d:'rd' };
 
 let ses=null, sols=[], clis=[], gastos=[], docs=[];
 
-function doLogin() {
+async function doLogin() {
   const u = document.getElementById('usr').value.trim().toLowerCase();
   const p = document.getElementById('pwd').value;
   const e = document.getElementById('lerr');
-  if (!u || !p) { e.textContent='Ingresa usuario y contraseña.'; e.style.display='block'; return; }
-  const usr = USUARIOS[u];
-  if (!usr || usr.pw !== p) { e.textContent='Usuario o contraseña incorrectos.'; e.style.display='block'; return; }
+  const btn = document.getElementById('lbtn');
+  if (!u || !p) { e.textContent='Ingresa usuario y contrasena.'; e.style.display='block'; return; }
+
+  // First try local users (fast)
+  const local = USUARIOS[u];
+  if (local && local.pw === p) {
+    e.style.display='none';
+    iniciarSesion({ ok:true, usuario:u, equipo:local.eq, rol:local.rol, nombre:local.eq });
+    return;
+  }
+
+  // Then try Sheet users (for new users added in Sheet)
+  btn.textContent='Verificando...'; btn.disabled=true;
+  const r = await apiCall('login', { usuario:u, password:p });
+  btn.textContent='Ingresar'; btn.disabled=false;
+  if (!r.ok) { e.textContent='Usuario o contrasena incorrectos.'; e.style.display='block'; return; }
   e.style.display='none';
-  ses = { u, eq: usr.eq, rol: usr.rol };
+  iniciarSesion(r);
+}
+
+function iniciarSesion(r) {
+  ses = { u: r.usuario, eq: r.equipo, rol: r.rol, nombre: r.nombre || r.equipo };
   document.getElementById('lw').style.display='none';
   document.getElementById('app').style.display='block';
-  document.getElementById('hsl').textContent = usr.eq;
+  document.getElementById('hsl').textContent = r.nombre || r.equipo;
   const rpl = document.getElementById('rpl');
-  rpl.textContent = RLBL[usr.rol];
-  rpl.className = 'rpl ' + RCLS[usr.rol];
+  rpl.textContent = RLBL[r.rol] || r.rol;
+  rpl.className = 'rpl ' + (RCLS[r.rol] || 'rc');
   buildNav();
   loadClis();
   document.getElementById('ffe').value = new Date().toISOString().split('T')[0];
-  document.getElementById('fso').value = usr.eq;
-  if (usr.rol === 'c') checkPendientesAlIngreso();
-  if (usr.rol === 'f') checkPendientesFinanzas();
+  document.getElementById('fso').value = r.nombre || r.equipo;
 }
 
 function doLogout() {
