@@ -8,7 +8,7 @@
 <style>
 :root{--blue:#185FA5;--blue-l:#E6F1FB;--blue-d:#0C447C;--green:#3B6D11;--green-l:#EAF3DE;--red:#A32D2D;--red-l:#FCEBEB;--amber-l:#FAEEDA;--amber-d:#633806;--purple-l:#EEEDFE;--purple-d:#3C3489;--teal-l:#E1F5EE;--teal-d:#085041;--bg:#F7F6F3;--surface:#fff;--border:rgba(0,0,0,0.09);--bmed:rgba(0,0,0,0.14);--text:#1A1A1A;--t2:#555550;--t3:#999994;--r:10px;--rl:14px;--sh:0 1px 3px rgba(0,0,0,.07),0 4px 16px rgba(0,0,0,.04);}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:15px;min-height:100vh;}
+body{font-family:DM Sans,sans-serif;background:var(--bg);color:var(--text);font-size:15px;min-height:100vh;}
 .lw{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
 .lb{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:40px 36px;width:400px;max-width:100%;box-shadow:0 8px 40px rgba(0,0,0,.1);}
 .li{width:48px;height:48px;background:var(--blue);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
@@ -17,9 +17,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 .ls{font-size:13px;color:var(--t3);margin-bottom:28px;}
 .lf{margin-bottom:14px;}
 .lf label{display:block;font-size:12px;font-weight:500;color:var(--t2);margin-bottom:5px;}
-.lf input{width:100%;padding:11px 14px;border:1px solid var(--bmed);border-radius:var(--r);font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--surface);}
+.lf input{width:100%;padding:11px 14px;border:1px solid var(--bmed);border-radius:var(--r);font-size:14px;font-family:DM Sans,sans-serif;color:var(--text);background:var(--surface);}
 .lf input:focus{outline:none;border-color:var(--blue);}
-.lbtn{width:100%;padding:12px;background:var(--blue);color:#fff;border:none;border-radius:var(--r);font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:6px;}
+.lbtn{width:100%;padding:12px;background:var(--blue);color:#fff;border:none;border-radius:var(--r);font-size:15px;font-weight:600;font-family:DM Sans,sans-serif;cursor:pointer;margin-top:6px;}
 .lbtn:hover{background:var(--blue-d);}
 .lerr{background:var(--red-l);color:var(--red);border-radius:var(--r);padding:10px 14px;font-size:13px;margin-top:12px;display:none;}
 .hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:58px;position:sticky;top:0;z-index:10;}
@@ -38,11 +38,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 .sd.ld{background:#E9A23B;animation:bk 1s infinite;}
 .sd.er{background:var(--red);}
 @keyframes bk{0%,100%{opacity:1}50%{opacity:.2}}
-.out{font-size:12px;color:var(--t3);background:none;border:1px solid var(--border);border-radius:20px;padding:5px 12px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.out{font-size:12px;color:var(--t3);background:none;border:1px solid var(--border);border-radius:20px;padding:5px 12px;cursor:pointer;font-family:DM Sans,sans-serif;}
 .out:hover{color:var(--red);border-color:var(--red);}
 .nw{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;overflow-x:auto;}
 .nav{display:flex;gap:2px;}
-.nb{padding:14px 16px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;color:var(--t3);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;}
+.nb{padding:14px 16px;font-size:13px;font-family:DM Sans,sans-serif;font-weight:500;color:var(--t3);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;}
 .nb.active{color:var(--blue);border-bottom-color:var(--blue);}
 .ct{max-width:960px;margin:0 auto;padding:24px 20px;}
 .sc{display:none;}
@@ -54,18 +54,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 .fg.c3{grid-template-columns:1fr 1fr 1fr;}
 .fg.c1{grid-template-columns:1fr;}
 .fl label{display:block;font-size:12px;font-weight:500;color:var(--t2);margin-bottom:5px;}
-.fl input,.fl select,.fl textarea{width:100%;padding:9px 12px;border:1px solid var(--bmed);border-radius:var(--r);background:var(--surface);color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;}
+.fl input,.fl select,.fl textarea{width:100%;padding:9px 12px;border:1px solid var(--bmed);border-radius:var(--r);background:var(--surface);color:var(--text);font-size:14px;font-family:DM Sans,sans-serif;}
 .fl input:focus,.fl select:focus,.fl textarea:focus{outline:none;border-color:var(--blue);}
 .fl input[readonly]{background:var(--bg);color:var(--t2);}
 .fl textarea{resize:vertical;min-height:72px;}
 .rr{display:flex;gap:20px;padding:10px 0;}
 .rr label{display:flex;align-items:center;gap:7px;font-size:14px;cursor:pointer;font-weight:400;}
-.bp{width:100%;padding:12px;background:var(--blue);color:#fff;border:none;border-radius:var(--r);font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:6px;}
+.bp{width:100%;padding:12px;background:var(--blue);color:#fff;border:none;border-radius:var(--r);font-size:15px;font-weight:600;font-family:DM Sans,sans-serif;cursor:pointer;margin-top:6px;}
 .bp:hover{background:var(--blue-d);}
 .bp:disabled{background:#C5C5C0;cursor:not-allowed;}
 .bp.gr{background:var(--green);}
 .bp.gr:hover{background:#2A5009;}
-.bs{padding:5px 10px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;border-radius:7px;cursor:pointer;border:1px solid var(--bmed);background:var(--surface);color:var(--text);}
+.bs{padding:5px 10px;font-size:12px;font-family:DM Sans,sans-serif;font-weight:500;border-radius:7px;cursor:pointer;border:1px solid var(--bmed);background:var(--surface);color:var(--text);}
 .bi{background:var(--blue-l);color:var(--blue-d);border-color:#B5D4F4;}
 .bsu{background:var(--green-l);color:var(--green);border-color:#C0DD97;}
 .bd{background:var(--red-l);color:var(--red);border-color:#F7C1C1;}
@@ -110,9 +110,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 .gt{width:100%;border-collapse:collapse;font-size:13px;}
 .gt th{font-size:11px;color:var(--t3);font-weight:600;text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);}
 .gt td{padding:7px 8px;border-bottom:1px solid var(--border);}
-.gt td input,.gt td select{border:none;background:transparent;font-size:13px;font-family:'DM Sans',sans-serif;width:100%;}
+.gt td input,.gt td select{border:none;background:transparent;font-size:13px;font-family:DM Sans,sans-serif;width:100%;}
 .gt td input:focus,.gt td select:focus{outline:none;border-bottom:1.5px solid var(--blue);}
-.ar{font-size:12px;color:var(--blue);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:8px 0;font-weight:500;}
+.ar{font-size:12px;color:var(--blue);cursor:pointer;background:none;border:none;font-family:DM Sans,sans-serif;padding:8px 0;font-weight:500;}
 .rs{background:var(--bg);border-radius:var(--r);padding:14px;margin-top:12px;}
 .rw{display:flex;justify-content:space-between;font-size:14px;padding:4px 0;}
 .rt{font-weight:600;font-size:15px;padding-top:10px;border-top:1px solid var(--bmed);margin-top:6px;}
@@ -291,9 +291,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
       <div class="tb" style="gap:8px;flex-wrap:wrap">
         <div style="display:flex;align-items:center;gap:6px;font-size:13px">
           <label style="color:var(--t2);font-size:12px">Desde</label>
-          <input type="date" id="ffil-desde" style="padding:5px 8px;border:1px solid var(--bmed);border-radius:var(--r);font-size:13px;font-family:'DM Sans',sans-serif" onchange="filtrarLista('f')">
+          <input type="date" id="ffil-desde" style="padding:5px 8px;border:1px solid var(--bmed);border-radius:var(--r);font-size:13px;font-family:DM Sans,sans-serif" onchange="filtrarLista('f')">
           <label style="color:var(--t2);font-size:12px">Hasta</label>
-          <input type="date" id="ffil-hasta" style="padding:5px 8px;border:1px solid var(--bmed);border-radius:var(--r);font-size:13px;font-family:'DM Sans',sans-serif" onchange="filtrarLista('f')">
+          <input type="date" id="ffil-hasta" style="padding:5px 8px;border:1px solid var(--bmed);border-radius:var(--r);font-size:13px;font-family:DM Sans,sans-serif" onchange="filtrarLista('f')">
           <button class="bs" onclick="limpiarFiltro('f')" style="font-size:12px">Limpiar</button>
         </div>
         <button class="bs bi" onclick="loadSols('f')">Actualizar</button>
@@ -371,9 +371,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
       <div class="tb" style="gap:8px;flex-wrap:wrap">
         <div style="display:flex;align-items:center;gap:6px;font-size:13px">
           <label style="color:var(--t2);font-size:12px">Desde</label>
-          <input type="date" id="dfil-desde" style="padding:5px 8px;border:1px solid var(--bmed);border-radius:var(--r);font-size:13px;font-family:'DM Sans',sans-serif" onchange="filtrarLista('d')">
+          <input type="date" id="dfil-desde" style="padding:5px 8px;border:1px solid var(--bmed);border-radius:var(--r);font-size:13px;font-family:DM Sans,sans-serif" onchange="filtrarLista('d')">
           <label style="color:var(--t2);font-size:12px">Hasta</label>
-          <input type="date" id="dfil-hasta" style="padding:5px 8px;border:1px solid var(--bmed);border-radius:var(--r);font-size:13px;font-family:'DM Sans',sans-serif" onchange="filtrarLista('d')">
+          <input type="date" id="dfil-hasta" style="padding:5px 8px;border:1px solid var(--bmed);border-radius:var(--r);font-size:13px;font-family:DM Sans,sans-serif" onchange="filtrarLista('d')">
           <button class="bs" onclick="limpiarFiltro('d')" style="font-size:12px">Limpiar</button>
         </div>
         <button class="bs bi" onclick="loadSols('d')">Actualizar</button>
@@ -388,7 +388,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
       <div class="cd"><div class="ct2">Catálogo de clientes</div>
         <p style="font-size:13px;color:var(--t2);margin-bottom:14px">Estos clientes aparecen en el menú desplegable del formulario.</p>
         <div style="display:flex;gap:8px">
-          <input id="ncl" placeholder="Nombre del cliente..." style="flex:1;padding:9px 12px;border:1px solid var(--bmed);border-radius:var(--r);font-size:14px;font-family:'DM Sans',sans-serif" onkeydown="if(event.key==='Enter')addCli()">
+          <input id="ncl" placeholder="Nombre del cliente..." style="flex:1;padding:9px 12px;border:1px solid var(--bmed);border-radius:var(--r);font-size:14px;font-family:DM Sans,sans-serif" onkeydown="if(event.key==='Enter')addCli()">
           <button class="bs bi" style="padding:9px 14px" onclick="addCli()">Agregar</button>
         </div>
         <div class="tgl" id="tgl"></div>
@@ -718,17 +718,21 @@ function abrirModalComentario(folio, estatus, vista) {
     'Autorizado': 'Comentario para Finanzas (opcional)',
     'Entregado': 'Comentario de entrega (opcional)'
   };
-  document.getElementById('mtt').textContent = etiquetas[estatus] || 'Comentario';
-  document.getElementById('mbd').innerHTML =
-    '<div class="dr"><span class="dk">Folio</span><span class="bg bfo">' + folio + '</span></div>' +
-    '<div class="dr"><span class="dk">Solicitante</span><span>' + (s ? s.solicitante : '') + '</span></div>' +
-    '<div class="dr" style="border:none"><span class="dk">Accion</span><span><span class="bg ' + sBC(estatus) + '">' + estatus + '</span></span></div>' +
-    '<div class="fl" style="margin-top:14px"><label>' + (etiquetas[estatus] || 'Comentario') + '</label>' +
-    '<textarea id="modal-comentario" placeholder="Escribe aqui..." style="min-height:80px;width:100%;padding:9px 12px;border:1px solid var(--bmed);border-radius:var(--r);font-size:14px;font-family:'DM Sans',sans-serif;margin-top:4px"></textarea></div>' +
-    '<div style="display:flex;gap:8px;margin-top:14px">' +
-    '<button class="bs bsu" style="flex:1;padding:11px" onclick="ejecutarCambio(' + folio + ','' + estatus + '','' + vista + '',document.getElementById('modal-comentario').value)">Confirmar</button>' +
-    '<button class="bs" style="flex:1;padding:11px" onclick="closeMod()">Cancelar</button>' +
-    '</div>';
+  var label = etiquetas[estatus] || 'Comentario';
+  document.getElementById('mtt').textContent = label;
+  var html = '<div class="dr"><span class="dk">Folio</span><span class="bg bfo">' + folio + '</span></div>';
+  html += '<div class="dr"><span class="dk">Solicitante</span><span>' + (s ? s.solicitante : '') + '</span></div>';
+  html += '<div class="dr" style="border:none"><span class="dk">Accion</span><span><span class="bg ' + sBC(estatus) + '">' + estatus + '</span></span></div>';
+  html += '<div class="fl" style="margin-top:14px"><label>' + label + '</label>';
+  html += '<textarea id="modal-comentario" placeholder="Escribe aqui..." style="min-height:80px;width:100%;padding:9px 12px;border:1px solid var(--bmed);border-radius:var(--r);font-size:14px;margin-top:4px"></textarea></div>';
+  html += '<div style="display:flex;gap:8px;margin-top:14px">';
+  html += '<button class="bs bsu" style="flex:1;padding:11px" id="btn-confirmar-cambio">Confirmar</button>';
+  html += '<button class="bs" style="flex:1;padding:11px" onclick="closeMod()">Cancelar</button></div>';
+  document.getElementById('mbd').innerHTML = html;
+  document.getElementById('btn-confirmar-cambio').onclick = function() {
+    var comentario = document.getElementById('modal-comentario').value;
+    ejecutarCambio(folio, estatus, vista, comentario);
+  };
   document.getElementById('ov').classList.add('open');
 }
 
