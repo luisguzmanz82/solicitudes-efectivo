@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Solicitudes de Efectivo</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
 :root{--blue:#185FA5;--blue-l:#E6F1FB;--blue-d:#0C447C;--green:#3B6D11;--green-l:#EAF3DE;--red:#A32D2D;--red-l:#FCEBEB;--amber-l:#FAEEDA;--amber-d:#633806;--purple-l:#EEEDFE;--purple-d:#3C3489;--teal-l:#E1F5EE;--teal-d:#085041;--bg:#F7F6F3;--surface:#fff;--border:rgba(0,0,0,0.09);--bmed:rgba(0,0,0,0.14);--text:#1A1A1A;--t2:#555550;--t3:#999994;--r:10px;--rl:14px;--sh:0 1px 3px rgba(0,0,0,.07),0 4px 16px rgba(0,0,0,.04);}
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -348,7 +349,10 @@ body{font-family:DM Sans,sans-serif;background:var(--bg);color:var(--text);font-
         <div id="rep-pendientes-det"><p class="em">Cargando...</p></div>
       </div>
 
-      <div class="tb"><button class="bs bi" onclick="loadReporte()">Actualizar reportes</button></div>
+      <div class="tb" style="gap:8px">
+        <button class="bs bi" onclick="loadReporte()">Actualizar reportes</button>
+        <button class="bs bsu" onclick="exportarExcel()" id="btn-export">Exportar a Excel</button>
+      </div>
     </div>
 
     <div id="sd2" class="sc">
@@ -1140,6 +1144,93 @@ function limpiarFiltro(vista) {
   document.getElementById(vista==='f'?'ffil-hasta':'dfil-hasta').value='';
   if (vista==='f') renderF(sols);
   else renderD(sols);
+}
+
+
+async function exportarExcel() {
+  var btn = document.getElementById('btn-export');
+  btn.textContent = 'Generando...'; btn.disabled = true;
+
+  var r = await apiCall('obtenerReporte', {});
+  var r2 = await apiCall('obtenerSolicitudes');
+  btn.textContent = 'Exportar a Excel'; btn.disabled = false;
+  if (!r.ok || !r2.ok) { toast('Error al obtener datos', 'error'); return; }
+
+  var rep = r.reporte;
+  var sols = r2.solicitudes || [];
+  var wb = XLSX.utils.book_new();
+  var fecha = new Date().toLocaleDateString('es-MX').replace(/\//g,'-');
+
+  // Hoja 1: Todas las solicitudes
+  var wsSols = XLSX.utils.aoa_to_sheet([
+    ['Folio','Fecha','Solicitante','Equipo','Destino','Tramite','Cantidad','Cliente','Reembolsable','Estatus','Dias Sin Comprobar'],
+    ...sols.map(function(s) {
+      return [s.folio, s.fechaSolicitud, s.solicitante, s.equipo||'', s.destino, s.tramite||'', parseFloat(s.cantidad)||0, s.cliente||'', s.reembolsable?'Si':'No', s.estatus, s.diasSinComprobar||0];
+    })
+  ]);
+  wsSols['!cols'] = [{wch:8},{wch:12},{wch:20},{wch:18},{wch:15},{wch:18},{wch:12},{wch:25},{wch:12},{wch:18},{wch:10}];
+  XLSX.utils.book_append_sheet(wb, wsSols, 'Todas las solicitudes');
+
+  // Hoja 2: Pendientes por comprobar
+  var pendientes = rep.diasSinComprobar || [];
+  var wsPend = XLSX.utils.aoa_to_sheet([
+    ['Folio','Solicitante','Equipo','Monto','Dias Sin Comprobar','Alerta'],
+    ...pendientes.map(function(d) {
+      return [d.folio, d.solicitante, d.equipo, parseFloat(d.monto)||0, d.dias, d.alerta==='vencido'?'VENCIDO':d.alerta==='urgente'?'URGENTE':'OK'];
+    })
+  ]);
+  wsPend['!cols'] = [{wch:8},{wch:20},{wch:18},{wch:12},{wch:18},{wch:10}];
+  XLSX.utils.book_append_sheet(wb, wsPend, 'Pendientes por comprobar');
+
+  // Hoja 3: Gastos comprobados
+  var comprobados = sols.filter(function(s){ return s.estatus==='Comprobado'; });
+  var wsComp = XLSX.utils.aoa_to_sheet([
+    ['Folio','Fecha','Solicitante','Equipo','Tramite','Monto','Cliente'],
+    ...comprobados.map(function(s) {
+      return [s.folio, s.fechaSolicitud, s.solicitante, s.equipo||'', s.tramite||'', parseFloat(s.cantidad)||0, s.cliente||''];
+    }),
+    [],
+    ['','','','','TOTAL', comprobados.reduce(function(a,s){ return a+(parseFloat(s.cantidad)||0); },0), '']
+  ]);
+  wsComp['!cols'] = [{wch:8},{wch:12},{wch:20},{wch:18},{wch:18},{wch:12},{wch:25}];
+  XLSX.utils.book_append_sheet(wb, wsComp, 'Comprobados');
+
+  // Hoja 4: Reembolsables por cliente
+  var reembKeys = Object.keys(rep.reembolsablesPorCliente || {}).sort(function(a,b){ return rep.reembolsablesPorCliente[b]-rep.reembolsablesPorCliente[a]; });
+  var wsReemb = XLSX.utils.aoa_to_sheet([
+    ['Cliente','Total Reembolsable'],
+    ...reembKeys.map(function(k){ return [k, rep.reembolsablesPorCliente[k]]; }),
+    [],
+    ['TOTAL', reembKeys.reduce(function(a,k){ return a+rep.reembolsablesPorCliente[k]; },0)]
+  ]);
+  wsReemb['!cols'] = [{wch:30},{wch:18}];
+  XLSX.utils.book_append_sheet(wb, wsReemb, 'Reembolsables por cliente');
+
+  // Hoja 5: Totales por cliente
+  var cliKeys = Object.keys(rep.totalPorCliente || {}).sort(function(a,b){ return rep.totalPorCliente[b]-rep.totalPorCliente[a]; });
+  var wsCli = XLSX.utils.aoa_to_sheet([
+    ['Cliente','Total Solicitado'],
+    ...cliKeys.map(function(k){ return [k, rep.totalPorCliente[k]]; }),
+    [],
+    ['TOTAL', cliKeys.reduce(function(a,k){ return a+rep.totalPorCliente[k]; },0)]
+  ]);
+  wsCli['!cols'] = [{wch:30},{wch:18}];
+  XLSX.utils.book_append_sheet(wb, wsCli, 'Totales por cliente');
+
+  // Hoja 6: Totales por equipo
+  var eqKeys = Object.keys(rep.totalPorEquipo || {}).sort(function(a,b){ return rep.totalPorEquipo[b]-rep.totalPorEquipo[a]; });
+  var wsEq = XLSX.utils.aoa_to_sheet([
+    ['Equipo','Total Solicitado'],
+    ...eqKeys.map(function(k){ return [k, rep.totalPorEquipo[k]]; }),
+    [],
+    ['TOTAL', eqKeys.reduce(function(a,k){ return a+rep.totalPorEquipo[k]; },0)]
+  ]);
+  wsEq['!cols'] = [{wch:25},{wch:18}];
+  XLSX.utils.book_append_sheet(wb, wsEq, 'Totales por equipo');
+
+  // Download
+  XLSX.writeFile(wb, 'Reporte_Solicitudes_' + fecha + '.xlsx');
+  toast('Reporte descargado correctamente');
 }
 
 function closeMod(){ document.getElementById('ov').classList.remove('open'); }
